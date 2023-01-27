@@ -1,0 +1,79 @@
+user(コレクション):
+  doucmentID: userID
+  user name: String #ここにおいとくと便利かもしれないという感覚
+
+  profile(サブコレクション):
+    documentID: random
+    user name: String
+    user name(yomi): String?
+    userID: String #プロフィール画面にuserIDは必要なのか
+    birth: timeStamp? #YYYY/MM
+    telephoneNumber: String?
+    mail: [address: String?]
+    gender: #３択ってどうやるん？ 
+    belonging: [belongingName: String?]
+    exchangeCount: number
+
+  myCard(サブコレクション):
+    documentID: random(cardID)
+    userID: String
+    name: String?
+    belonging: String?
+    major: String?
+    pictureUrl: String?
+    facePictureUrl: String?
+
+  receivedCardID(サブコレクション) :
+    documentID : random
+    cardID : String
+
+  attendingRooms(サブコレクション):
+    documentID: random
+    roomID : String
+    unreadCount: int
+
+  calendar(サブコレクション):
+    documentID: random
+    event: String
+    date: timeStamp
+    color: String
+
+receivedCard(コレクション): #cardのIDだけuserコレクション内のサブコレクションでもつ これが友達
+  documentID: random(cardID) #documentIDをkeyにできるの？
+  userID: String
+  name: String?
+  belonging: String?
+  major: String
+  pictureUrl: String?
+  facePictureUrl: String?
+  memo: String ##ここだけ別にあとで追加しないといけない（相手のmyCardからとってきてmemoを追加？ でもここreadonly）
+
+chatRooms(コレクション):
+  documentID: random
+  name: String
+  iconColor: String #カラーでいいの？ #ここじゃなくてattendingRoomsのほうじゃね
+  memberCount: int?
+  announce: [Text: String] #そのメッセージがある場所に飛べる？
+
+  messages(サブコレクション): #既読機能？ #作られたときにmemberのuserIDのuserのattendingRoomsを更新する CloudFunctionsで(通知とかも)
+    documentID: random
+    fromUserID: String
+    name: String
+    iconUrl: String
+    type: String #string,image
+    detail: Object #わからない
+      imageUrls : [string] 
+    createdAt: timeStamp
+    reaction: #どうする？
+
+  files(サブコレクション):
+    documentID: random
+    filename: String
+    fileUrl: String
+
+  members(サブコレクション):
+    documentID: userID
+
+template(コレクション): #文字が入る場所とか
+  documentID: random
+  imagesUrl: String
