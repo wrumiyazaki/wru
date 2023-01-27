@@ -1,16 +1,16 @@
 user(コレクション):
   documentID: userID
-  user name: String #ここにおいとくと便利かもしれないという感覚
+  name: String #ここにおいとくと便利かもしれないという感覚
 
   profile(サブコレクション):
     documentID: random
-    user name: String
-    user name(yomi): String?
+    name: String
+    namePhonetic: String?
     userID: String #プロフィール画面にuserIDは必要なのか
-    birth: timeStamp? #YYYY/MM
+    birthday: timeStamp? #YYYY/MM/DD
     telephoneNumber: String?
-    mail: [address: String?] #コレクション？
-    gender: #３択ってどうやるん？
+    email: [address: String?] #コレクション？
+    gender: int
     belonging: [belongingName: String?] #
     exchangeCount: number
 
@@ -21,7 +21,7 @@ user(コレクション):
     belonging: String?
     major: String?
     text : String?
-    pictureUrl: String?
+    pictureUrl: String
     facePictureUrl: String?
 
   receivedCard(サブコレクション): #コレクションにしてもいい？cardのIDだけuserコレクションのサブコレクションでもっとく？ これが友達  cloudFunctions経由で変更される
