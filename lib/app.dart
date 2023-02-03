@@ -1,4 +1,4 @@
-import 'package:flutter_study_mvvm/ui/xxx/xxx_page.dart';
+import 'package:flutter_study_mvvm/ui/routes/app_route.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 
@@ -7,14 +7,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
+    final appRouter = AppRouter();
+    return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
       localizationsDelegates: L10n.localizationsDelegates,
       supportedLocales: L10n.supportedLocales,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const XXXPage(),
+      routeInformationParser: appRouter.defaultRouteParser(),
+      routerDelegate: appRouter.delegate(),
     );
   }
 }
