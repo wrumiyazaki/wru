@@ -1,6 +1,6 @@
-import 'package:flutter_study_mvvm/data/repository/xxx/xxx_repository.dart';
-import 'package:flutter_study_mvvm/data/repository/xxx/xxx_repository_impl.dart';
-import 'package:flutter_study_mvvm/ui/xxx/xxx_state.dart';
+import 'package:wru/data/repository/xxx/xxx_repository.dart';
+import 'package:wru/data/repository/xxx/xxx_repository_impl.dart';
+import 'package:wru/ui/xxx/xxx_state.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final xxxViewModelProvider =

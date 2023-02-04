@@ -1,4 +1,4 @@
-package com.example.flutter_study_mvvm
+package com.example.wru
 
 import io.flutter.embedding.android.FlutterActivity
 

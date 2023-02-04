@@ -5,7 +5,7 @@ import 'package:enum_to_string/enum_to_string.dart';
 import 'package:fimber/fimber.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_study_mvvm/foundation/constants.dart';
+import 'package:wru/foundation/constants.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'app.dart';

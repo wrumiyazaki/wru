@@ -1,4 +1,4 @@
-# flutter_study_mvvm
+# wru
 
 A new Flutter project.
 

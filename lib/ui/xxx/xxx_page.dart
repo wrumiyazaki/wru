@@ -1,9 +1,9 @@
-import 'package:flutter_study_mvvm/gen/assets.gen.dart';
+import 'package:wru/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_study_mvvm/ui/hooks/use_l10n.dart';
-import 'package:flutter_study_mvvm/ui/theme/app_text_theme.dart';
-import 'package:flutter_study_mvvm/ui/theme/app_theme.dart';
-import 'package:flutter_study_mvvm/ui/xxx/xxx_view_model.dart';
+import 'package:wru/ui/hooks/use_l10n.dart';
+import 'package:wru/ui/theme/app_text_theme.dart';
+import 'package:wru/ui/theme/app_theme.dart';
+import 'package:wru/ui/xxx/xxx_view_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class XXXPage extends HookConsumerWidget {

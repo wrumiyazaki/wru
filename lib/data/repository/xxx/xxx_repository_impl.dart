@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:flutter_study_mvvm/data/model/result/result.dart';
+import 'package:wru/data/model/result/result.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'xxx_repository.dart';
