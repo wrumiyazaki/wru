@@ -47,6 +47,7 @@ dependencies:
   google_fonts: ^4.0.3
   sizer: ^2.0.15
   enum_to_string: ^2.0.1
+  fluttertoast: ^8.1.2
 
 dev_dependencies:
   flutter_test:
