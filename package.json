@@ -1,0 +1,24 @@
+{
+  "name": "flutter_study_mvvm",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:shunsuke-tamura/flutter-study-mvvm.git",
+  "author": "shunsuke-tamura <wwwxx4869@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "husky": "^8.0.0",
+    "lint-staged": "^13.1.0",
+    "prettier": "^2.8.3"
+  },
+  "scripts": {
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*.dart": [
+      "fvm flutter format"
+    ],
+    "*.@(json|yaml)": [
+      "prettier --write"
+    ]
+  }
+}
