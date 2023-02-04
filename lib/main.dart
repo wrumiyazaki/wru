@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:device_preview/device_preview.dart';
 import 'package:enum_to_string/enum_to_string.dart';
 import 'package:fimber/fimber.dart';
 import 'package:flutter/foundation.dart';
@@ -23,8 +24,14 @@ Future<void> main() async {
         msg: "flavor: ${EnumToString.convertToString(Constants.flavor)}");
   }
 
-  runZonedGuarded(() => runApp(const ProviderScope(child: MyApp())),
-      (error, stack) {
+  runZonedGuarded(
+      () => runApp(ProviderScope(
+              child: DevicePreview(
+            enabled: !kReleaseMode,
+            builder: (context) {
+              return const MyApp();
+            },
+          ))), (error, stack) {
     Fimber.e(error.toString());
   });
 }
