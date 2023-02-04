@@ -25,13 +25,16 @@ Future<void> main() async {
   }
 
   runZonedGuarded(
-      () => runApp(ProviderScope(
+      () => runApp(
+            ProviderScope(
               child: DevicePreview(
-            enabled: !kReleaseMode && Constants.enablePreview,
-            builder: (context) {
-              return const MyApp();
-            },
-          ))), (error, stack) {
+                enabled: !kReleaseMode && Constants.enablePreview,
+                builder: (context) {
+                  return const MyApp();
+                },
+              ),
+            ),
+          ), (error, stack) {
     Fimber.e(error.toString());
   });
 }

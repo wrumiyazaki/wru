@@ -20,13 +20,16 @@ class XXXViewModel extends StateNotifier<AsyncValue<XXXState>> {
 
   Future<void> load() async {
     final result = await xxxRepository.fetch();
-    result.when(success: (data) {
-      state = AsyncValue.data(
-        XXXState(count: data),
-      );
-    }, failure: (error) {
-      state = AsyncValue.error(error, StackTrace.current);
-    });
+    result.when(
+      success: (data) {
+        state = AsyncValue.data(
+          XXXState(count: data),
+        );
+      },
+      failure: (error) {
+        state = AsyncValue.error(error, StackTrace.current);
+      },
+    );
   }
 
   void increment() {

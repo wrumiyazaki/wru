@@ -17,11 +17,11 @@ class XXXPage extends HookConsumerWidget {
     final l10n = useL10n();
 
     return state.when(
-        data: (data) {
-          return Scaffold(
-            body: SafeArea(
-              child: Center(
-                  child: Column(
+      data: (data) {
+        return Scaffold(
+          body: SafeArea(
+            child: Center(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Assets.img.flutterIcon.image(width: 200),
@@ -30,24 +30,31 @@ class XXXPage extends HookConsumerWidget {
                     style: theme.textTheme.h70.bold(),
                   ),
                   ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          primary: theme.appColors.primary,
-                          onPrimary: theme.appColors.onPrimary),
-                      onPressed: viewModel.increment,
-                      child: Text(data.count.toString()))
+                    style: ElevatedButton.styleFrom(
+                      primary: theme.appColors.primary,
+                      onPrimary: theme.appColors.onPrimary,
+                    ),
+                    onPressed: viewModel.increment,
+                    child: Text(
+                      data.count.toString(),
+                    ),
+                  ),
                 ],
-              )),
+              ),
             ),
-          );
-        },
-        error: (error, stackTrace) => Text(error.toString()),
-        loading: () {
-          return const Scaffold(
-            body: SafeArea(
-                child: Center(
+          ),
+        );
+      },
+      error: (error, stackTrace) => Text(error.toString()),
+      loading: () {
+        return const Scaffold(
+          body: SafeArea(
+            child: Center(
               child: CircularProgressIndicator(),
-            )),
-          );
-        });
+            ),
+          ),
+        );
+      },
+    );
   }
 }
