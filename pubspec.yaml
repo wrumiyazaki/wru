@@ -45,6 +45,7 @@ dependencies:
   json_serializable: ^6.6.1
   freezed_annotation: ^2.2.0
   google_fonts: ^4.0.3
+  sizer: ^2.0.15
 
 dev_dependencies:
   flutter_test:
