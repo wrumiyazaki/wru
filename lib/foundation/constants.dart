@@ -33,4 +33,5 @@ class Constants {
         const String.fromEnvironment('FLAVOR'),
       ) ??
       Flavor.dev;
+  static bool get enablePreview => const bool.fromEnvironment('PREVIEW');
 }

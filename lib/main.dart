@@ -27,7 +27,7 @@ Future<void> main() async {
   runZonedGuarded(
       () => runApp(ProviderScope(
               child: DevicePreview(
-            enabled: !kReleaseMode,
+            enabled: !kReleaseMode && Constants.enablePreview,
             builder: (context) {
               return const MyApp();
             },
