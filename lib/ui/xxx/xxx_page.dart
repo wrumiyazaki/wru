@@ -1,6 +1,7 @@
 import 'package:flutter_study_mvvm/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
+import 'package:flutter_study_mvvm/ui/hooks/use_l10n.dart';
 import 'package:flutter_study_mvvm/ui/theme/app_text_theme.dart';
 import 'package:flutter_study_mvvm/ui/theme/app_theme.dart';
 import 'package:flutter_study_mvvm/ui/xxx/xxx_view_model.dart';
@@ -14,6 +15,7 @@ class XXXPage extends HookConsumerWidget {
     final theme = ref.watch(appThemeProvider);
     final state = ref.watch(xxxViewModelProvider);
     final viewModel = ref.watch(xxxViewModelProvider.notifier);
+    final l10n = useL10n();
 
     return state.when(
         data: (data) {
@@ -25,7 +27,7 @@ class XXXPage extends HookConsumerWidget {
                 children: [
                   Assets.img.flutterIcon.image(width: 200),
                   Text(
-                    L10n.of(context)!.hello,
+                    l10n.hello,
                     style: theme.textTheme.h70.bold(),
                   ),
                   ElevatedButton(
