@@ -8,6 +8,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:wru/ui/routes/app_route.gr.dart';
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 
 class TabPage extends StatelessWidget {
   const TabPage({super.key});
@@ -23,16 +24,24 @@ class TabPage extends StatelessWidget {
               opacity: animation,
               child: child,
             ),
-            bottomNavigationBar: BottomNavigationBar(
-              currentIndex: tabsRouter.activeIndex,
+            bottomNavigationBar: ConvexAppBar(
+              style: TabStyle.fixedCircle,
+              color: Colors.grey,
+              activeColor: Color.fromARGB(255, 161, 116, 79),
+              backgroundColor: Colors.white,
+              top: -30,
+              height: 50,
+              curveSize: 100,
+              cornerRadius: 5,
               onTap: (index) {
                 tabsRouter.setActiveIndex(index);
               },
               items: const [
-                BottomNavigationBarItem(label: 'Tab1', icon: Icon(Icons.check)),
-                BottomNavigationBarItem(label: 'Tab2', icon: Icon(Icons.check)),
-                BottomNavigationBarItem(label: 'Tab3', icon: Icon(Icons.check)),
+                TabItem(icon: Icons.home),
+                TabItem(icon: Icons.qr_code_scanner),
+                TabItem(icon: Icons.groups),
               ],
+              initialActiveIndex: tabsRouter.activeIndex,
             ));
       },
     );
