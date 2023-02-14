@@ -9,6 +9,5 @@ class ExchangePage extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: const Text('Exchange'),
     );
-    ;
   }
 }

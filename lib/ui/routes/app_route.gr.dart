@@ -13,10 +13,10 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i5;
 import 'package:flutter/material.dart' as _i6;
-import 'package:wru/ui/xxx/exchange_page.dart' as _i3;
-import 'package:wru/ui/xxx/friend_page.dart' as _i4;
-import 'package:wru/ui/xxx/home_page.dart' as _i2;
-import 'package:wru/ui/xxx/tab_page.dart' as _i1;
+import 'package:wru/ui/tabs/exchange/exchange_page.dart' as _i3;
+import 'package:wru/ui/tabs/friend/friend_page.dart' as _i4;
+import 'package:wru/ui/tabs/home/home_page.dart' as _i2;
+import 'package:wru/ui/tabs/tab_page.dart' as _i1;
 
 class AppRouter extends _i5.RootStackRouter {
   AppRouter([_i6.GlobalKey<_i6.NavigatorState>? navigatorKey])
@@ -55,20 +55,13 @@ class AppRouter extends _i5.RootStackRouter {
         _i5.RouteConfig(
           '/#redirect',
           path: '/',
-          redirectTo: '/xxx',
+          redirectTo: '/tab',
           fullMatch: true,
         ),
         _i5.RouteConfig(
           TabRoute.name,
-          path: '/xxx',
+          path: '/tab',
           children: [
-            _i5.RouteConfig(
-              '#redirect',
-              path: '',
-              parent: TabRoute.name,
-              redirectTo: 'home',
-              fullMatch: true,
-            ),
             _i5.RouteConfig(
               HomeRoute.name,
               path: 'home',
@@ -95,7 +88,7 @@ class TabRoute extends _i5.PageRouteInfo<void> {
   const TabRoute({List<_i5.PageRouteInfo>? children})
       : super(
           TabRoute.name,
-          path: '/xxx',
+          path: '/tab',
           initialChildren: children,
         );
 
