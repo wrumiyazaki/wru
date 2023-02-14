@@ -30,9 +30,9 @@ class TabPage extends HookConsumerWidget {
             ),
             bottomNavigationBar: ConvexAppBar(
               style: TabStyle.fixedCircle,
-              color: Colors.grey,
+              color: theme.appColors.unselectedIcon,
               activeColor: theme.appColors.selectedIcon,
-              backgroundColor: Colors.white,
+              backgroundColor: theme.appColors.barbackground,
               top: -30,
               height: 50,
               curveSize: 100,
