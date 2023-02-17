@@ -17,12 +17,10 @@ final models = [
 ];
 
 Widget modelToWidget(ProfileElement model) {
-  return Container(
-    child: Column(children: [
-      Text(model.name),
-      Text(model.text),
-    ]),
-  );
+  return Column(children: [
+    Text(model.name),
+    Text(model.text),
+  ]);
 }
 
 class ProfilePage extends StatelessWidget {
@@ -30,7 +28,7 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Material(
       child: ListView.builder(
         itemCount: models.length,
         itemBuilder: (context, index) => modelToWidget(models[index]),
