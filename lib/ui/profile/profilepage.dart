@@ -1,28 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/widgets.dart';
 
-class _ProfileWidget extends StatelessWidget {
+class ProfileElement {
   final String name;
   final String text;
 
-  const _ProfileWidget({
-    Key? key,
-    required this.name,
-    required this.text,
-  }) : super(key: key);
+  //コンストラクタ
+  const ProfileElement(
+    this.name,
+    this.text,
+  );
+}
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        child: Column(
-      children: [
-        Text(name),
-        Text(text),
-      ],
-    ));
-  }
+final models = [
+  ProfileElement('名前', 'aaa'),
+  ProfileElement('所属', 'bbb'),
+];
+
+Widget modelToWidget(ProfileElement model) {
+  return Container(
+    child: Column(children: [
+      Text(model.name),
+      Text(model.text),
+    ]),
+  );
 }
 
 class ProfilePage extends StatelessWidget {
@@ -31,9 +32,10 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Column(children: [
-        _ProfileWidget(name: '名前', text: 'aaa'),
-      ]),
+      child: ListView.builder(
+        itemCount: models.length,
+        itemBuilder: (context, index) => modelToWidget(models[index]),
+      ),
     );
   }
 }
