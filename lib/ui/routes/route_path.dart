@@ -4,4 +4,5 @@ class RoutePath {
   static const appRouteExchange = '/exchange';
   static const appRouteFriend = '/friend';
   static const appRouteTab = '/tab';
+  static const appRouteProfile = '/profile';
 }

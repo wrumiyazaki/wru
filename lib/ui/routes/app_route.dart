@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:wru/ui/profile/profilepage.dart';
 import 'package:wru/ui/routes/route_path.dart';
 import 'package:wru/ui/tabs/exchange/exchange_page.dart';
 import 'package:wru/ui/tabs/friend/friend_page.dart';
@@ -19,6 +20,10 @@ import 'package:wru/ui/tabs/tab_page.dart';
           AutoRoute(path: 'friend', page: FriendPage),
         ],
         initial: true),
+    AutoRoute(
+      path: RoutePath.appRouteProfile,
+      page: ProfilePage,
+    )
   ],
 )
 class $AppRouter {}
