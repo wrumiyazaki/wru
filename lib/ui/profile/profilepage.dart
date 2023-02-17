@@ -35,7 +35,6 @@ class ProfilePage extends StatelessWidget {
         itemCount: models.length,
         itemBuilder: (context, index) => modelToWidget(models[index]),
       ),
-      color: Colors.white,
     );
   }
 }
