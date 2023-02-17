@@ -13,7 +13,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i6;
 import 'package:flutter/material.dart' as _i7;
-import 'package:wru/ui/profile/profilepage.dart' as _i2;
+import 'package:wru/ui/profile/profile_page.dart' as _i2;
 import 'package:wru/ui/tabs/exchange/exchange_page.dart' as _i4;
 import 'package:wru/ui/tabs/friend/friend_page.dart' as _i5;
 import 'package:wru/ui/tabs/home/home_page.dart' as _i3;
