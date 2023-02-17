@@ -9,13 +9,13 @@ import 'package:wru/ui/tabs/tab_page.dart';
 
 @AdaptiveAutoRouter(
   replaceInRouteName: 'Page,Route',
-  routes: <AutoRoute>[
+  routes: [
     AutoRoute(
         path: RoutePath.appRouteTab,
         page: TabPage,
         children: [
           //ネストする必要がある
-          AutoRoute(path: 'home', page: HomePage),
+          AutoRoute(path: 'home', page: HomePage, children: []),
           AutoRoute(path: 'exchange', page: ExchangePage),
           AutoRoute(path: 'friend', page: FriendPage),
         ],

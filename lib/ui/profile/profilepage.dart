@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class ProfileElement {
   final String name;
@@ -36,6 +35,7 @@ class ProfilePage extends StatelessWidget {
         itemCount: models.length,
         itemBuilder: (context, index) => modelToWidget(models[index]),
       ),
+      color: Colors.white,
     );
   }
 }

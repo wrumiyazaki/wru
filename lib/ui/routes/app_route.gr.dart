@@ -13,10 +13,10 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i6;
 import 'package:flutter/material.dart' as _i7;
-import 'package:wru/ui/profile/profilepage.dart' as _i2;
-import 'package:wru/ui/tabs/exchange/exchange_page.dart' as _i4;
-import 'package:wru/ui/tabs/friend/friend_page.dart' as _i5;
-import 'package:wru/ui/tabs/home/home_page.dart' as _i3;
+import 'package:wru/ui/profile/profilepage.dart' as _i5;
+import 'package:wru/ui/tabs/exchange/exchange_page.dart' as _i3;
+import 'package:wru/ui/tabs/friend/friend_page.dart' as _i4;
+import 'package:wru/ui/tabs/home/home_page.dart' as _i2;
 import 'package:wru/ui/tabs/tab_page.dart' as _i1;
 
 class AppRouter extends _i6.RootStackRouter {
@@ -31,28 +31,28 @@ class AppRouter extends _i6.RootStackRouter {
         child: const _i1.TabPage(),
       );
     },
-    ProfileRoute.name: (routeData) {
-      return _i6.AdaptivePage<dynamic>(
-        routeData: routeData,
-        child: const _i2.ProfilePage(),
-      );
-    },
     HomeRoute.name: (routeData) {
       return _i6.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: const _i3.HomePage(),
+        child: const _i2.HomePage(),
       );
     },
     ExchangeRoute.name: (routeData) {
       return _i6.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: const _i4.ExchangePage(),
+        child: const _i3.ExchangePage(),
       );
     },
     FriendRoute.name: (routeData) {
       return _i6.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: const _i5.FriendPage(),
+        child: const _i4.FriendPage(),
+      );
+    },
+    ProfileRoute.name: (routeData) {
+      return _i6.AdaptivePage<dynamic>(
+        routeData: routeData,
+        child: const _i5.ProfilePage(),
       );
     },
   };
@@ -73,6 +73,20 @@ class AppRouter extends _i6.RootStackRouter {
               HomeRoute.name,
               path: 'home',
               parent: TabRoute.name,
+              children: [
+                _i6.RouteConfig(
+                  '#redirect',
+                  path: '',
+                  parent: HomeRoute.name,
+                  redirectTo: 'profile',
+                  fullMatch: true,
+                ),
+                _i6.RouteConfig(
+                  ProfileRoute.name,
+                  path: 'profile',
+                  parent: HomeRoute.name,
+                ),
+              ],
             ),
             _i6.RouteConfig(
               ExchangeRoute.name,
@@ -85,10 +99,6 @@ class AppRouter extends _i6.RootStackRouter {
               parent: TabRoute.name,
             ),
           ],
-        ),
-        _i6.RouteConfig(
-          ProfileRoute.name,
-          path: '/profile',
         ),
       ];
 }
@@ -107,31 +117,20 @@ class TabRoute extends _i6.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i2.ProfilePage]
-class ProfileRoute extends _i6.PageRouteInfo<void> {
-  const ProfileRoute()
-      : super(
-          ProfileRoute.name,
-          path: '/profile',
-        );
-
-  static const String name = 'ProfileRoute';
-}
-
-/// generated route for
-/// [_i3.HomePage]
+/// [_i2.HomePage]
 class HomeRoute extends _i6.PageRouteInfo<void> {
-  const HomeRoute()
+  const HomeRoute({List<_i6.PageRouteInfo>? children})
       : super(
           HomeRoute.name,
           path: 'home',
+          initialChildren: children,
         );
 
   static const String name = 'HomeRoute';
 }
 
 /// generated route for
-/// [_i4.ExchangePage]
+/// [_i3.ExchangePage]
 class ExchangeRoute extends _i6.PageRouteInfo<void> {
   const ExchangeRoute()
       : super(
@@ -143,7 +142,7 @@ class ExchangeRoute extends _i6.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i5.FriendPage]
+/// [_i4.FriendPage]
 class FriendRoute extends _i6.PageRouteInfo<void> {
   const FriendRoute()
       : super(
@@ -152,4 +151,16 @@ class FriendRoute extends _i6.PageRouteInfo<void> {
         );
 
   static const String name = 'FriendRoute';
+}
+
+/// generated route for
+/// [_i5.ProfilePage]
+class ProfileRoute extends _i6.PageRouteInfo<void> {
+  const ProfileRoute()
+      : super(
+          ProfileRoute.name,
+          path: 'profile',
+        );
+
+  static const String name = 'ProfileRoute';
 }
