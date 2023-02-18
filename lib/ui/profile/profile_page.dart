@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:wru/ui/profile/profile_edit_page.dart';
+import 'package:wru/ui/routes/app_route.gr.dart';
 import 'package:wru/ui/theme/app_text_theme.dart';
 import 'package:wru/ui/theme/app_theme.dart';
 
@@ -17,6 +19,7 @@ class ProfileElement {
 
 final models = [
   //変更されたら反映させてあげないといけない
+  //呼び出す
   ProfileElement('名前', '小林 ゆうひ'),
   ProfileElement('読み方', 'こばやし ユウヒ'),
   ProfileElement('ユーザーID', '3902189475234'),
@@ -83,7 +86,9 @@ class ProfilePage extends HookConsumerWidget {
         actions: [
           TextButton(
             style: TextButton.styleFrom(),
-            onPressed: () {},
+            onPressed: () {
+              context.router.push(ProfileEditRoute());
+            },
             child: Text(
               '編集',
               style: theme.textTheme.h40.copyWith(color: Colors.black),
