@@ -19,7 +19,7 @@ class ProfileElement {
 
 final models = [
   //変更されたら反映させてあげないといけない
-  //呼び出す
+  //firebaseから呼び出す 再レンダリング？ 再呼び出し？
   ProfileElement('名前', '小林 ゆうひ'),
   ProfileElement('読み方', 'こばやし ユウヒ'),
   ProfileElement('ユーザーID', '3902189475234'),
@@ -73,6 +73,7 @@ class ProfilePage extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
+        //この辺を変更するときはprofile_edit_pageも変更しないといけないかも
         title: const Text('プロフィール'),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios_new),

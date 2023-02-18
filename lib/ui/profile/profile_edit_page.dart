@@ -1,7 +1,13 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:wru/ui/theme/app_theme.dart';
 import 'profile_page.dart';
+
+final textchangedProvider = StateProvider<bool>((ref) {
+  //変化するデータ
+  return false;
+});
 
 class ProfileEditPage extends HookConsumerWidget {
   const ProfileEditPage({super.key});
@@ -9,6 +15,7 @@ class ProfileEditPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(appThemeProvider);
+    final textchanged = ref.watch(textchangedProvider);
 
     //プロフィール編集１つ分のWidget
     Widget modelToWidget(ProfileElement model) {
@@ -26,6 +33,10 @@ class ProfileEditPage extends HookConsumerWidget {
             child: TextFormField(
               style: theme.textTheme.h40,
               controller: TextEditingController(text: model.text),
+              onChanged: (value) {
+                ref.read(textchangedProvider.notifier).state =
+                    true; //文字が変更されたらtrueにする
+              },
             ),
             alignment: Alignment.centerLeft,
             padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
@@ -40,6 +51,37 @@ class ProfileEditPage extends HookConsumerWidget {
     }
 
     return Scaffold(
+      appBar: AppBar(
+        //この辺を変更するときはprofile_pageも変更する
+        title: const Text('プロフィール'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios_new),
+          color: Colors.grey,
+          onPressed: () {
+            context.popRoute(
+                ref.read(textchangedProvider.notifier).state = false //falseに戻す
+                );
+          },
+        ),
+        backgroundColor: theme.appColors.background,
+        elevation: 0,
+        actions: textchanged == false
+            ? null
+            : [
+                TextButton(
+                  style: TextButton.styleFrom(),
+                  onPressed: () {
+                    ref.read(textchangedProvider.notifier).state =
+                        false; //falseに戻す
+                    //firebaseに保存
+                  },
+                  child: Text(
+                    '保存',
+                    style: theme.textTheme.h40.copyWith(color: Colors.black),
+                  ),
+                )
+              ],
+      ),
       body: ListView.builder(
         itemCount: models.length,
         itemBuilder: (context, index) => modelToWidget(models[index]),
