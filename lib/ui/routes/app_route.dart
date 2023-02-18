@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:wru/ui/routes/route_path.dart';
 import 'package:wru/ui/signIn/sign_in_page.dart';
+import 'package:wru/ui/signUp/sign_up_page.dart';
 import 'package:wru/ui/xxx/xxx_page.dart';
 
 @AdaptiveAutoRouter(
@@ -14,8 +15,13 @@ import 'package:wru/ui/xxx/xxx_page.dart';
     AutoRoute(
       path: RoutePath.appRoutSignIn,
       page: SignInPage,
+      // initial: true,
+    ),
+    AutoRoute(
+      path: RoutePath.appRoutSignUp,
+      page: SignUpPage,
       initial: true,
-    )
+    ),
   ],
 )
 class $AppRouter {}
