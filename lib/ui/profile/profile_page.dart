@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:wru/ui/theme/app_text_theme.dart';
@@ -56,7 +57,7 @@ class ProfilePage extends HookConsumerWidget {
               style: theme.textTheme.h40,
             ),
             alignment: Alignment.centerLeft,
-            padding: EdgeInsets.fromLTRB(30, 0, 0, 0),
+            padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
           ),
           // Divider( //線を引くやつ
           //   indent: 30,
@@ -69,8 +70,26 @@ class ProfilePage extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('プロフィール'),
-        actions: [],
+        title: const Text('プロフィール'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios_new),
+          color: Colors.grey,
+          onPressed: () {
+            context.popRoute();
+          },
+        ),
+        backgroundColor: theme.appColors.background,
+        elevation: 0,
+        actions: [
+          TextButton(
+            style: TextButton.styleFrom(),
+            onPressed: () {},
+            child: Text(
+              '編集',
+              style: theme.textTheme.h40.copyWith(color: Colors.black),
+            ),
+          )
+        ],
       ),
       body: ListView.builder(
         itemCount: models.length,
