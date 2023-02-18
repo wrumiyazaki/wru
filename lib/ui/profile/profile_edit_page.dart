@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:wru/ui/routes/app_route.gr.dart';
 import 'package:wru/ui/theme/app_theme.dart';
 import 'profile_page.dart';
 
@@ -71,9 +72,10 @@ class ProfileEditPage extends HookConsumerWidget {
                 TextButton(
                   style: TextButton.styleFrom(),
                   onPressed: () {
+                    //firebaseに保存する処理がここにくる
                     ref.read(textchangedProvider.notifier).state =
                         false; //falseに戻す
-                    //firebaseに保存
+                    context.pushRoute(TabRoute());
                   },
                   child: Text(
                     '保存',
