@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:wru/ui/hooks/use_router.dart';
+import 'package:wru/ui/routes/app_route.gr.dart';
 import 'package:wru/ui/signIn/sign_in_view_model.dart';
 
 class SignInPage extends HookConsumerWidget {
@@ -9,6 +11,7 @@ class SignInPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(signInViewModelProvider);
     final viewModel = ref.watch(signInViewModelProvider.notifier);
+    final router = useRouter();
 
     return state.when(
       data: (data) {
@@ -39,15 +42,19 @@ class SignInPage extends HookConsumerWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
+                      TextButton(
+                        onPressed: () => router.push(const SignUpRoute()),
+                        child: const Text('toSignUp'),
+                      ),
                       SizedBox(
                         width: 100,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.lightGreen),
+                              backgroundColor: Colors.blue),
                           child: const Text('signIn'),
                           onPressed: () async {
                             try {
-                              print('signUn');
+                              print('signIn');
                             } catch (e) {
                               print(e.toString());
                               return;
