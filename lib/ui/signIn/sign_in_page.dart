@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:wru/ui/hooks/use_l10n.dart';
 import 'package:wru/ui/hooks/use_router.dart';
 import 'package:wru/ui/routes/app_route.gr.dart';
 import 'package:wru/ui/signIn/sign_in_view_model.dart';
@@ -12,12 +13,13 @@ class SignInPage extends HookConsumerWidget {
     final state = ref.watch(signInViewModelProvider);
     final viewModel = ref.watch(signInViewModelProvider.notifier);
     final router = useRouter();
+    final l10n = useL10n();
 
     return state.when(
       data: (data) {
         return Scaffold(
           appBar: AppBar(
-            title: const Text('signIn'),
+            title: Text(l10n.signIn),
           ),
           body: Container(
             padding: const EdgeInsets.all(64),
@@ -25,14 +27,14 @@ class SignInPage extends HookConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   TextFormField(
-                    decoration: const InputDecoration(labelText: 'email'),
+                    decoration: InputDecoration(labelText: l10n.email),
                     onChanged: (value) => viewModel.updateEmailInputBox(value),
                   ),
                   const SizedBox(
                     height: 8,
                   ),
                   TextFormField(
-                    decoration: const InputDecoration(labelText: 'password'),
+                    decoration: InputDecoration(labelText: l10n.password),
                     onChanged: (value) =>
                         viewModel.updatePasswordInputBox(value),
                   ),
@@ -42,16 +44,12 @@ class SignInPage extends HookConsumerWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      TextButton(
-                        onPressed: () => router.push(const SignUpRoute()),
-                        child: const Text('toSignUp'),
-                      ),
                       SizedBox(
                         width: 100,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.blue),
-                          child: const Text('signIn'),
+                          child: Text(l10n.signIn),
                           onPressed: () async {
                             try {
                               print('signIn');
@@ -63,6 +61,10 @@ class SignInPage extends HookConsumerWidget {
                         ),
                       ),
                     ],
+                  ),
+                  TextButton(
+                    onPressed: () => router.push(const SignUpRoute()),
+                    child: Text(l10n.toSignUp),
                   ),
                   const SizedBox(
                     width: double.infinity,
