@@ -19,25 +19,25 @@ class HomePage extends HookConsumerWidget {
     return SafeArea(
         child: Column(
       children: [
+        //プロフィールボックス
         Container(
-          //プロフィールボックス
-          margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
+          margin: EdgeInsets.fromLTRB(20, 20, 20, 80),
           decoration: BoxDecoration(
               color: theme.appColors.homeProfileBackground,
               borderRadius: BorderRadius.circular(10)),
+          //テキストとボタンを横に並べる
           child: Row(
-            //テキストとボタンを横に並べる
             children: [
               SizedBox(
                 width: 10,
               ),
+              //テキストの集まりコンテナ
               Container(
-                //テキストの集まりコンテナ
                 height: 150,
                 width: 200,
                 padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+                //テキストカラム
                 child: Column(
-                  //テキストカラム
                   children: [
                     const SizedBox(height: 12),
                     Text(
@@ -71,6 +71,7 @@ class HomePage extends HookConsumerWidget {
                 ),
               ),
               const SizedBox(width: 20),
+              //プロフィール画面へ遷移ボタンのコンテナ
               Container(
                 decoration: BoxDecoration(
                     border: Border.all(
@@ -85,10 +86,20 @@ class HomePage extends HookConsumerWidget {
             ],
           ),
         ),
-        Container(
-          decoration: BoxDecoration(color: Colors.amber),
-          child: Text("aa"),
-          padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+        //名刺画像Containerに影をつけるために囲む
+        Material(
+          elevation: 8,
+          //名刺画像コンテナ
+          child: Container(
+            //size55×91
+            height: 200,
+            width: 330.909,
+            padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+            child: Image.asset(
+              'assets/img/namecard-sample.png',
+              fit: BoxFit.contain,
+            ),
+          ),
         ),
         Container(
           decoration: BoxDecoration(color: Colors.green),
