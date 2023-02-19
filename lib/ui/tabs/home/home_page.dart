@@ -28,7 +28,7 @@ class HomePage extends HookConsumerWidget {
           //テキストとボタンを横に並べる
           child: Row(
             children: [
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               //テキストの集まりコンテナ
@@ -86,6 +86,7 @@ class HomePage extends HookConsumerWidget {
             ],
           ),
         ),
+
         //名刺画像Containerに影をつけるために囲む
         Material(
           elevation: 8,
@@ -101,11 +102,31 @@ class HomePage extends HookConsumerWidget {
             ),
           ),
         ),
+
+        //ボタンとテキストあわせたボタンのコンテナ
         Container(
-          decoration: BoxDecoration(color: Colors.green),
-          child: Text("uu"),
-          padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-        ),
+            padding: const EdgeInsets.fromLTRB(0, 80, 0, 0),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+              ),
+              //ボタンとテキストを並べる
+              child: Column(children: [
+                const Icon(
+                  Icons.add_to_photos,
+                  size: 80,
+                  color: Colors.grey,
+                ),
+                Text(
+                  "デザイン",
+                  style: theme.textTheme.h50.copyWith(color: Colors.grey),
+                )
+              ]),
+              onPressed: () {
+                //名刺作成画面に遷移
+              },
+            )),
       ],
     ));
   }
