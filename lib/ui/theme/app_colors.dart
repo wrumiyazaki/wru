@@ -17,6 +17,8 @@ class AppColors {
     required this.unselectedIcon,
     required this.selectedIcon,
     required this.barbackground,
+    required this.homeProfileText,
+    required this.homeProfileBackground,
   });
 
   factory AppColors.light() {
@@ -36,6 +38,8 @@ class AppColors {
       unselectedIcon: Color.fromRGBO(158, 158, 158, 1),
       selectedIcon: Color(0xFFb58676),
       barbackground: Colors.white,
+      homeProfileText: Colors.white,
+      homeProfileBackground: Color(0xFF4e4f50),
     );
   }
 
@@ -56,6 +60,8 @@ class AppColors {
       unselectedIcon: Color.fromRGBO(158, 158, 158, 1),
       selectedIcon: Color(0xFFb58676),
       barbackground: Colors.white,
+      homeProfileText: Colors.white,
+      homeProfileBackground: Color(0xFF4e4f50),
     );
   }
 
@@ -75,4 +81,6 @@ class AppColors {
   final Color selectedIcon;
   final Color unselectedIcon;
   final Color barbackground;
+  final Color homeProfileText;
+  final Color homeProfileBackground;
 }
