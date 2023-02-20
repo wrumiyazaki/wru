@@ -30,9 +30,6 @@ final models = [
   ProfileElement('所属１', 'aaaaaaaaaaa'),
   ProfileElement('所属２', 'aaaaaaaaaaa'),
   ProfileElement('所属３', 'aaaaaaaa'),
-  ProfileElement('追加？', 'aaa'),
-  ProfileElement('追加？', 'aaa'),
-  ProfileElement('追加？', 'aaa'),
 ];
 
 class ProfilePage extends HookConsumerWidget {
