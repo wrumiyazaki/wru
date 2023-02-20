@@ -52,7 +52,7 @@ class SignUpPage extends HookConsumerWidget {
                           child: Text(l10n.signUp),
                           onPressed: () async {
                             try {
-                              print('signUp');
+                              viewModel.singUp();
                             } catch (e) {
                               print(e.toString());
                               return;
@@ -66,11 +66,11 @@ class SignUpPage extends HookConsumerWidget {
                     onPressed: () => router.push(const SignInRoute()),
                     child: Text(l10n.toSignIn),
                   ),
-                  const SizedBox(
+                  SizedBox(
                     width: double.infinity,
                     child: Text(
-                      'error message',
-                      style: TextStyle(color: Colors.red),
+                      data.errorMsg,
+                      style: const TextStyle(color: Colors.red),
                     ),
                   ),
                 ]),
