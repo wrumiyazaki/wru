@@ -22,4 +22,14 @@ class AuthDataSourceImpl implements AuthDataSource {
     User? user = credential.user;
     return user;
   }
+
+  @override
+  Future<User?> signIn(String email, String password) async {
+    UserCredential credential = await _firebaseAuth.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+    User? user = credential.user;
+    return user;
+  }
 }
