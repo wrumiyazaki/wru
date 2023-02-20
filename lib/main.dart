@@ -13,10 +13,6 @@ import 'firebase_options.dart';
 import 'app.dart';
 
 Future<void> main() async {
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-
   WidgetsFlutterBinding.ensureInitialized();
 
   if (!kReleaseMode) {
@@ -31,16 +27,23 @@ Future<void> main() async {
   }
 
   runZonedGuarded(
-      () => runApp(
-            ProviderScope(
-              child: DevicePreview(
-                enabled: !kReleaseMode && Constants.enablePreview,
-                builder: (context) {
-                  return const MyApp();
-                },
-              ),
-            ),
-          ), (error, stack) {
-    Fimber.e(error.toString());
-  });
+    () async {
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
+      runApp(
+        ProviderScope(
+          child: DevicePreview(
+            enabled: !kReleaseMode && Constants.enablePreview,
+            builder: (context) {
+              return const MyApp();
+            },
+          ),
+        ),
+      );
+    },
+    (error, stack) {
+      Fimber.e(error.toString());
+    },
+  );
 }
