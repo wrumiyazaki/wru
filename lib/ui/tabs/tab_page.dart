@@ -1,12 +1,7 @@
-import 'package:wru/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
-import 'package:wru/ui/hooks/use_l10n.dart';
-import 'package:wru/ui/theme/app_colors.dart';
-import 'package:wru/ui/theme/app_text_theme.dart';
 import 'package:wru/ui/theme/app_theme.dart';
 import 'package:wru/ui/xxx/xxx_view_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:wru/ui/routes/app_route.gr.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
@@ -32,7 +27,7 @@ class TabPage extends HookConsumerWidget {
               style: TabStyle.fixedCircle,
               color: theme.appColors.unselectedIcon,
               activeColor: theme.appColors.selectedIcon,
-              backgroundColor: theme.appColors.barbackground,
+              backgroundColor: theme.appColors.tabBarBackground,
               top: -30,
               height: 50,
               curveSize: 100,
