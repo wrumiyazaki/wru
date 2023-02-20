@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$SignInState {
   String get email => throw _privateConstructorUsedError;
   String get password => throw _privateConstructorUsedError;
+  String get errorMsg => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SignInStateCopyWith<SignInState> get copyWith =>
@@ -30,7 +31,7 @@ abstract class $SignInStateCopyWith<$Res> {
           SignInState value, $Res Function(SignInState) then) =
       _$SignInStateCopyWithImpl<$Res, SignInState>;
   @useResult
-  $Res call({String email, String password});
+  $Res call({String email, String password, String errorMsg});
 }
 
 /// @nodoc
@@ -48,6 +49,7 @@ class _$SignInStateCopyWithImpl<$Res, $Val extends SignInState>
   $Res call({
     Object? email = null,
     Object? password = null,
+    Object? errorMsg = null,
   }) {
     return _then(_value.copyWith(
       email: null == email
@@ -57,6 +59,10 @@ class _$SignInStateCopyWithImpl<$Res, $Val extends SignInState>
       password: null == password
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
+              as String,
+      errorMsg: null == errorMsg
+          ? _value.errorMsg
+          : errorMsg // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -70,7 +76,7 @@ abstract class _$$_SignInStateCopyWith<$Res>
       __$$_SignInStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String email, String password});
+  $Res call({String email, String password, String errorMsg});
 }
 
 /// @nodoc
@@ -86,6 +92,7 @@ class __$$_SignInStateCopyWithImpl<$Res>
   $Res call({
     Object? email = null,
     Object? password = null,
+    Object? errorMsg = null,
   }) {
     return _then(_$_SignInState(
       email: null == email
@@ -96,6 +103,10 @@ class __$$_SignInStateCopyWithImpl<$Res>
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
+      errorMsg: null == errorMsg
+          ? _value.errorMsg
+          : errorMsg // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -103,7 +114,8 @@ class __$$_SignInStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_SignInState implements _SignInState {
-  const _$_SignInState({this.email = '', this.password = ''});
+  const _$_SignInState(
+      {this.email = '', this.password = '', this.errorMsg = ''});
 
   @override
   @JsonKey()
@@ -111,10 +123,13 @@ class _$_SignInState implements _SignInState {
   @override
   @JsonKey()
   final String password;
+  @override
+  @JsonKey()
+  final String errorMsg;
 
   @override
   String toString() {
-    return 'SignInState(email: $email, password: $password)';
+    return 'SignInState(email: $email, password: $password, errorMsg: $errorMsg)';
   }
 
   @override
@@ -124,11 +139,13 @@ class _$_SignInState implements _SignInState {
             other is _$_SignInState &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.password, password) ||
-                other.password == password));
+                other.password == password) &&
+            (identical(other.errorMsg, errorMsg) ||
+                other.errorMsg == errorMsg));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, email, password);
+  int get hashCode => Object.hash(runtimeType, email, password, errorMsg);
 
   @JsonKey(ignore: true)
   @override
@@ -138,13 +155,17 @@ class _$_SignInState implements _SignInState {
 }
 
 abstract class _SignInState implements SignInState {
-  const factory _SignInState({final String email, final String password}) =
-      _$_SignInState;
+  const factory _SignInState(
+      {final String email,
+      final String password,
+      final String errorMsg}) = _$_SignInState;
 
   @override
   String get email;
   @override
   String get password;
+  @override
+  String get errorMsg;
   @override
   @JsonKey(ignore: true)
   _$$_SignInStateCopyWith<_$_SignInState> get copyWith =>

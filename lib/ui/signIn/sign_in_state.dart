@@ -7,5 +7,6 @@ class SignInState with _$SignInState {
   const factory SignInState({
     @Default('') String email,
     @Default('') String password,
+    @Default('') String errorMsg,
   }) = _SignInState;
 }
