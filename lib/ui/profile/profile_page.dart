@@ -1,72 +1,52 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:wru/ui/profile/profile_edit_page.dart';
+import 'package:wru/ui/profile/profile_view_model.dart';
 import 'package:wru/ui/routes/app_route.gr.dart';
-import 'package:wru/ui/theme/app_text_theme.dart';
 import 'package:wru/ui/theme/app_theme.dart';
 
-class ProfileElement {
-  final String name;
-  final String text;
-
-  //コンストラクタ
-  const ProfileElement(
-    this.name,
-    this.text,
-  );
-}
-
-final models = [
-  //変更されたら反映させてあげないといけない
-  //firebaseから呼び出す 再レンダリング？ 再呼び出し？
-  ProfileElement('名前', '小林 ゆうひ'),
-  ProfileElement('読み方', 'こばやし ユウヒ'),
-  ProfileElement('ユーザーID', '3902189475234'),
-  ProfileElement('生年月日', '7/22'),
-  ProfileElement('電話番号', '9008098800'),
-  ProfileElement('メールアドレス', 'aaafas@fdasf.afas'),
-  ProfileElement('性別', 'aaa'),
-  ProfileElement('所属１', 'aaaaaaaaaaa'),
-  ProfileElement('所属２', 'aaaaaaaaaaa'),
-  ProfileElement('所属３', 'aaaaaaaa'),
-  ProfileElement('追加？', 'aaa'),
-  ProfileElement('追加？', 'aaa'),
-  ProfileElement('追加？', 'aaa'),
+//要素数増やすならview_modelとListView(edit_page側は条件分岐もある)内も
+final List<String> profilePropList = [
+  '名前',
+  '読み方',
+  'ユーザーID',
+  '生年月日',
+  '電話番号',
+  'メールアドレス',
+  '性別',
+  '所属１',
+  '所属２',
+  '所属３',
 ];
 
 class ProfilePage extends HookConsumerWidget {
   const ProfilePage({super.key});
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(appThemeProvider);
 
     //プロフィール１つ分のWidget
-    Widget modelToWidget(ProfileElement model) {
+    Widget modelToWidget(index, text) {
       return Container(
         child: Column(children: [
           Container(
-            child: Text(
-              model.name,
-              style: theme.textTheme.h20.copyWith(color: Colors.grey.shade700),
-            ),
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.fromLTRB(30, 20, 0, 5),
+            child: Text(
+              profilePropList[index],
+              style: theme.textTheme.h20.copyWith(color: Colors.grey.shade700),
+            ),
           ),
           Container(
-            child: Text(
-              model.text,
-              style: theme.textTheme.h40,
-            ),
             alignment: Alignment.centerLeft,
             padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
+            child: Text(
+              '$text',
+              style: theme.textTheme.h40,
+            ),
           ),
-          // Divider( //線を引くやつ
-          //   indent: 30,
-          //   endIndent: 30,
-          //   thickness: 1,
-          // )
         ]),
       );
     }
@@ -97,9 +77,19 @@ class ProfilePage extends HookConsumerWidget {
           )
         ],
       ),
-      body: ListView.builder(
-        itemCount: models.length,
-        itemBuilder: (context, index) => modelToWidget(models[index]),
+      body: ListView(
+        children: [
+          modelToWidget(0, getMap[MapKey().name]),
+          modelToWidget(1, getMap[MapKey().namePhonetic]),
+          modelToWidget(2, getMap[MapKey().userID]),
+          modelToWidget(3, getMap[MapKey().birthday]),
+          modelToWidget(4, getMap[MapKey().telePhoneNumber]),
+          modelToWidget(5, getMap[MapKey().email]),
+          modelToWidget(6, getMap[MapKey().gender]),
+          modelToWidget(7, getMap[MapKey().belonging1]),
+          modelToWidget(8, getMap[MapKey().belonging2]),
+          modelToWidget(9, getMap[MapKey().belonging3]),
+        ],
       ),
     );
   }
