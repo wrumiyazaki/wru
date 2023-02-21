@@ -16,6 +16,7 @@ class HomePage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(appThemeProvider);
+    final l10n = useL10n();
     return SafeArea(
         child: Column(
       children: [
@@ -119,7 +120,7 @@ class HomePage extends HookConsumerWidget {
                   color: Colors.grey,
                 ),
                 Text(
-                  "デザイン",
+                  useL10n().design,
                   style: theme.textTheme.h50.copyWith(color: Colors.grey),
                 )
               ]),
