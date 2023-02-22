@@ -41,18 +41,24 @@ class HomePage extends HookConsumerWidget {
                 child: Column(
                   children: [
                     const SizedBox(height: 12),
-                    Text(
-                      "小林  ゆうひ",
-                      style: theme.textTheme.h60
-                          .bold()
-                          .copyWith(color: theme.appColors.homeProfileText),
+                    FittedBox(
+                      fit: BoxFit.fitWidth,
+                      child: Text(
+                        "小林  ゆうひ",
+                        style: theme.textTheme.h60
+                            .bold()
+                            .copyWith(color: theme.appColors.homeProfileText),
+                      ),
                     ),
                     const SizedBox(height: 0),
-                    Text(
-                      "kobayashialyuhifasasad", //英数字22文字まで
-                      style: theme.textTheme.h40
-                          .bold()
-                          .copyWith(color: theme.appColors.homeProfileText),
+                    FittedBox(
+                      fit: BoxFit.fitWidth,
+                      child: Text(
+                        "kobayashialyuhifasasad", //英数字22文字まで入る
+                        style: theme.textTheme.h40
+                            .bold()
+                            .copyWith(color: theme.appColors.homeProfileText),
+                      ),
                     ),
                     const SizedBox(height: 7),
                     Text(
