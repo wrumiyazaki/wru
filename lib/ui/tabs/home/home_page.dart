@@ -5,6 +5,7 @@ import 'package:wru/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:wru/ui/hooks/use_l10n.dart';
 import 'package:wru/ui/routes/app_route.gr.dart';
+import 'package:wru/ui/tabs/home/home_view_model.dart';
 import 'package:wru/ui/theme/app_text_theme.dart';
 import 'package:wru/ui/theme/app_theme.dart';
 import 'package:wru/ui/xxx/xxx_view_model.dart';
@@ -105,7 +106,7 @@ class HomePage extends HookConsumerWidget {
             width: 330.909,
             padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
             child: Image.asset(
-              'assets/img/namecard-sample.png',
+              HomeViewModel().imageUrl,
               fit: BoxFit.contain,
             ),
           ),
