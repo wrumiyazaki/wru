@@ -81,7 +81,8 @@ class HomePage extends HookConsumerWidget {
                   icon: const Icon(Icons.settings),
                   iconSize: 80,
                   color: theme.appColors.homeProfileText,
-                  onPressed: () => context.router.push(ProfileRoute()),
+                  onPressed: () =>
+                      AutoRouter.of(context).push(const ProfileRoute()),
                 ),
               ),
             ],
@@ -120,7 +121,7 @@ class HomePage extends HookConsumerWidget {
                   color: Colors.grey,
                 ),
                 Text(
-                  useL10n().design,
+                  l10n.design,
                   style: theme.textTheme.h50.copyWith(color: Colors.grey),
                 )
               ]),
