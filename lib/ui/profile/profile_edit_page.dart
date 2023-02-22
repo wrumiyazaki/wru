@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:wru/ui/hooks/use_l10n.dart';
 import 'package:wru/ui/profile/profile_view_model.dart';
@@ -32,6 +33,7 @@ class ProfileEditPage extends HookConsumerWidget {
             padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
             child: TextFormField(
               style: theme.textTheme.h40,
+              inputFormatters: [LengthLimitingTextInputFormatter(20)],
               controller: TextEditingController(text: getMap[mapkey]),
               onChanged: (value) {
                 getMap[mapkey] = value;
