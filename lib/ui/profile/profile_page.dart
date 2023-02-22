@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:wru/ui/hooks/use_l10n.dart';
 import 'package:wru/ui/profile/profile_view_model.dart';
 import 'package:wru/ui/routes/app_route.gr.dart';
 import 'package:wru/ui/theme/app_theme.dart';
@@ -26,6 +27,7 @@ class ProfilePage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(appThemeProvider);
+    final l10n = useL10n();
 
     //プロフィール１つ分のWidget
     Widget modelToWidget(index, text) {
@@ -54,7 +56,7 @@ class ProfilePage extends HookConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         //この辺を変更するときはprofile_edit_pageも変更しないといけないかも
-        title: const Text('プロフィール'),
+        title: Text(l10n.profile),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios_new),
           color: Colors.grey,
@@ -71,7 +73,7 @@ class ProfilePage extends HookConsumerWidget {
               context.router.push(ProfileEditRoute());
             },
             child: Text(
-              '編集',
+              l10n.edit,
               style: theme.textTheme.h40.copyWith(color: Colors.black),
             ),
           )

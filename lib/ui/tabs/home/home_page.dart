@@ -120,7 +120,7 @@ class HomePage extends HookConsumerWidget {
                   color: Colors.grey,
                 ),
                 Text(
-                  useL10n().design,
+                  l10n.design,
                   style: theme.textTheme.h50.copyWith(color: Colors.grey),
                 )
               ]),

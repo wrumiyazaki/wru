@@ -1,5 +1,8 @@
 {
   "@@locale": "ja",
   "hello": "こんにちは",
-  "design": "デザイン"
+  "design": "デザイン",
+  "edit": "編集",
+  "profile": "プロフィール",
+  "profileEdit" : "プロフィール編集"
 }
