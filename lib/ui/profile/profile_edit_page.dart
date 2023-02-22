@@ -23,7 +23,7 @@ class ProfileEditPage extends HookConsumerWidget {
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.fromLTRB(30, 20, 0, 5),
             child: Text(
-              profilePropList[index],
+              ProfilePropList().profilePropList[index],
               style: theme.textTheme.h20.copyWith(color: Colors.grey.shade700),
             ),
           ),

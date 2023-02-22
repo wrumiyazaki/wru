@@ -9,18 +9,28 @@ import 'package:wru/ui/routes/app_route.gr.dart';
 import 'package:wru/ui/theme/app_theme.dart';
 
 //要素数増やすならview_modelとListView(edit_page側は条件分岐もある)内も
-final List<String> profilePropList = [
-  '名前',
-  '読み方',
-  'ユーザーID',
-  '生年月日',
-  '電話番号',
-  'メールアドレス',
-  '性別',
-  '所属１',
-  '所属２',
-  '所属３',
-];
+class ProfilePropList extends StatelessWidget {
+  ProfilePropList({super.key});
+  final l10n = useL10n();
+
+  late List<String> profilePropList = [
+    l10n.name,
+    l10n.namePhonetic,
+    l10n.userID,
+    l10n.birthday,
+    l10n.telePhoneNumber,
+    l10n.email,
+    l10n.gender,
+    l10n.belonging1,
+    l10n.belonging2,
+    l10n.belonging3,
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}
 
 class ProfilePage extends HookConsumerWidget {
   const ProfilePage({super.key});
@@ -37,7 +47,7 @@ class ProfilePage extends HookConsumerWidget {
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.fromLTRB(30, 20, 0, 5),
             child: Text(
-              profilePropList[index],
+              ProfilePropList().profilePropList[index],
               style: theme.textTheme.h20.copyWith(color: Colors.grey.shade700),
             ),
           ),
