@@ -13,8 +13,6 @@ class TabPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(appThemeProvider);
-    final state = ref.watch(xxxViewModelProvider);
-    final viewModel = ref.watch(xxxViewModelProvider.notifier);
     return AutoTabsRouter(
       routes: const [HomeRoute(), ExchangeRoute(), FriendRoute()],
       builder: (context, child, animation) {
