@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wru/ui/hooks/use_router.dart';
 import 'package:wru/ui/theme/app_theme.dart';
 import 'package:wru/ui/xxx/xxx_view_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -17,7 +18,6 @@ class TabPage extends HookConsumerWidget {
     return AutoTabsRouter(
       routes: const [HomeRoute(), ExchangeRoute(), FriendRoute()],
       builder: (context, child, animation) {
-        final tabsRouter = AutoTabsRouter.of(context);
         return Scaffold(
             body: FadeTransition(
               opacity: animation,
@@ -33,14 +33,14 @@ class TabPage extends HookConsumerWidget {
               curveSize: 100,
               cornerRadius: 5,
               onTap: (index) {
-                tabsRouter.setActiveIndex(index);
+                useTabRouter().setActiveIndex(index);
               },
               items: const [
                 TabItem(icon: Icons.home),
                 TabItem(icon: Icons.qr_code_scanner),
                 TabItem(icon: Icons.groups),
               ],
-              initialActiveIndex: tabsRouter.activeIndex,
+              initialActiveIndex: useTabRouter().activeIndex,
             ));
       },
     );
