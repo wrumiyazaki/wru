@@ -4,5 +4,17 @@
   "design": "デザイン",
   "edit": "編集",
   "profile": "プロフィール",
-  "profileEdit" : "プロフィール編集"
+  "profileEdit" : "プロフィール編集",
+  "save": "保存",
+  "name": "名前",
+  "namePhonetic": "読み方",
+  "userID": "ユーザーID",
+  "birthday": "生年月日",
+  "telePhoneNumber": "電話番号",
+  "email": "メールアドレス",
+  "gender": "性別",
+  "belonging1": "所属１",
+  "belonging2": "所属２",
+  "belonging3": "所属３"
+
 }
