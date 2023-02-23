@@ -11,8 +11,8 @@ class InputItem {
   InputItem({this.label = '', this.isMultiLine = false});
 }
 
-class CreateCardPage extends HookConsumerWidget {
-  const CreateCardPage({super.key});
+class EnterInformationPage extends HookConsumerWidget {
+  const EnterInformationPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

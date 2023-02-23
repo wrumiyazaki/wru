@@ -13,7 +13,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i3;
 import 'package:flutter/material.dart' as _i4;
-import 'package:wru/ui/create_card/create_card_page.dart' as _i2;
+import 'package:wru/ui/create_card/enter_information/enter_information_page.dart'
+    as _i2;
 import 'package:wru/ui/xxx/xxx_page.dart' as _i1;
 
 class AppRouter extends _i3.RootStackRouter {
@@ -28,10 +29,10 @@ class AppRouter extends _i3.RootStackRouter {
         child: const _i1.XXXPage(),
       );
     },
-    CreateCardRoute.name: (routeData) {
+    EnterInformationRoute.name: (routeData) {
       return _i3.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: const _i2.CreateCardPage(),
+        child: const _i2.EnterInformationPage(),
       );
     },
   };
@@ -41,7 +42,7 @@ class AppRouter extends _i3.RootStackRouter {
         _i3.RouteConfig(
           '/#redirect',
           path: '/',
-          redirectTo: '/create_card',
+          redirectTo: '/enter_information',
           fullMatch: true,
         ),
         _i3.RouteConfig(
@@ -49,8 +50,8 @@ class AppRouter extends _i3.RootStackRouter {
           path: '/xxx',
         ),
         _i3.RouteConfig(
-          CreateCardRoute.name,
-          path: '/create_card',
+          EnterInformationRoute.name,
+          path: '/enter_information',
         ),
       ];
 }
@@ -68,13 +69,13 @@ class XXXRoute extends _i3.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i2.CreateCardPage]
-class CreateCardRoute extends _i3.PageRouteInfo<void> {
-  const CreateCardRoute()
+/// [_i2.EnterInformationPage]
+class EnterInformationRoute extends _i3.PageRouteInfo<void> {
+  const EnterInformationRoute()
       : super(
-          CreateCardRoute.name,
-          path: '/create_card',
+          EnterInformationRoute.name,
+          path: '/enter_information',
         );
 
-  static const String name = 'CreateCardRoute';
+  static const String name = 'EnterInformationRoute';
 }
