@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:wru/ui/create_card/templates/normal_card/normal_card_page.dart';
+import 'package:wru/ui/create_card/templates/cards/cards.dart';
+import 'package:wru/ui/create_card/templates/input_items/input_items.dart';
+import 'package:wru/ui/create_card/templates/template.dart';
 
 class SelectTemplatePage extends HookConsumerWidget {
   const SelectTemplatePage({super.key});
@@ -8,11 +10,30 @@ class SelectTemplatePage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final templates = [
-      const NormalCardPage(),
-      const NormalCardPage(),
-      const NormalCardPage(),
-      const NormalCardPage(),
-      const NormalCardPage()
+      Template(
+        CardTemplate.normalTemplate,
+        InputItemsTemplate.normalInputItems,
+      ),
+      Template(
+        CardTemplate.normalTemplate,
+        InputItemsTemplate.normalInputItems,
+      ),
+      Template(
+        CardTemplate.normalTemplate,
+        InputItemsTemplate.normalInputItems,
+      ),
+      Template(
+        CardTemplate.normalTemplate,
+        InputItemsTemplate.normalInputItems,
+      ),
+      Template(
+        CardTemplate.normalTemplate,
+        InputItemsTemplate.normalInputItems,
+      ),
+      Template(
+        CardTemplate.normalTemplate,
+        InputItemsTemplate.normalInputItems,
+      ),
     ];
 
     return Scaffold(
@@ -32,7 +53,7 @@ class SelectTemplatePage extends HookConsumerWidget {
               ),
               itemBuilder: (context, index) => InkWell(
                 onTap: () => print('selected'),
-                child: templates[index],
+                child: templates[index].card,
               ),
             ),
           ),
