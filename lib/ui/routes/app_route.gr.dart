@@ -15,7 +15,8 @@ import 'package:auto_route/auto_route.dart' as _i4;
 import 'package:flutter/material.dart' as _i5;
 import 'package:wru/ui/create_card/enter_information/enter_information_page.dart'
     as _i3;
-import 'package:wru/ui/create_card/select_template/select_template.dart' as _i2;
+import 'package:wru/ui/create_card/select_template/select_template_page.dart'
+    as _i2;
 import 'package:wru/ui/xxx/xxx_page.dart' as _i1;
 
 class AppRouter extends _i4.RootStackRouter {

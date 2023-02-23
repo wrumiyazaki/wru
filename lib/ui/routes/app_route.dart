@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:wru/ui/create_card/enter_information/enter_information_page.dart';
-import 'package:wru/ui/create_card/select_template/select_template.dart';
+import 'package:wru/ui/create_card/select_template/select_template_page.dart';
 import 'package:wru/ui/routes/route_path.dart';
 import 'package:wru/ui/xxx/xxx_page.dart';
 
