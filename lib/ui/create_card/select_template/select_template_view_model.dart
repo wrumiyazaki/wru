@@ -26,7 +26,7 @@ class SelectTemplateViewModel
           InputItemsTemplate.normalInputItems,
         ),
         Template(
-          CardTemplate.normalTemplate,
+          CardTemplate.testTemplate,
           InputItemsTemplate.normalInputItems,
         ),
         Template(
@@ -34,7 +34,7 @@ class SelectTemplateViewModel
           InputItemsTemplate.normalInputItems,
         ),
         Template(
-          CardTemplate.normalTemplate,
+          CardTemplate.testTemplate,
           InputItemsTemplate.normalInputItems,
         ),
         Template(
@@ -42,7 +42,7 @@ class SelectTemplateViewModel
           InputItemsTemplate.normalInputItems,
         ),
         Template(
-          CardTemplate.normalTemplate,
+          CardTemplate.testTemplate,
           InputItemsTemplate.normalInputItems,
         ),
       ]),
@@ -53,6 +53,5 @@ class SelectTemplateViewModel
     state = AsyncValue.data(
       state.value!.copyWith(selectedTemplate: state.value!.templates[idx]),
     );
-    print(state.value);
   }
 }
