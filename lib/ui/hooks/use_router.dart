@@ -5,8 +5,3 @@ StackRouter useRouter() {
   final context = useContext();
   return AutoRouter.of(context);
 }
-
-TabsRouter useTabRouter() {
-  final context = useContext();
-  return AutoTabsRouter.of(context);
-}
