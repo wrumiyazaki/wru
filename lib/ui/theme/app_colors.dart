@@ -14,6 +14,9 @@ class AppColors {
     required this.onSurface,
     required this.error,
     required this.onError,
+    required this.unselectedIcon,
+    required this.selectedIcon,
+    required this.tabBarBackground,
   });
 
   factory AppColors.light() {
@@ -30,6 +33,9 @@ class AppColors {
       onSurface: Color(0xFF000000),
       error: Color(0xFFB00020),
       onError: Color(0xFFFFFFFF),
+      unselectedIcon: Color.fromRGBO(158, 158, 158, 1),
+      selectedIcon: Color(0xFFb58676),
+      tabBarBackground: Colors.white,
     );
   }
 
@@ -47,6 +53,9 @@ class AppColors {
       onSurface: Color(0xFF000000),
       error: Color(0xFFB00020),
       onError: Color(0xFFFFFFFF),
+      unselectedIcon: Color.fromRGBO(158, 158, 158, 1),
+      selectedIcon: Color(0xFFb58676),
+      tabBarBackground: Colors.white,
     );
   }
 
@@ -63,4 +72,7 @@ class AppColors {
   final Color onSurface;
   final Color error;
   final Color onError;
+  final Color selectedIcon;
+  final Color unselectedIcon;
+  final Color tabBarBackground;
 }

@@ -6,8 +6,8 @@ import 'package:wru/ui/theme/app_theme.dart';
 import 'package:wru/ui/xxx/xxx_view_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class XXXPage extends HookConsumerWidget {
-  const XXXPage({Key? key}) : super(key: key);
+class HomePage extends HookConsumerWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
