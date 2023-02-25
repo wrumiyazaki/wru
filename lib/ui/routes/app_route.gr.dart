@@ -15,7 +15,7 @@ import 'package:auto_route/auto_route.dart' as _i7;
 import 'package:flutter/material.dart' as _i8;
 import 'package:wru/ui/profile/profile_edit_page.dart' as _i3;
 import 'package:wru/ui/profile/profile_page.dart' as _i2;
-import 'package:wru/ui/tabs/exchange/exchange_page.dart' as _i5;
+import 'package:wru/ui/tabs/exchange/qr_scan_page.dart' as _i5;
 import 'package:wru/ui/tabs/friend/friend_page.dart' as _i6;
 import 'package:wru/ui/tabs/home/home_page.dart' as _i4;
 import 'package:wru/ui/tabs/tab_page.dart' as _i1;
@@ -50,10 +50,10 @@ class AppRouter extends _i7.RootStackRouter {
         child: const _i4.HomePage(),
       );
     },
-    ExchangeRoute.name: (routeData) {
+    QrScanRoute.name: (routeData) {
       return _i7.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: const _i5.ExchangePage(),
+        child: const _i5.QrScanPage(),
       );
     },
     FriendRoute.name: (routeData) {
@@ -82,7 +82,7 @@ class AppRouter extends _i7.RootStackRouter {
               parent: TabRoute.name,
             ),
             _i7.RouteConfig(
-              ExchangeRoute.name,
+              QrScanRoute.name,
               path: 'exchange',
               parent: TabRoute.name,
             ),
@@ -154,15 +154,15 @@ class HomeRoute extends _i7.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i5.ExchangePage]
-class ExchangeRoute extends _i7.PageRouteInfo<void> {
-  const ExchangeRoute()
+/// [_i5.QrScanPage]
+class QrScanRoute extends _i7.PageRouteInfo<void> {
+  const QrScanRoute()
       : super(
-          ExchangeRoute.name,
+          QrScanRoute.name,
           path: 'exchange',
         );
 
-  static const String name = 'ExchangeRoute';
+  static const String name = 'QrScanRoute';
 }
 
 /// generated route for

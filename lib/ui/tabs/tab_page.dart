@@ -20,7 +20,7 @@ class TabPage extends HookConsumerWidget {
     final state = ref.watch(xxxViewModelProvider);
     final viewModel = ref.watch(xxxViewModelProvider.notifier);
     return AutoTabsRouter(
-      routes: const [HomeRoute(), ExchangeRoute(), FriendRoute()],
+      routes: const [HomeRoute(), QrScanRoute(), FriendRoute()],
       builder: (context, child, animation) {
         final tabsRouter = AutoTabsRouter.of(context);
         return Scaffold(

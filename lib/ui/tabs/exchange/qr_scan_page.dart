@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ExchangePage extends StatelessWidget {
-  const ExchangePage({super.key});
+class QrScanPage extends StatelessWidget {
+  const QrScanPage({super.key});
 
   @override
   Widget build(BuildContext context) {

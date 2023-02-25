@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:wru/ui/profile/profile_edit_page.dart';
 import 'package:wru/ui/profile/profile_page.dart';
 import 'package:wru/ui/routes/route_path.dart';
-import 'package:wru/ui/tabs/exchange/exchange_page.dart';
+import 'package:wru/ui/tabs/exchange/qr_scan_page.dart';
 import 'package:wru/ui/tabs/friend/friend_page.dart';
 import 'package:wru/ui/tabs/home/home_page.dart';
 import 'package:wru/ui/tabs/tab_page.dart';
@@ -17,7 +17,7 @@ import 'package:wru/ui/tabs/tab_page.dart';
         children: [
           //ネストする必要がある
           AutoRoute(path: 'home', page: HomePage, children: []),
-          AutoRoute(path: 'exchange', page: ExchangePage),
+          AutoRoute(path: 'exchange', page: QrScanPage),
           AutoRoute(path: 'friend', page: FriendPage),
         ],
         initial: true),
