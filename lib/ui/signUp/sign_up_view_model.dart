@@ -25,17 +25,11 @@ class SignUpViewModel extends StateNotifier<AsyncValue<SignUpState>> {
   }
 
   void updateEmailInputBox(email) {
-    SignUpState currentState = state.value!;
-    state = AsyncValue.data(
-      SignUpState(email: email, password: currentState.password),
-    );
+    state = AsyncValue.data(state.value!.copyWith(email: email));
   }
 
   void updatePasswordInputBox(password) {
-    SignUpState currentState = state.value!;
-    state = AsyncValue.data(
-      SignUpState(email: currentState.email, password: password),
-    );
+    state = AsyncValue.data(state.value!.copyWith(password: password));
   }
 
   Future<void> singUp() async {
