@@ -19,7 +19,7 @@ class QrDisplayPage extends HookConsumerWidget {
         child: ElevatedButton(
             onPressed: () async {
               absorbnotifier.state = true;
-              context.pushRoute(const QrScanRoute());
+              context.router.push(const QrScanRoute());
               await Future.delayed(Duration(milliseconds: 300));
               absorbnotifier.state = false;
             },
