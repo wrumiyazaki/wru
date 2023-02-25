@@ -13,44 +13,32 @@ class SelectTemplatePage extends HookConsumerWidget {
     final viewModel = ref.watch(selectTemplateViewModelProvider.notifier);
     final router = useRouter();
 
-    return state.when(
-      data: (data) => Scaffold(
-        body: SafeArea(
-          child: Scrollbar(
-            child: Container(
-              height: double.infinity,
-              width: double.infinity,
-              padding: const EdgeInsets.only(
-                left: 8,
-                right: 8,
+    return Scaffold(
+      body: SafeArea(
+        child: Scrollbar(
+          child: Container(
+            height: double.infinity,
+            width: double.infinity,
+            padding: const EdgeInsets.only(
+              left: 8,
+              right: 8,
+            ),
+            child: ListView.separated(
+              itemCount: state.templates.length,
+              separatorBuilder: (context, index) => const SizedBox(
+                height: 8,
               ),
-              child: ListView.separated(
-                itemCount: data.templates.length,
-                separatorBuilder: (context, index) => const SizedBox(
-                  height: 8,
-                ),
-                itemBuilder: (context, index) => InkWell(
-                  onTap: () {
-                    viewModel.select(index);
-                    router.push(const EnterInformationRoute());
-                  },
-                  child: data.templates[index].card,
-                ),
+              itemBuilder: (context, index) => InkWell(
+                onTap: () {
+                  viewModel.select(index);
+                  router.push(const EnterInformationRoute());
+                },
+                child: state.templates[index].card,
               ),
             ),
           ),
         ),
       ),
-      error: (error, stackTrace) => Text(error.toString()),
-      loading: () {
-        return const Scaffold(
-          body: SafeArea(
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
-          ),
-        );
-      },
     );
   }
 }

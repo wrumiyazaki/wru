@@ -5,53 +5,45 @@ import 'package:wru/ui/create_card/templates/input_items/input_items.dart';
 import 'package:wru/ui/create_card/templates/template.dart';
 
 final selectTemplateViewModelProvider = StateNotifierProvider.autoDispose<
-    SelectTemplateViewModel, AsyncValue<SelectTemplateState>>(
-  (ref) => SelectTemplateViewModel(ref: ref),
+    SelectTemplateViewModel, SelectTemplateState>(
+  (ref) => SelectTemplateViewModel(),
 );
 
-class SelectTemplateViewModel
-    extends StateNotifier<AsyncValue<SelectTemplateState>> {
-  SelectTemplateViewModel({required AutoDisposeStateNotifierProviderRef ref})
-      : _ref = ref,
-        super(const AsyncLoading()) {
+class SelectTemplateViewModel extends StateNotifier<SelectTemplateState> {
+  SelectTemplateViewModel() : super(const SelectTemplateState()) {
     load();
   }
-  final Ref _ref;
 
   void load() {
-    state = AsyncValue.data(
-      SelectTemplateState(templates: [
-        Template(
-          CardTemplate.normalTemplate,
-          InputItemsTemplate.normalInputItems,
-        ),
-        Template(
-          CardTemplate.testTemplate,
-          InputItemsTemplate.normalInputItems,
-        ),
-        Template(
-          CardTemplate.normalTemplate,
-          InputItemsTemplate.normalInputItems,
-        ),
-        Template(
-          CardTemplate.testTemplate,
-          InputItemsTemplate.normalInputItems,
-        ),
-        Template(
-          CardTemplate.normalTemplate,
-          InputItemsTemplate.normalInputItems,
-        ),
-        Template(
-          CardTemplate.testTemplate,
-          InputItemsTemplate.normalInputItems,
-        ),
-      ]),
-    );
+    state = SelectTemplateState(templates: [
+      Template(
+        CardTemplate.normalTemplate,
+        InputItemsTemplate.normalInputItems,
+      ),
+      Template(
+        CardTemplate.testTemplate,
+        InputItemsTemplate.normalInputItems,
+      ),
+      Template(
+        CardTemplate.normalTemplate,
+        InputItemsTemplate.normalInputItems,
+      ),
+      Template(
+        CardTemplate.testTemplate,
+        InputItemsTemplate.normalInputItems,
+      ),
+      Template(
+        CardTemplate.normalTemplate,
+        InputItemsTemplate.normalInputItems,
+      ),
+      Template(
+        CardTemplate.testTemplate,
+        InputItemsTemplate.normalInputItems,
+      ),
+    ]);
   }
 
   void select(int idx) {
-    state = AsyncValue.data(
-      state.value!.copyWith(selectedTemplate: state.value!.templates[idx]),
-    );
+    state = state.copyWith(selectedTemplate: state.templates[idx]);
   }
 }
