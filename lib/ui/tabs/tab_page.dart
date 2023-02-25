@@ -31,14 +31,14 @@ class TabPage extends HookConsumerWidget {
               curveSize: 100,
               cornerRadius: 5,
               onTap: (index) {
-                useTabRouter().setActiveIndex(index);
+                AutoTabsRouter.of(context).setActiveIndex(index);
               },
               items: const [
                 TabItem(icon: Icons.home),
                 TabItem(icon: Icons.qr_code_scanner),
                 TabItem(icon: Icons.groups),
               ],
-              initialActiveIndex: useTabRouter().activeIndex,
+              initialActiveIndex: AutoTabsRouter.of(context).activeIndex,
             ));
       },
     );
