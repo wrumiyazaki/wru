@@ -63,7 +63,7 @@ class SignInPage extends HookConsumerWidget {
                     ],
                   ),
                   TextButton(
-                    onPressed: () => router.push(const SignUpRoute()),
+                    onPressed: () => router.pop(),
                     child: Text(l10n.toSignUp),
                   ),
                   SizedBox(
