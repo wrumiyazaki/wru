@@ -79,7 +79,7 @@ class __$$_CardStateCopyWithImpl<$Res>
     Object? informations = null,
   }) {
     return _then(_$_CardState(
-      null == informations
+      informations: null == informations
           ? _value._informations
           : informations // ignore: cast_nullable_to_non_nullable
               as List<String>,
@@ -90,7 +90,7 @@ class __$$_CardStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_CardState implements _CardState {
-  const _$_CardState(final List<String> informations)
+  const _$_CardState({required final List<String> informations})
       : _informations = informations;
 
   final List<String> _informations;
@@ -127,7 +127,8 @@ class _$_CardState implements _CardState {
 }
 
 abstract class _CardState implements CardState {
-  const factory _CardState(final List<String> informations) = _$_CardState;
+  const factory _CardState({required final List<String> informations}) =
+      _$_CardState;
 
   @override
   List<String> get informations;

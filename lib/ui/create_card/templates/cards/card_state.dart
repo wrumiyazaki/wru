@@ -4,7 +4,7 @@ part 'card_state.freezed.dart';
 
 @freezed
 class CardState with _$CardState {
-  const factory CardState(
-    List<String> informations,
-  ) = _CardState;
+  const factory CardState({
+    required List<String> informations,
+  }) = _CardState;
 }

@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:wru/foundation/constants.dart';
-import 'package:wru/ui/create_card/templates/cards/card_state.dart';
+import 'package:wru/ui/create_card/templates/cards/card_view_model.dart';
 import 'package:wru/ui/theme/app_text_theme.dart';
 import 'package:wru/ui/theme/app_theme.dart';
 
 class TestCardPage extends HookConsumerWidget {
-  const TestCardPage(this.cardState, {super.key});
-  final CardState cardState;
+  const TestCardPage({required this.initialInformations, super.key});
+  final List<String> initialInformations;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(appThemeProvider);
+    final state = ref.watch(cardViewModelFamily(initialInformations));
 
     return AspectRatio(
       aspectRatio: Constants.cardAspectRatio,
@@ -34,9 +35,9 @@ class TestCardPage extends HookConsumerWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(cardState.informations[0],
+                        Text(state.informations[0],
                             style: theme.textTheme.h50.bold()),
-                        Text(cardState.informations[1],
+                        Text(state.informations[1],
                             style: theme.textTheme.h10.dense()),
                       ],
                     )
@@ -44,14 +45,14 @@ class TestCardPage extends HookConsumerWidget {
                 ),
                 Row(
                   children: [
-                    Text(cardState.informations[2], style: theme.textTheme.h30),
-                    Text(cardState.informations[3], style: theme.textTheme.h30),
+                    Text(state.informations[2], style: theme.textTheme.h30),
+                    Text(state.informations[3], style: theme.textTheme.h30),
                   ],
                 ),
                 Row(
                   children: [
-                    Text(cardState.informations[4], style: theme.textTheme.h30),
-                    Text(cardState.informations[5], style: theme.textTheme.h30),
+                    Text(state.informations[4], style: theme.textTheme.h30),
+                    Text(state.informations[5], style: theme.textTheme.h30),
                     Text('年', style: theme.textTheme.h30),
                   ],
                 ),
@@ -68,7 +69,7 @@ class TestCardPage extends HookConsumerWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            cardState.informations[6],
+                            state.informations[6],
                             style: theme.textTheme.h20.dense(),
                           )
                         ],
