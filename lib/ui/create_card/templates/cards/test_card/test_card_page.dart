@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:wru/foundation/constants.dart';
+import 'package:wru/ui/create_card/templates/cards/card_state.dart';
 import 'package:wru/ui/theme/app_text_theme.dart';
 import 'package:wru/ui/theme/app_theme.dart';
 
 class TestCardPage extends HookConsumerWidget {
-  const TestCardPage({super.key});
+  const TestCardPage(this.cardState, {super.key});
+  final CardState cardState;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -32,8 +34,9 @@ class TestCardPage extends HookConsumerWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('田村駿典', style: theme.textTheme.h50.bold()),
-                        Text('Shunsuke Tamura',
+                        Text(cardState.informations[0],
+                            style: theme.textTheme.h50.bold()),
+                        Text(cardState.informations[1],
                             style: theme.textTheme.h10.dense()),
                       ],
                     )
@@ -41,14 +44,14 @@ class TestCardPage extends HookConsumerWidget {
                 ),
                 Row(
                   children: [
-                    Text('宮崎大学', style: theme.textTheme.h30),
-                    Text('理工学部', style: theme.textTheme.h30),
+                    Text(cardState.informations[2], style: theme.textTheme.h30),
+                    Text(cardState.informations[3], style: theme.textTheme.h30),
                   ],
                 ),
                 Row(
                   children: [
-                    Text('情報コース知能情報専攻', style: theme.textTheme.h30),
-                    Text('3', style: theme.textTheme.h30),
+                    Text(cardState.informations[4], style: theme.textTheme.h30),
+                    Text(cardState.informations[5], style: theme.textTheme.h30),
                     Text('年', style: theme.textTheme.h30),
                   ],
                 ),
@@ -65,7 +68,7 @@ class TestCardPage extends HookConsumerWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '宮崎県 佐土原高校出身\nバドミントン歴11年\n好きなバンド Mrs. GREEN APPLE\n好きなアニメ 進撃の巨人',
+                            cardState.informations[6],
                             style: theme.textTheme.h20.dense(),
                           )
                         ],
