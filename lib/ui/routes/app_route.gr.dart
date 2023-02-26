@@ -71,9 +71,11 @@ class AppRouter extends _i9.RootStackRouter {
       );
     },
     QrScanRoute.name: (routeData) {
+      final args = routeData.argsAs<QrScanRouteArgs>(
+          orElse: () => const QrScanRouteArgs());
       return _i9.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: const _i8.QrScanPage(),
+        child: _i8.QrScanPage(key: args.key),
       );
     },
   };
@@ -218,12 +220,24 @@ class QrDisplayRoute extends _i9.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i8.QrScanPage]
-class QrScanRoute extends _i9.PageRouteInfo<void> {
-  const QrScanRoute()
+class QrScanRoute extends _i9.PageRouteInfo<QrScanRouteArgs> {
+  QrScanRoute({_i10.Key? key})
       : super(
           QrScanRoute.name,
           path: 'scan',
+          args: QrScanRouteArgs(key: key),
         );
 
   static const String name = 'QrScanRoute';
+}
+
+class QrScanRouteArgs {
+  const QrScanRouteArgs({this.key});
+
+  final _i10.Key? key;
+
+  @override
+  String toString() {
+    return 'QrScanRouteArgs{key: $key}';
+  }
 }
