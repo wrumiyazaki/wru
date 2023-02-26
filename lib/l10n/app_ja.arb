@@ -15,6 +15,8 @@
   "gender": "性別",
   "belonging1": "所属１",
   "belonging2": "所属２",
-  "belonging3": "所属３"
+  "belonging3": "所属３",
+  "displayQr" : "QRコード表示",
+  "scan" : "スキャン"
 
 }

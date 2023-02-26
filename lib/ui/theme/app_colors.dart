@@ -19,6 +19,8 @@ class AppColors {
     required this.barbackground,
     required this.homeProfileText,
     required this.homeProfileBackground,
+    required this.qrCanPress,
+    required this.qrCanNotPress,
   });
 
   factory AppColors.light() {
@@ -40,6 +42,8 @@ class AppColors {
       barbackground: Colors.white,
       homeProfileText: Colors.white,
       homeProfileBackground: Color(0xFF4e4f50),
+      qrCanPress: Colors.white,
+      qrCanNotPress: Colors.grey,
     );
   }
 
@@ -62,6 +66,8 @@ class AppColors {
       barbackground: Colors.white,
       homeProfileText: Colors.white,
       homeProfileBackground: Color(0xFF4e4f50),
+      qrCanPress: Colors.white,
+      qrCanNotPress: Colors.grey,
     );
   }
 
@@ -83,4 +89,6 @@ class AppColors {
   final Color barbackground;
   final Color homeProfileText;
   final Color homeProfileBackground;
+  final Color qrCanPress;
+  final Color qrCanNotPress;
 }
