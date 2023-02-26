@@ -9,6 +9,7 @@ class QRCodeNotifier extends StateNotifier<Barcode> {
   QRViewController? controller;
   QRCodeNotifier() : super(Barcode(null, BarcodeFormat.unknown, null));
 
+  //QRコードを読み取ったあとの処理を書く
   void onQRViewCreated(QRViewController controller) {
     this.controller = controller;
     this.controller!.scannedDataStream.listen((scanData) {
