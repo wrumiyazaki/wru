@@ -55,6 +55,7 @@ class QrScanPage extends HookConsumerWidget {
               onPressed: () async {
                 absorbnotifier.state = true;
                 context.router.push(const QrDisplayRoute());
+                controllernotifier.controller!.pauseCamera();
                 await Future.delayed(Duration(milliseconds: 300));
                 absorbnotifier.state = false;
               },
@@ -73,6 +74,7 @@ class QrScanPage extends HookConsumerWidget {
               onPressed: () async {
                 absorbnotifier.state = true;
                 context.router.push(const QrDisplayRoute());
+                controllernotifier.controller!.pauseCamera();
                 await Future.delayed(Duration(milliseconds: 300));
                 absorbnotifier.state = false;
               },
@@ -112,6 +114,7 @@ class QrScanPage extends HookConsumerWidget {
             child: FloatingActionButton(
               onPressed: () {
                 context.router.push(const RecieveRoute());
+                controllernotifier.controller!.pauseCamera();
               },
             ),
           )
