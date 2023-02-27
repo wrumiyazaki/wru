@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:wru/foundation/constants.dart';
-import 'package:wru/ui/create_card/templates/cards/card_view_model.dart';
+import 'package:wru/ui/create_card/templates/cards/card_state.dart';
 import 'package:wru/ui/theme/app_text_theme.dart';
 import 'package:wru/ui/theme/app_theme.dart';
 
 class NormalCardPage extends HookConsumerWidget {
-  const NormalCardPage({required this.initialInformations, super.key});
-  final List<String> initialInformations;
+  const NormalCardPage({required this.state, super.key});
+  final CardState state;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(appThemeProvider);
-    final state = ref.watch(cardViewModelFamily(initialInformations));
 
     return AspectRatio(
       aspectRatio: Constants.cardAspectRatio,
