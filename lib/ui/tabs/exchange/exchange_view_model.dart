@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
+final imageprovider = StateProvider<bool>((ref) => true);
+
 class QRCodeNotifier extends StateNotifier<Barcode> {
   QRViewController? controller;
   QRCodeNotifier() : super(Barcode(null, BarcodeFormat.unknown, null));
@@ -20,7 +22,7 @@ class QRCodeNotifier extends StateNotifier<Barcode> {
 }
 
 class ExchangeViewModel extends StatelessWidget {
-  const ExchangeViewModel({super.key});
+  ExchangeViewModel({super.key});
 
   String myQrCode() {
     //firebaseから取得した
