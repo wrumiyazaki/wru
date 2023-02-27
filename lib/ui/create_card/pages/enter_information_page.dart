@@ -24,6 +24,13 @@ class EnterInformationPage extends HookConsumerWidget {
         ),
         backgroundColor: const Color(0xFF4e4f50),
       ),
+      floatingActionButton: IconButton(
+        icon: const Icon(
+          Icons.check_circle_rounded,
+          size: 54,
+        ),
+        onPressed: () => print('submit'),
+      ),
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.all(10),
