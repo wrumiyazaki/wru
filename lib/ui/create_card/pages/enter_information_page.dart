@@ -14,6 +14,16 @@ class EnterInformationPage extends HookConsumerWidget {
 
     return Scaffold(
       backgroundColor: theme.appColors.background,
+      appBar: AppBar(
+        iconTheme: const IconThemeData(color: Colors.white),
+        titleTextStyle:
+            theme.textTheme.h60.merge(const TextStyle(color: Colors.white)),
+        title: const Text(
+          '情報入力',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: const Color(0xFF4e4f50),
+      ),
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.all(10),
