@@ -1,7 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:wru/ui/create_card/create_card_state.dart';
-import 'package:wru/ui/create_card/templates/cards/normal_card/normal_card_page.dart';
-import 'package:wru/ui/create_card/templates/cards/test_card/test_card_page.dart';
+import 'package:wru/ui/create_card/templates/cards/normal_card_page.dart';
+import 'package:wru/ui/create_card/templates/cards/test_card_page.dart';
 import 'package:wru/ui/create_card/templates/input_items/input_items.dart';
 import 'package:wru/ui/create_card/templates/template.dart';
 
