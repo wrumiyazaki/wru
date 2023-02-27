@@ -1,53 +1,57 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:wru/ui/create_card/create_card_state.dart';
-import 'package:wru/ui/create_card/templates/cards/card_view_model.dart';
 import 'package:wru/ui/create_card/templates/cards/normal_card/normal_card_page.dart';
+import 'package:wru/ui/create_card/templates/cards/test_card/test_card_page.dart';
 import 'package:wru/ui/create_card/templates/input_items/input_items.dart';
 import 'package:wru/ui/create_card/templates/template.dart';
 
 final createCardViewModelProvider =
     StateNotifierProvider.autoDispose<CreateCardViewModel, CreateCardState>(
-  (ref) => CreateCardViewModel(ref: ref),
+  (ref) => CreateCardViewModel(),
 );
 
 class CreateCardViewModel extends StateNotifier<CreateCardState> {
-  CreateCardViewModel({required AutoDisposeStateNotifierProviderRef ref})
-      : _ref = ref,
-        super(const CreateCardState()) {
+  CreateCardViewModel() : super(const CreateCardState()) {
     load();
   }
-  final AutoDisposeStateNotifierProviderRef _ref;
 
   void load() {
-    final normalCardState = _ref
-        .watch(cardViewModelFamily(InputItemsTemplate.normalInputInitialValue));
     final normalTemplate = Template(
-      NormalCardPage(state: normalCardState),
-      normalCardState,
+      NormalCardPage(initialValue: InputItemsTemplate.normalInputInitialValue),
       InputItemsTemplate.normalInputItems,
+      InputItemsTemplate.normalInputInitialValue,
     );
 
-    final testCardState = _ref
-        .watch(cardViewModelFamily(InputItemsTemplate.testInputInitialValue));
     final testTemplate = Template(
-      NormalCardPage(state: testCardState),
-      testCardState,
+      TestCardPage(initialValue: InputItemsTemplate.testInputInitialValue),
       InputItemsTemplate.testInputItems,
+      InputItemsTemplate.testInputInitialValue,
     );
 
-    state = CreateCardState(templates: [
-      normalTemplate,
-      testTemplate,
-      normalTemplate,
-      testTemplate,
-      normalTemplate,
-      testTemplate,
-      normalTemplate,
-      testTemplate,
-    ]);
+    state = CreateCardState(
+      templates: [
+        normalTemplate,
+        testTemplate,
+        normalTemplate,
+        testTemplate,
+        normalTemplate,
+        testTemplate,
+        normalTemplate,
+        testTemplate,
+      ],
+    );
   }
 
   void selectTemplate(int idx) {
-    state = state.copyWith(selectedTemplate: state.templates[idx]);
+    state = state.copyWith(
+      selectedTemplate: state.templates[idx],
+      enteredInformations: state.templates[idx].inputInitialValue,
+    );
+  }
+
+  void updateInformation(int idx, String value) {
+    var informations = [...state.enteredInformations];
+    informations[idx] = value;
+    state = state.copyWith(enteredInformations: informations);
   }
 }

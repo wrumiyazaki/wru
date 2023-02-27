@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:wru/ui/create_card/create_card_state.dart';
 import 'package:wru/ui/create_card/create_card_view_model.dart';
 import 'package:wru/ui/theme/app_theme.dart';
 
 class EnterInformationPage extends HookConsumerWidget {
-  const EnterInformationPage(
-      {required this.state, required this.viewModel, super.key});
-  final CreateCardState state;
-  final CreateCardViewModel viewModel;
+  const EnterInformationPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(appThemeProvider);
+    final state = ref.watch(createCardViewModelProvider);
+    final viewModel = ref.watch(createCardViewModelProvider.notifier);
 
     return Scaffold(
       backgroundColor: theme.appColors.background,
