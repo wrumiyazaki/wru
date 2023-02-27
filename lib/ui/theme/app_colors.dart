@@ -16,7 +16,7 @@ class AppColors {
     required this.onError,
     required this.unselectedIcon,
     required this.selectedIcon,
-    required this.barbackground,
+    required this.tabBarBackground,
   });
 
   factory AppColors.light() {
@@ -35,7 +35,7 @@ class AppColors {
       onError: Color(0xFFFFFFFF),
       unselectedIcon: Color.fromRGBO(158, 158, 158, 1),
       selectedIcon: Color(0xFFb58676),
-      barbackground: Colors.white,
+      tabBarBackground: Colors.white,
     );
   }
 
@@ -55,7 +55,7 @@ class AppColors {
       onError: Color(0xFFFFFFFF),
       unselectedIcon: Color.fromRGBO(158, 158, 158, 1),
       selectedIcon: Color(0xFFb58676),
-      barbackground: Colors.white,
+      tabBarBackground: Colors.white,
     );
   }
 
@@ -74,5 +74,5 @@ class AppColors {
   final Color onError;
   final Color selectedIcon;
   final Color unselectedIcon;
-  final Color barbackground;
+  final Color tabBarBackground;
 }
