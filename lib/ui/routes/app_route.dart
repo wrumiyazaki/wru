@@ -1,4 +1,6 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:wru/ui/profile/profile_edit_page.dart';
+import 'package:wru/ui/profile/profile_page.dart';
 import 'package:wru/ui/routes/route_path.dart';
 import 'package:wru/ui/signIn/sign_in_page.dart';
 import 'package:wru/ui/signUp/sign_up_page.dart';
@@ -9,7 +11,22 @@ import 'package:wru/ui/tabs/tab_page.dart';
 
 @AdaptiveAutoRouter(
   replaceInRouteName: 'Page,Route',
-  routes: <AutoRoute>[
+  routes: [
+    AutoRoute(
+        path: RoutePath.appRouteTab,
+        page: TabPage,
+        children: [
+          //ネストする必要がある
+          AutoRoute(path: 'home', page: HomePage, children: []),
+          AutoRoute(path: 'exchange', page: ExchangePage),
+          AutoRoute(path: 'friend', page: FriendPage),
+        ],
+        initial: true),
+    AutoRoute(
+      path: RoutePath.appRouteProfile,
+      page: ProfilePage,
+    ),
+    AutoRoute(path: RoutePath.appRouteProfile, page: ProfileEditPage),
     AutoRoute(
       path: RoutePath.appRoutSignIn,
       page: SignInPage,
@@ -19,17 +36,6 @@ import 'package:wru/ui/tabs/tab_page.dart';
       path: RoutePath.appRoutSignUp,
       page: SignUpPage,
       // initial: true,
-    ),
-    AutoRoute(
-      path: RoutePath.appRouteTab,
-      page: TabPage,
-      children: [
-        //ネストする必要がある
-        AutoRoute(path: 'home', page: HomePage),
-        AutoRoute(path: 'exchange', page: ExchangePage),
-        AutoRoute(path: 'friend', page: FriendPage),
-      ],
-      initial: true,
     ),
   ],
 )
