@@ -9,4 +9,8 @@ final cardViewModelFamily =
 class CardViewModel extends StateNotifier<CardState> {
   CardViewModel({required List<String> informations})
       : super(CardState(informations: informations));
+
+  void updateInformation(int idx, String value) {
+    state.informations[idx] = value;
+  }
 }
