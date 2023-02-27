@@ -33,7 +33,8 @@ class EnterInformationPage extends HookConsumerWidget {
                     itemBuilder: (context, index) => Container(
                       padding: const EdgeInsets.only(top: 8),
                       child: TextFormField(
-                        initialValue: state.enteredInformations[index],
+                        initialValue:
+                            state.selectedTemplate!.inputInitialValue[index],
                         onChanged: (value) =>
                             viewModel.updateInformation(index, value),
                         keyboardType: state.selectedTemplate!.inputItems[index]

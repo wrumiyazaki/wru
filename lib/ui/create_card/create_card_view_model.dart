@@ -28,7 +28,7 @@ class CreateCardViewModel extends StateNotifier<CreateCardState> {
       InputItemsTemplate.testInputInitialValue,
     );
 
-    state = CreateCardState(
+    state = state.copyWith(
       templates: [
         normalTemplate,
         testTemplate,
@@ -39,6 +39,7 @@ class CreateCardViewModel extends StateNotifier<CreateCardState> {
         normalTemplate,
         testTemplate,
       ],
+      enteredInformations: [],
     );
   }
 

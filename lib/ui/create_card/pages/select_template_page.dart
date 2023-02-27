@@ -31,7 +31,9 @@ class SelectTemplatePage extends HookConsumerWidget {
               itemBuilder: (context, index) => InkWell(
                 onTap: () {
                   viewModel.selectTemplate(index);
-                  router.push(const EnterInformationRoute());
+                  router
+                      .push(const EnterInformationRoute())
+                      .then((_) => viewModel.load());
                 },
                 child: state.templates[index].card,
               ),
