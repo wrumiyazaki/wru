@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:wru/ui/create_card/create_card_page.dart';
 import 'package:wru/ui/create_card/enter_information/enter_information_page.dart';
 import 'package:wru/ui/create_card/select_template/select_template_page.dart';
 import 'package:wru/ui/routes/route_path.dart';
@@ -14,13 +13,9 @@ import 'package:wru/ui/xxx/xxx_page.dart';
       // initial: true,
     ),
     AutoRoute(
-      path: RoutePath.appRouteCreateCard,
-      page: CreateCardPage,
-      initial: true,
-    ),
-    AutoRoute(
       path: RoutePath.appRouteSelectTemplate,
       page: SelectTemplatePage,
+      initial: true,
     ),
     AutoRoute(
       path: RoutePath.appRouteEnterInformation,
