@@ -33,6 +33,15 @@ class ExchangeViewModel extends StatelessWidget {
     return '小林';
   }
 
+  String yourName(String cardid) {
+    //cardIDを使って名刺の中に書いてある名前を取得してそれを返す
+    return '小林';
+  }
+
+  void memoSave(String text) {
+    print(text);
+  }
+
   @override
   Widget build(BuildContext context) {
     return const Placeholder();
