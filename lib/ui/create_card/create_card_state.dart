@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:wru/ui/create_card/templates/cards/card_state.dart';
 import 'package:wru/ui/create_card/templates/template.dart';
 
 part 'create_card_state.freezed.dart';
