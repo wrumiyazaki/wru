@@ -18,6 +18,8 @@ class QrDisplayPage extends HookConsumerWidget {
     final absorb = ref.watch(absorbProvider);
     final absorbnotifier = ref.watch(absorbProvider.notifier);
     final controllernotifier = ref.watch(qrCodeProvider.notifier);
+    final onCamerastate = ref.watch(onCameraProvider);
+    final onCameranotifier = ref.read(onCameraProvider.notifier);
 
     return Container(
       color: theme.appColors.exchangeBackground,
@@ -87,7 +89,10 @@ class QrDisplayPage extends HookConsumerWidget {
                 onPressed: () async {
                   absorbnotifier.state = true;
                   context.router.push(QrScanRoute());
-                  controllernotifier.controller!.resumeCamera();
+                  if (onCamerastate == true) {
+                    controllernotifier.controller!.resumeCamera();
+                  }
+                  onCameranotifier.state = false;
                   await Future.delayed(Duration(milliseconds: 300));
                   absorbnotifier.state = false;
                 },
@@ -99,7 +104,10 @@ class QrDisplayPage extends HookConsumerWidget {
                 onPressed: () async {
                   absorbnotifier.state = true;
                   context.router.push(QrScanRoute());
-                  controllernotifier.controller!.resumeCamera();
+                  if (onCamerastate == true) {
+                    controllernotifier.controller!.resumeCamera();
+                  }
+                  onCameranotifier.state = false;
                   await Future.delayed(Duration(milliseconds: 300));
                   absorbnotifier.state = false;
                 },

@@ -12,3 +12,5 @@ final qrCodeProvider =
 });
 
 final imageprovider = StateProvider<bool>((ref) => true);
+
+final onCameraProvider = StateProvider<bool>((ref) => false);
