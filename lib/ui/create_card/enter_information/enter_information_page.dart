@@ -1,24 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:wru/ui/create_card/enter_information/enter_information_view_model.dart';
-import 'package:wru/ui/create_card/select_template/select_template_view_model.dart';
+import 'package:wru/ui/create_card/create_card_state.dart';
+import 'package:wru/ui/create_card/create_card_view_model.dart';
 import 'package:wru/ui/theme/app_theme.dart';
 
-class InputItem {
-  final String label;
-  final bool? isMultiLine;
-
-  InputItem({this.label = '', this.isMultiLine = false});
-}
-
 class EnterInformationPage extends HookConsumerWidget {
-  const EnterInformationPage({super.key});
+  const EnterInformationPage(
+      {required this.state, required this.viewModel, super.key});
+  final CreateCardState state;
+  final CreateCardViewModel viewModel;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(appThemeProvider);
-    final state = ref.watch(enterInformationViewModelProvider);
-    final viewModel = ref.watch(enterInformationViewModelProvider.notifier);
 
     return Scaffold(
       backgroundColor: theme.appColors.background,

@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:wru/ui/create_card/select_template/select_template_view_model.dart';
+import 'package:wru/ui/create_card/create_card_state.dart';
+import 'package:wru/ui/create_card/create_card_view_model.dart';
 import 'package:wru/ui/hooks/use_router.dart';
 import 'package:wru/ui/routes/app_route.gr.dart';
 
 class SelectTemplatePage extends HookConsumerWidget {
-  const SelectTemplatePage({super.key});
+  const SelectTemplatePage(
+      {required this.state, required this.viewModel, super.key});
+  final CreateCardState state;
+  final CreateCardViewModel viewModel;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(selectTemplateViewModelProvider);
-    final viewModel = ref.watch(selectTemplateViewModelProvider.notifier);
     final router = useRouter();
 
     return Scaffold(
@@ -30,8 +32,9 @@ class SelectTemplatePage extends HookConsumerWidget {
               ),
               itemBuilder: (context, index) => InkWell(
                 onTap: () {
-                  viewModel.select(index);
-                  router.push(const EnterInformationRoute());
+                  viewModel.selectTemplate(index);
+                  router.push(EnterInformationRoute(
+                      state: state, viewModel: viewModel));
                 },
                 child: state.templates[index].card,
               ),
