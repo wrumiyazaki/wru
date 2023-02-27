@@ -10,3 +10,5 @@ final qrCodeProvider =
   ref.onDispose(() => notifier.controller?.dispose());
   return notifier;
 });
+
+final imageprovider = StateProvider<bool>((ref) => true);
