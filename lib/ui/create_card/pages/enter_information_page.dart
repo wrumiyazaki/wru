@@ -57,7 +57,7 @@ class EnterInformationPage extends HookConsumerWidget {
                         keyboardType: state.selectedTemplate!.inputItems[index]
                                 .isMultiLine!
                             ? TextInputType.multiline
-                            : TextInputType.none,
+                            : TextInputType.text,
                         maxLines: state.selectedTemplate!.inputItems[index]
                                 .isMultiLine!
                             ? 3
