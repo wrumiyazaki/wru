@@ -1,32 +1,6 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-final List<String> nameCardImage = [
-  'assets/img/namecard-sample.png',
-  'assets/img/namecard-sample.png',
-  'assets/img/namecard-sample.png',
-  'assets/img/namecard-sample.png',
-  'assets/img/namecard-sample.png',
-];
-
-final List<String> portraitImage = [
-  'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/800px-Image_created_with_a_mobile_phone.png',
-  'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/800px-Image_created_with_a_mobile_phone.png',
-  'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/800px-Image_created_with_a_mobile_phone.png',
-  'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/800px-Image_created_with_a_mobile_phone.png',
-  'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/800px-Image_created_with_a_mobile_phone.png',
-];
-
-//firebaseから要素数を取得
-final listlength = nameCardImage.length;
-
-final List<bool> boolList = List.filled(listlength, true);
-
-final boolsprovider = StateProvider<List>((ref) {
-  return boolList;
-});
+import 'package:wru/ui/tabs/friend/friend_view_model.dart';
 
 class FriendPage extends HookConsumerWidget {
   FriendPage({super.key});
@@ -51,12 +25,12 @@ class FriendPage extends HookConsumerWidget {
             child: boolsstate[index]
                 ? Image.asset(
                     //firebase
-                    nameCardImage[index],
+                    FriendViewModel().nameCardImage[index],
                     fit: BoxFit.contain,
                   )
                 : Image.network(
                     //firebase
-                    portraitImage[index],
+                    FriendViewModel().portraitImage[index],
                     fit: BoxFit.contain,
                   ),
           ),
@@ -69,7 +43,7 @@ class FriendPage extends HookConsumerWidget {
       child: Scrollbar(
         thumbVisibility: true,
         child: ListView.builder(
-          itemCount: listlength,
+          itemCount: FriendViewModel().listlength,
           itemBuilder: (context, index) {
             return nameCard(index);
           },
