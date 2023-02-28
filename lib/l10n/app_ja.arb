@@ -1,6 +1,7 @@
 {
   "@@locale": "ja",
   "hello": "こんにちは",
+  "design": "デザイン"
   "signIn": "ログイン",
   "toSignIn": "アカウントをお持ちの方",
   "signUp": "アカウント作成",

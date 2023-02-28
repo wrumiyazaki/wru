@@ -16,6 +16,9 @@ class AppColors {
     required this.onError,
     required this.unselectedIcon,
     required this.selectedIcon,
+    required this.barbackground,
+    required this.homeProfileText,
+    required this.homeProfileBackground,
     required this.tabBarBackground,
   });
 
@@ -35,6 +38,9 @@ class AppColors {
       onError: Color(0xFFFFFFFF),
       unselectedIcon: Color.fromRGBO(158, 158, 158, 1),
       selectedIcon: Color(0xFFb58676),
+      barbackground: Colors.white,
+      homeProfileText: Colors.white,
+      homeProfileBackground: Color(0xFF4e4f50),
       tabBarBackground: Colors.white,
     );
   }
@@ -55,6 +61,9 @@ class AppColors {
       onError: Color(0xFFFFFFFF),
       unselectedIcon: Color.fromRGBO(158, 158, 158, 1),
       selectedIcon: Color(0xFFb58676),
+      barbackground: Colors.white,
+      homeProfileText: Colors.white,
+      homeProfileBackground: Color(0xFF4e4f50),
       tabBarBackground: Colors.white,
     );
   }
@@ -74,5 +83,8 @@ class AppColors {
   final Color onError;
   final Color selectedIcon;
   final Color unselectedIcon;
+  final Color barbackground;
+  final Color homeProfileText;
+  final Color homeProfileBackground;
   final Color tabBarBackground;
 }
