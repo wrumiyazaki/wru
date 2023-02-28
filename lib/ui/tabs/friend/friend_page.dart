@@ -33,6 +33,48 @@ class FriendPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Container();
+    final boolsstate = ref.watch(boolsprovider);
+    final boolsstatenotifier = ref.read(boolsprovider.notifier);
+
+    Widget nameCard(index) {
+      return Material(
+        elevation: 5,
+        child: Container(
+          height: 250,
+          width: 413.636,
+          padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+          child: GestureDetector(
+            onTap: () {
+              boolsstatenotifier.state[index] = !boolsstate[index];
+              boolsstatenotifier.state = [...boolsstate];
+            },
+            child: boolsstate[index]
+                ? Image.asset(
+                    //firebase
+                    nameCardImage[index],
+                    fit: BoxFit.contain,
+                  )
+                : Image.network(
+                    //firebase
+                    portraitImage[index],
+                    fit: BoxFit.contain,
+                  ),
+          ),
+        ),
+      );
+    }
+
+    return Container(
+      padding: const EdgeInsets.all(8.0),
+      child: Scrollbar(
+        thumbVisibility: true,
+        child: ListView.builder(
+          itemCount: listlength,
+          itemBuilder: (context, index) {
+            return nameCard(index);
+          },
+        ),
+      ),
+    );
   }
 }
