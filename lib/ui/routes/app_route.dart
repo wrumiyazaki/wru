@@ -7,6 +7,7 @@ import 'package:wru/ui/tabs/exchange/qr_display_page.dart';
 import 'package:wru/ui/tabs/exchange/qr_scan_page.dart';
 import 'package:wru/ui/tabs/exchange/reicive_page.dart';
 import 'package:wru/ui/tabs/friend/friend_page.dart';
+import 'package:wru/ui/tabs/friend/memo_edit_page.dart';
 import 'package:wru/ui/tabs/home/home_page.dart';
 import 'package:wru/ui/tabs/tab_page.dart';
 import 'package:auto_route/empty_router_widgets.dart';
@@ -29,13 +30,21 @@ import 'package:auto_route/empty_router_widgets.dart';
                 AutoRoute(path: 'scan', page: QrScanPage),
                 AutoRoute(path: 'receive', page: RecievePage),
               ]),
-          AutoRoute(path: 'friend', page: FriendPage),
+          AutoRoute(
+              path: 'friend',
+              page: EmptyRouterPage,
+              name: 'FriendTab',
+              children: [
+                AutoRoute(path: '', page: FriendPage),
+                AutoRoute(path: 'memoedit', page: MemoEditPage),
+              ]),
         ],
         initial: true),
     AutoRoute(
       path: RoutePath.appRouteProfile,
       page: ProfilePage,
     ),
+    AutoRoute(path: RoutePath.appRouteProfile, page: ProfileEditPage),
     AutoRoute(path: RoutePath.appRouteProfile, page: ProfileEditPage),
   ],
 )
