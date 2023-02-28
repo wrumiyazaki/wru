@@ -60,9 +60,11 @@ class AppRouter extends _i10.RootStackRouter {
       );
     },
     FriendRoute.name: (routeData) {
+      final args = routeData.argsAs<FriendRouteArgs>(
+          orElse: () => const FriendRouteArgs());
       return _i10.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: const _i6.FriendPage(),
+        child: _i6.FriendPage(key: args.key),
       );
     },
     QrDisplayRoute.name: (routeData) {
@@ -208,14 +210,26 @@ class ExchangeTab extends _i10.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i6.FriendPage]
-class FriendRoute extends _i10.PageRouteInfo<void> {
-  const FriendRoute()
+class FriendRoute extends _i10.PageRouteInfo<FriendRouteArgs> {
+  FriendRoute({_i11.Key? key})
       : super(
           FriendRoute.name,
           path: 'friend',
+          args: FriendRouteArgs(key: key),
         );
 
   static const String name = 'FriendRoute';
+}
+
+class FriendRouteArgs {
+  const FriendRouteArgs({this.key});
+
+  final _i11.Key? key;
+
+  @override
+  String toString() {
+    return 'FriendRouteArgs{key: $key}';
+  }
 }
 
 /// generated route for
