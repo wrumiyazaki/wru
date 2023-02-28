@@ -20,73 +20,73 @@ class ProfileEditPage extends HookConsumerWidget {
 
     //プロフィール編集１つ分のWidget
     Widget modelToWidget(ProfileElement model) {
-      return Container(
-        child: Column(children: [
-          Container(
-            child: Text(
-              model.name,
-              style: theme.textTheme.h20.copyWith(color: Colors.grey.shade700),
-            ),
-            alignment: Alignment.centerLeft,
-            padding: EdgeInsets.fromLTRB(30, 20, 0, 5),
+      return Column(children: [
+        Container(
+          child: Text(
+            model.name,
+            style: theme.textTheme.h20.copyWith(color: Colors.grey.shade700),
           ),
-          Container(
-            child: TextFormField(
-              style: theme.textTheme.h40,
-              controller: TextEditingController(text: model.text),
-              onChanged: (value) {
-                ref.read(textchangedProvider.notifier).state =
-                    true; //文字が変更されたらtrueにする
-              },
-            ),
-            alignment: Alignment.centerLeft,
-            padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
+          alignment: Alignment.centerLeft,
+          padding: EdgeInsets.fromLTRB(30, 20, 0, 5),
+        ),
+        Container(
+          child: TextFormField(
+            style: theme.textTheme.h40,
+            controller: TextEditingController(text: model.text),
+            onChanged: (value) {
+              ref.read(textchangedProvider.notifier).state =
+                  true; //文字が変更されたらtrueにする
+            },
           ),
-          // Divider( //線を引くやつ
-          //   indent: 30,
-          //   endIndent: 30,
-          //   thickness: 1,
-          // )
-        ]),
-      );
+          alignment: Alignment.centerLeft,
+          padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
+        ),
+        // Divider( //線を引くやつ
+        //   indent: 30,
+        //   endIndent: 30,
+        //   thickness: 1,
+        // )
+      ]);
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        //この辺を変更するときはprofile_pageも変更する
-        title: const Text('プロフィール'),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new),
-          color: Colors.grey,
-          onPressed: () {
-            context.popRoute(
-                ref.read(textchangedProvider.notifier).state = false //falseに戻す
-                );
-          },
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          //この辺を変更するときはprofile_pageも変更する
+          title: const Text('プロフィール'),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios_new),
+            color: Colors.grey,
+            onPressed: () {
+              context.popRoute(ref.read(textchangedProvider.notifier).state =
+                      false //falseに戻す
+                  );
+            },
+          ),
+          backgroundColor: theme.appColors.background,
+          elevation: 0,
+          actions: textchanged == false
+              ? null
+              : [
+                  TextButton(
+                    style: TextButton.styleFrom(),
+                    onPressed: () {
+                      //firebaseに保存する処理がここにくる
+                      ref.read(textchangedProvider.notifier).state =
+                          false; //falseに戻す
+                      context.pushRoute(TabRoute());
+                    },
+                    child: Text(
+                      '保存',
+                      style: theme.textTheme.h40.copyWith(color: Colors.black),
+                    ),
+                  )
+                ],
         ),
-        backgroundColor: theme.appColors.background,
-        elevation: 0,
-        actions: textchanged == false
-            ? null
-            : [
-                TextButton(
-                  style: TextButton.styleFrom(),
-                  onPressed: () {
-                    //firebaseに保存する処理がここにくる
-                    ref.read(textchangedProvider.notifier).state =
-                        false; //falseに戻す
-                    context.pushRoute(TabRoute());
-                  },
-                  child: Text(
-                    '保存',
-                    style: theme.textTheme.h40.copyWith(color: Colors.black),
-                  ),
-                )
-              ],
-      ),
-      body: ListView.builder(
-        itemCount: models.length,
-        itemBuilder: (context, index) => modelToWidget(models[index]),
+        body: ListView.builder(
+          itemCount: models.length,
+          itemBuilder: (context, index) => modelToWidget(models[index]),
+        ),
       ),
     );
   }

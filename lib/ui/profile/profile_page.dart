@@ -30,9 +30,6 @@ final models = [
   ProfileElement('所属１', 'aaaaaaaaaaa'),
   ProfileElement('所属２', 'aaaaaaaaaaa'),
   ProfileElement('所属３', 'aaaaaaaa'),
-  ProfileElement('追加？', 'aaa'),
-  ProfileElement('追加？', 'aaa'),
-  ProfileElement('追加？', 'aaa'),
 ];
 
 class ProfilePage extends HookConsumerWidget {
@@ -44,62 +41,62 @@ class ProfilePage extends HookConsumerWidget {
 
     //プロフィール１つ分のWidget
     Widget modelToWidget(ProfileElement model) {
-      return Container(
-        child: Column(children: [
-          Container(
-            child: Text(
-              model.name,
-              style: theme.textTheme.h20.copyWith(color: Colors.grey.shade700),
-            ),
-            alignment: Alignment.centerLeft,
-            padding: EdgeInsets.fromLTRB(30, 20, 0, 5),
+      return Column(children: [
+        Container(
+          child: Text(
+            model.name,
+            style: theme.textTheme.h20.copyWith(color: Colors.grey.shade700),
           ),
-          Container(
-            child: Text(
-              model.text,
-              style: theme.textTheme.h40,
-            ),
-            alignment: Alignment.centerLeft,
-            padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
+          alignment: Alignment.centerLeft,
+          padding: EdgeInsets.fromLTRB(30, 20, 0, 5),
+        ),
+        Container(
+          child: Text(
+            model.text,
+            style: theme.textTheme.h40,
           ),
-          // Divider( //線を引くやつ
-          //   indent: 30,
-          //   endIndent: 30,
-          //   thickness: 1,
-          // )
-        ]),
-      );
+          alignment: Alignment.centerLeft,
+          padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
+        ),
+        // Divider( //線を引くやつ
+        //   indent: 30,
+        //   endIndent: 30,
+        //   thickness: 1,
+        // )
+      ]);
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        //この辺を変更するときはprofile_edit_pageも変更しないといけないかも
-        title: const Text('プロフィール'),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new),
-          color: Colors.grey,
-          onPressed: () {
-            context.popRoute();
-          },
-        ),
-        backgroundColor: theme.appColors.background,
-        elevation: 0,
-        actions: [
-          TextButton(
-            style: TextButton.styleFrom(),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          //この辺を変更するときはprofile_edit_pageも変更しないといけないかも
+          title: const Text('プロフィール'),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios_new),
+            color: Colors.grey,
             onPressed: () {
-              context.router.push(ProfileEditRoute());
+              context.popRoute();
             },
-            child: Text(
-              '編集',
-              style: theme.textTheme.h40.copyWith(color: Colors.black),
-            ),
-          )
-        ],
-      ),
-      body: ListView.builder(
-        itemCount: models.length,
-        itemBuilder: (context, index) => modelToWidget(models[index]),
+          ),
+          backgroundColor: theme.appColors.background,
+          elevation: 0,
+          actions: [
+            TextButton(
+              style: TextButton.styleFrom(),
+              onPressed: () {
+                context.router.push(ProfileEditRoute());
+              },
+              child: Text(
+                '編集',
+                style: theme.textTheme.h40.copyWith(color: Colors.black),
+              ),
+            )
+          ],
+        ),
+        body: ListView.builder(
+          itemCount: models.length,
+          itemBuilder: (context, index) => modelToWidget(models[index]),
+        ),
       ),
     );
   }

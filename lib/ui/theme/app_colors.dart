@@ -19,6 +19,7 @@ class AppColors {
     required this.barbackground,
     required this.homeProfileText,
     required this.homeProfileBackground,
+    required this.tabBarBackground,
   });
 
   factory AppColors.light() {
@@ -40,6 +41,7 @@ class AppColors {
       barbackground: Colors.white,
       homeProfileText: Colors.white,
       homeProfileBackground: Color(0xFF4e4f50),
+      tabBarBackground: Colors.white,
     );
   }
 
@@ -62,6 +64,7 @@ class AppColors {
       barbackground: Colors.white,
       homeProfileText: Colors.white,
       homeProfileBackground: Color(0xFF4e4f50),
+      tabBarBackground: Colors.white,
     );
   }
 
@@ -83,4 +86,5 @@ class AppColors {
   final Color barbackground;
   final Color homeProfileText;
   final Color homeProfileBackground;
+  final Color tabBarBackground;
 }
