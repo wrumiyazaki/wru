@@ -16,8 +16,12 @@ class $AssetsImgGen {
   AssetGenImage get flutterIcon =>
       const AssetGenImage('assets/img/flutter-icon.png');
 
+  /// File path: assets/img/namecard-sample.png
+  AssetGenImage get namecardSample =>
+      const AssetGenImage('assets/img/namecard-sample.png');
+
   /// List of all assets
-  List<AssetGenImage> get values => [flutterIcon];
+  List<AssetGenImage> get values => [flutterIcon, namecardSample];
 }
 
 class Assets {
