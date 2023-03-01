@@ -15,6 +15,7 @@ class FriendPage extends HookConsumerWidget {
     final theme = ref.watch(appThemeProvider);
     final boolsstate = ref.watch(boolsprovider);
     final boolsstatenotifier = ref.read(boolsprovider.notifier);
+    final friendindexnotifier = ref.read(frinedindexprovider.notifier);
 
     Widget nameCard(index) {
       return Material(
@@ -57,7 +58,7 @@ class FriendPage extends HookConsumerWidget {
                                 width: double.infinity,
                                 child: SingleChildScrollView(
                                   child: Text(
-                                    FriendViewModel().memo[index],
+                                    friendsmemo[index],
                                     style: theme.textTheme.h40,
                                   ),
                                 ),
@@ -68,6 +69,7 @@ class FriendPage extends HookConsumerWidget {
                                   minimumSize: Size(180, 20),
                                   backgroundColor: Colors.grey),
                               onPressed: () {
+                                friendindexnotifier.state = index;
                                 context.pushRoute(MemoEditRoute());
                                 //firebaseにメモを保存
                               },

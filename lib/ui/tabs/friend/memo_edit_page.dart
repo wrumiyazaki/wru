@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:wru/ui/hooks/use_l10n.dart';
+import 'package:wru/ui/routes/app_route.gr.dart';
 import 'package:wru/ui/tabs/exchange/exchange_state.dart';
 import 'package:wru/ui/tabs/friend/friend_view_model.dart';
 import 'package:wru/ui/theme/app_theme.dart';
@@ -18,7 +19,9 @@ class MemoEditPage extends HookConsumerWidget {
     final controllerstate = ref.watch(qrCodeProvider);
     final imagestate = ref.watch(imageprovider);
     final imagestatenotifier = ref.read(imageprovider.notifier);
-    String memo = '';
+    final friendindexstate = ref.watch(frinedindexprovider);
+    final friendindexnotifier = ref.read(frinedindexprovider.notifier);
+    String memo = friendsmemo[friendindexstate];
 
     return SingleChildScrollView(
       child: Column(
@@ -38,12 +41,12 @@ class MemoEditPage extends HookConsumerWidget {
               child: imagestate
                   ? Image.asset(
                       //firebase
-                      'assets/img/namecard-sample.png',
+                      FriendViewModel().nameCardImage[friendindexstate],
                       fit: BoxFit.contain,
                     )
                   : Image.network(
                       //firebase
-                      'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/800px-Image_created_with_a_mobile_phone.png',
+                      FriendViewModel().portraitImage[friendindexstate],
                       fit: BoxFit.contain,
                     ),
             ),
@@ -58,10 +61,16 @@ class MemoEditPage extends HookConsumerWidget {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black)),
+                    borderSide: BorderSide(color: Colors.black),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
                   alignLabelWithHint: true,
                   hintText: l10n.entermemo),
-              controller: TextEditingController(text: memo),
+              controller:
+                  TextEditingController(text: friendsmemo[friendindexstate]),
+              onChanged: (value) {
+                memo = value;
+              },
             ),
           ),
           Container(
@@ -74,15 +83,15 @@ class MemoEditPage extends HookConsumerWidget {
                     // context.router.push(TabRoute());
                     //firebaseにメモを保存
                     context.router.pop();
-                    FriendViewModel().memoSave(memo);
                   },
                   child: Text('戻る'),
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    // context.router.push(TabRoute());
+                    friendsmemo[friendindexstate] = memo;
+                    context.router.push(FriendRoute());
                     //firebaseにメモを保存
-                    FriendViewModel().memoSave(memo);
+                    FriendViewModel().memoSave(friendindexstate);
                   },
                   child: Text(l10n.save),
                 ),
