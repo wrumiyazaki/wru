@@ -23,7 +23,7 @@ class FriendPage extends HookConsumerWidget {
         child: Container(
           height: 250,
           width: 413.636,
-          padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+          padding: EdgeInsets.fromLTRB(10, 20, 20, 0),
           child: GestureDetector(
             onTap: () {
               boolsstatenotifier.state[index] = !boolsstate[index];
@@ -88,6 +88,7 @@ class FriendPage extends HookConsumerWidget {
     return Container(
       padding: const EdgeInsets.all(8.0),
       child: Scrollbar(
+        thickness: 7,
         thumbVisibility: true,
         child: ListView.builder(
           itemCount: FriendViewModel().listlength,

@@ -1,7 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:wru/ui/hooks/use_l10n.dart';
 import 'package:wru/ui/routes/app_route.gr.dart';
@@ -80,7 +78,6 @@ class MemoEditPage extends HookConsumerWidget {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    // context.router.push(TabRoute());
                     //firebaseにメモを保存
                     context.router.pop();
                   },
