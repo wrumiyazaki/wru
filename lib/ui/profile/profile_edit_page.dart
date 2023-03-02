@@ -13,6 +13,8 @@ class ProfileEditPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final boolprovider =
+        StateProvider((ref) => false); //ページが再描画されるときにfalseになってほしいのでここに書く
     final theme = ref.watch(appThemeProvider);
     final l10n = useL10n();
 
@@ -37,6 +39,7 @@ class ProfileEditPage extends HookConsumerWidget {
               controller: TextEditingController(text: getMap[mapkey]),
               onChanged: (value) {
                 getMap[mapkey] = value;
+                ref.read(boolprovider.notifier).state = true;
               },
             ),
           ),
@@ -58,15 +61,23 @@ class ProfileEditPage extends HookConsumerWidget {
         backgroundColor: theme.appColors.background,
         elevation: 0,
         actions: [
-          TextButton(
-            style: TextButton.styleFrom(),
-            onPressed: () {
-              // firebaseに保存する処理がここにくる
-              context.pushRoute(TabRoute());
-            },
-            child: Text(
-              '保存',
-              style: theme.textTheme.h40.copyWith(color: Colors.black),
+          Consumer(
+            builder: (context, ref, child) => Container(
+              child: ref.watch(boolprovider)
+                  ? TextButton(
+                      style: TextButton.styleFrom(),
+                      onPressed: () {
+                        // firebaseに保存する処理がここにくる
+                        context.pushRoute(TabRoute());
+                        ref.read(boolprovider.notifier).state = false;
+                      },
+                      child: Text(
+                        '保存',
+                        style:
+                            theme.textTheme.h40.copyWith(color: Colors.black),
+                      ),
+                    )
+                  : null,
             ),
           )
         ],
