@@ -18,15 +18,28 @@ class ProfileEditPage extends HookConsumerWidget {
     final theme = ref.watch(appThemeProvider);
     final l10n = useL10n();
 
+    List<String> profilePropList = [
+      l10n.name,
+      l10n.namePhonetic,
+      l10n.userID,
+      l10n.birthday,
+      l10n.telePhoneNumber,
+      l10n.email,
+      l10n.gender,
+      l10n.belonging1,
+      l10n.belonging2,
+      l10n.belonging3,
+    ];
+
     //プロフィール編集１つ分のWidget
-    Widget modelToWidget(index, mapkey) {
+    Widget modelToWidget(index) {
       return Container(
         child: Column(children: [
           Container(
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.fromLTRB(30, 20, 0, 5),
             child: Text(
-              ProfilePropList().profilePropList[index],
+              profilePropList[index],
               style: theme.textTheme.h20.copyWith(color: Colors.grey.shade700),
             ),
           ),
@@ -36,9 +49,10 @@ class ProfileEditPage extends HookConsumerWidget {
             child: TextFormField(
               style: theme.textTheme.h40,
               inputFormatters: [LengthLimitingTextInputFormatter(20)],
-              controller: TextEditingController(text: getMap[mapkey]),
+              controller: TextEditingController(
+                  text: ProfileLists().getProfileList[index]),
               onChanged: (value) {
-                getMap[mapkey] = value;
+                ProfileLists().tempList[index] = value;
                 ref.read(boolprovider.notifier).state = true;
               },
             ),
@@ -82,19 +96,11 @@ class ProfileEditPage extends HookConsumerWidget {
           )
         ],
       ),
-      body: ListView(
-        children: [
-          modelToWidget(0, MapKey().name),
-          modelToWidget(1, MapKey().namePhonetic),
-          modelToWidget(2, MapKey().userID),
-          modelToWidget(3, MapKey().birthday),
-          modelToWidget(4, MapKey().telePhoneNumber),
-          modelToWidget(5, MapKey().email),
-          modelToWidget(6, MapKey().gender),
-          modelToWidget(7, MapKey().belonging1),
-          modelToWidget(8, MapKey().belonging2),
-          modelToWidget(9, MapKey().belonging3),
-        ],
+      body: ListView.builder(
+        itemCount: profilePropList.length,
+        itemBuilder: (context, index) {
+          return modelToWidget(index);
+        },
       ),
     );
   }
