@@ -1,8 +1,6 @@
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:wru/ui/hooks/use_l10n.dart';
 
 //要素数増やすならview_modelとListView(edit_page側は条件分岐もある)内も
 class ProfileLists extends StatelessWidget {
@@ -22,10 +20,29 @@ class ProfileLists extends StatelessWidget {
     'サークル',
   ];
 
-  List tempList = [];
+  late List tempList = [
+    getProfileList[0],
+    getProfileList[1],
+    getProfileList[2],
+    getProfileList[3],
+    getProfileList[4],
+    getProfileList[5],
+    getProfileList[6],
+    getProfileList[7],
+    getProfileList[8],
+    getProfileList[9],
+  ];
 
   @override
   Widget build(BuildContext context) {
     return const Placeholder();
   }
 }
+
+final getProfileListProvider = StateProvider((ref) {
+  return ProfileLists().getProfileList;
+});
+
+final tempListProvider = StateProvider<List>((ref) {
+  return ProfileLists().tempList;
+});

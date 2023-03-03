@@ -6,7 +6,6 @@ import 'package:wru/ui/hooks/use_l10n.dart';
 import 'package:wru/ui/profile/profile_view_model.dart';
 import 'package:wru/ui/routes/app_route.gr.dart';
 import 'package:wru/ui/theme/app_theme.dart';
-import 'profile_page.dart';
 
 class ProfileEditPage extends HookConsumerWidget {
   const ProfileEditPage({super.key});
@@ -17,6 +16,10 @@ class ProfileEditPage extends HookConsumerWidget {
         StateProvider((ref) => false); //ページが再描画されるときにfalseになってほしいのでここに書く
     final theme = ref.watch(appThemeProvider);
     final l10n = useL10n();
+    final getProfileListState = ref.watch(getProfileListProvider);
+    final getProfileListNotifier = ref.read(getProfileListProvider.notifier);
+    final tempListState = ref.watch(tempListProvider);
+    final tempListNotifier = ref.read(tempListProvider.notifier);
 
     List<String> profilePropList = [
       l10n.name,
@@ -49,10 +52,10 @@ class ProfileEditPage extends HookConsumerWidget {
             child: TextFormField(
               style: theme.textTheme.h40,
               inputFormatters: [LengthLimitingTextInputFormatter(20)],
-              controller: TextEditingController(
-                  text: ProfileLists().getProfileList[index]),
+              controller:
+                  TextEditingController(text: getProfileListState[index]),
               onChanged: (value) {
-                ProfileLists().tempList[index] = value;
+                tempListNotifier.state[index] = value;
                 ref.read(boolprovider.notifier).state = true;
               },
             ),
@@ -81,6 +84,13 @@ class ProfileEditPage extends HookConsumerWidget {
                   ? TextButton(
                       style: TextButton.styleFrom(),
                       onPressed: () {
+                        //リストを書き換える処理
+                        //各変更を保持しておいて一気に変更するためにはtempListが必要
+                        //？？プロバイダーで監視しておかないと変更されない
+                        //この処理をViewModelにうまく書く方法がわからない
+                        for (int i = 0; i < profilePropList.length; i++) {
+                          getProfileListNotifier.state[i] = tempListState[i];
+                        }
                         // firebaseに保存する処理がここにくる
                         context.pushRoute(TabRoute());
                         ref.read(boolprovider.notifier).state = false;

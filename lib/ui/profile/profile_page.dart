@@ -16,6 +16,7 @@ class ProfilePage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(appThemeProvider);
     final l10n = useL10n();
+    final getProfileListState = ref.watch(getProfileListProvider);
 
     List<String> profilePropList = [
       l10n.name,
@@ -46,7 +47,7 @@ class ProfilePage extends HookConsumerWidget {
             alignment: Alignment.centerLeft,
             padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
             child: Text(
-              ProfileLists().getProfileList[index],
+              getProfileListState[index],
               style: theme.textTheme.h40,
             ),
           ),
