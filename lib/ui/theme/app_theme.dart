@@ -35,6 +35,7 @@ class AppTheme {
     const mode = ThemeMode.light;
     final appColors = AppColors.light();
     final themeData = ThemeData.light().copyWith(
+      useMaterial3: true,
       scaffoldBackgroundColor: appColors.background,
       textTheme: GoogleFonts.notoSansTextTheme(ThemeData.light().textTheme),
       snackBarTheme: SnackBarThemeData(
@@ -54,6 +55,7 @@ class AppTheme {
     const mode = ThemeMode.dark;
     final appColors = AppColors.dark();
     final themeData = ThemeData.dark().copyWith(
+      useMaterial3: true,
       scaffoldBackgroundColor: appColors.background,
       textTheme: GoogleFonts.notoSansTextTheme(ThemeData.dark().textTheme),
       snackBarTheme: SnackBarThemeData(

@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:wru/foundation/constants.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 import 'app.dart';
 
 Future<void> main() async {
@@ -25,16 +27,23 @@ Future<void> main() async {
   }
 
   runZonedGuarded(
-      () => runApp(
-            ProviderScope(
-              child: DevicePreview(
-                enabled: !kReleaseMode && Constants.enablePreview,
-                builder: (context) {
-                  return const MyApp();
-                },
-              ),
-            ),
-          ), (error, stack) {
-    Fimber.e(error.toString());
-  });
+    () async {
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
+      runApp(
+        ProviderScope(
+          child: DevicePreview(
+            enabled: !kReleaseMode && Constants.enablePreview,
+            builder: (context) {
+              return const MyApp();
+            },
+          ),
+        ),
+      );
+    },
+    (error, stack) {
+      Fimber.e(error.toString());
+    },
+  );
 }
