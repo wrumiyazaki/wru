@@ -18,7 +18,6 @@
   "belonging3": "所属３",
   "displayQr" : "QRコード表示",
   "scan" : "スキャン",
-  "namecardfrom" : "さんから名刺が届きました♪",
-  "entermemo" : "メモを入力する\n(いつ・どこで・なぜ交換したのか)\n"
-
-}
+  "nameCardFrom" : "さんから名刺が届きました♪",
+  "enterMemo" : "メモを入力する\n(いつ・どこで・なぜ交換したのか)\n"
+  }
