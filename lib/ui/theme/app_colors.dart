@@ -19,6 +19,11 @@ class AppColors {
     required this.barbackground,
     required this.homeProfileText,
     required this.homeProfileBackground,
+    required this.qrCanPress,
+    required this.qrCanNotPress,
+    required this.exchangeBackground,
+    required this.qrCode,
+    required this.receivePageText,
     required this.tabBarBackground,
   });
 
@@ -41,6 +46,11 @@ class AppColors {
       barbackground: Colors.white,
       homeProfileText: Colors.white,
       homeProfileBackground: Color(0xFF4e4f50),
+      qrCanPress: Colors.white,
+      qrCanNotPress: Colors.grey,
+      exchangeBackground: Color(0xFF4e4f50),
+      qrCode: Colors.white,
+      receivePageText: Color(0xFF4e4f50),
       tabBarBackground: Colors.white,
     );
   }
@@ -64,6 +74,11 @@ class AppColors {
       barbackground: Colors.white,
       homeProfileText: Colors.white,
       homeProfileBackground: Color(0xFF4e4f50),
+      qrCanPress: Colors.white,
+      qrCanNotPress: Colors.grey,
+      exchangeBackground: Color(0xFF4e4f50),
+      qrCode: Colors.white,
+      receivePageText: Color(0xFF4e4f50),
       tabBarBackground: Colors.white,
     );
   }
@@ -86,5 +101,10 @@ class AppColors {
   final Color barbackground;
   final Color homeProfileText;
   final Color homeProfileBackground;
+  final Color qrCanPress;
+  final Color qrCanNotPress;
+  final Color exchangeBackground;
+  final Color qrCode;
+  final Color receivePageText;
   final Color tabBarBackground;
 }

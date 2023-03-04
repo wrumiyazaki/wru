@@ -14,7 +14,7 @@ class TabPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(appThemeProvider);
     return AutoTabsRouter(
-      routes: const [HomeRoute(), ExchangeRoute(), FriendRoute()],
+      routes: const [HomeRoute(), ExchangeTab(), FriendRoute()],
       builder: (context, child, animation) {
         return Scaffold(
             body: FadeTransition(
