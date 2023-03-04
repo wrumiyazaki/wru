@@ -80,7 +80,7 @@ class ProfilePage extends HookConsumerWidget {
           TextButton(
             style: TextButton.styleFrom(),
             onPressed: () {
-              context.router.push(ProfileEditRoute());
+              context.popRoute();
             },
             child: Text(
               l10n.edit,

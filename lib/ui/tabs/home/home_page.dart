@@ -5,6 +5,7 @@ import 'package:wru/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:wru/ui/hooks/use_l10n.dart';
 import 'package:wru/ui/routes/app_route.gr.dart';
+import 'package:wru/ui/tabs/home/home_view_model.dart';
 import 'package:wru/ui/theme/app_text_theme.dart';
 import 'package:wru/ui/theme/app_theme.dart';
 import 'package:wru/ui/xxx/xxx_view_model.dart';
@@ -41,18 +42,24 @@ class HomePage extends HookConsumerWidget {
                 child: Column(
                   children: [
                     const SizedBox(height: 12),
-                    Text(
-                      "小林  ゆうひ",
-                      style: theme.textTheme.h60
-                          .bold()
-                          .copyWith(color: theme.appColors.homeProfileText),
+                    FittedBox(
+                      fit: BoxFit.fitWidth,
+                      child: Text(
+                        "小林  ゆうひ",
+                        style: theme.textTheme.h60
+                            .bold()
+                            .copyWith(color: theme.appColors.homeProfileText),
+                      ),
                     ),
                     const SizedBox(height: 0),
-                    Text(
-                      "kobayashialyuhifasasad", //英数字22文字まで
-                      style: theme.textTheme.h40
-                          .bold()
-                          .copyWith(color: theme.appColors.homeProfileText),
+                    FittedBox(
+                      fit: BoxFit.fitWidth,
+                      child: Text(
+                        "kobayashialyuhifasasad", //英数字22文字まで入る
+                        style: theme.textTheme.h40
+                            .bold()
+                            .copyWith(color: theme.appColors.homeProfileText),
+                      ),
                     ),
                     const SizedBox(height: 7),
                     Text(
@@ -81,7 +88,8 @@ class HomePage extends HookConsumerWidget {
                   icon: const Icon(Icons.settings),
                   iconSize: 80,
                   color: theme.appColors.homeProfileText,
-                  onPressed: () => context.router.push(ProfileRoute()),
+                  onPressed: () =>
+                      AutoRouter.of(context).push(const ProfileRoute()),
                 ),
               ),
             ],
@@ -98,7 +106,7 @@ class HomePage extends HookConsumerWidget {
             width: 330.909,
             padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
             child: Image.asset(
-              'assets/img/namecard-sample.png',
+              HomeViewModel().imageUrl,
               fit: BoxFit.contain,
             ),
           ),

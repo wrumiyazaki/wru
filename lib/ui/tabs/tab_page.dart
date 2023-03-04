@@ -1,12 +1,8 @@
-import 'package:wru/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
-import 'package:wru/ui/hooks/use_l10n.dart';
-import 'package:wru/ui/theme/app_colors.dart';
-import 'package:wru/ui/theme/app_text_theme.dart';
+import 'package:wru/ui/hooks/use_router.dart';
 import 'package:wru/ui/theme/app_theme.dart';
 import 'package:wru/ui/xxx/xxx_view_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:wru/ui/routes/app_route.gr.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
@@ -17,12 +13,9 @@ class TabPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(appThemeProvider);
-    final state = ref.watch(xxxViewModelProvider);
-    final viewModel = ref.watch(xxxViewModelProvider.notifier);
     return AutoTabsRouter(
       routes: const [HomeRoute(), ExchangeTab(), FriendRoute()],
       builder: (context, child, animation) {
-        final tabsRouter = AutoTabsRouter.of(context);
         return Scaffold(
             body: FadeTransition(
               opacity: animation,
@@ -32,20 +25,20 @@ class TabPage extends HookConsumerWidget {
               style: TabStyle.fixedCircle,
               color: theme.appColors.unselectedIcon,
               activeColor: theme.appColors.selectedIcon,
-              backgroundColor: theme.appColors.barbackground,
+              backgroundColor: theme.appColors.tabBarBackground,
               top: -30,
               height: 50,
               curveSize: 100,
               cornerRadius: 5,
               onTap: (index) {
-                tabsRouter.setActiveIndex(index);
+                AutoTabsRouter.of(context).setActiveIndex(index);
               },
               items: const [
                 TabItem(icon: Icons.home),
                 TabItem(icon: Icons.qr_code_scanner),
                 TabItem(icon: Icons.groups),
               ],
-              initialActiveIndex: tabsRouter.activeIndex,
+              initialActiveIndex: AutoTabsRouter.of(context).activeIndex,
             ));
       },
     );
