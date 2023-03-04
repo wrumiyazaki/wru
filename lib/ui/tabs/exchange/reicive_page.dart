@@ -32,7 +32,7 @@ class RecievePage extends HookConsumerWidget {
               style: theme.textTheme.h50
                   .copyWith(color: theme.appColors.receivePageText),
               // '${ExchangeViewModel().yourName(controllerstate.code!)}さんから名刺が届きました♪'
-              '小林${l10n.namecardfrom}',
+              '小林${l10n.nameCardFrom}',
             ),
             // alignment: Alignment.center,
           ),
@@ -70,7 +70,7 @@ class RecievePage extends HookConsumerWidget {
                   focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.black)),
                   alignLabelWithHint: true,
-                  hintText: l10n.entermemo),
+                  hintText: l10n.enterMemo),
               controller: TextEditingController(text: memo),
             ),
           ),

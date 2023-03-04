@@ -63,7 +63,7 @@ class MemoEditPage extends HookConsumerWidget {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   alignLabelWithHint: true,
-                  hintText: l10n.entermemo),
+                  hintText: l10n.enterMemo),
               controller:
                   TextEditingController(text: friendsmemo[friendindexstate]),
               onChanged: (value) {
