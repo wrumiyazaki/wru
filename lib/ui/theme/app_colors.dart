@@ -24,6 +24,7 @@ class AppColors {
     required this.exchangeBackground,
     required this.qrCode,
     required this.receivePageText,
+    required this.tabBarBackground,
   });
 
   factory AppColors.light() {
@@ -50,6 +51,7 @@ class AppColors {
       exchangeBackground: Color(0xFF4e4f50),
       qrCode: Colors.white,
       receivePageText: Color(0xFF4e4f50),
+      tabBarBackground: Colors.white,
     );
   }
 
@@ -77,6 +79,7 @@ class AppColors {
       exchangeBackground: Color(0xFF4e4f50),
       qrCode: Colors.white,
       receivePageText: Color(0xFF4e4f50),
+      tabBarBackground: Colors.white,
     );
   }
 
@@ -103,4 +106,5 @@ class AppColors {
   final Color exchangeBackground;
   final Color qrCode;
   final Color receivePageText;
+  final Color tabBarBackground;
 }
