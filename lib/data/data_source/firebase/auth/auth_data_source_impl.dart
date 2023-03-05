@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:wru/data/data_source/firebase/auth_data_source.dart';
+import 'package:wru/data/data_source/firebase/auth/auth_data_source.dart';
 import 'package:wru/data/provider/firebase_auth_provider.dart';
 
 final authDataSourceProvider = Provider((ref) => AuthDataSourceImpl(ref));

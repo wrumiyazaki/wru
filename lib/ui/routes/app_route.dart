@@ -19,30 +19,31 @@ import 'package:auto_route/empty_router_widgets.dart';
   replaceInRouteName: 'Page,Route',
   routes: [
     AutoRoute(
-        path: RoutePath.appRouteTab,
-        page: TabPage,
-        children: [
-          //ネストする必要がある
-          AutoRoute(path: 'home', page: HomePage, children: []),
-          AutoRoute(
-              path: 'exchange',
-              page: EmptyRouterPage,
-              name: 'ExchangeTab',
-              children: [
-                AutoRoute(path: '', page: QrDisplayPage),
-                AutoRoute(path: 'scan', page: QrScanPage),
-                AutoRoute(path: 'receive', page: RecievePage),
-              ]),
-          AutoRoute(
-              path: 'friend',
-              page: EmptyRouterPage,
-              name: 'FriendTab',
-              children: [
-                AutoRoute(path: '', page: FriendPage),
-                AutoRoute(path: 'memoedit', page: MemoEditPage),
-              ]),
-        ],
-        initial: true),
+      path: RoutePath.appRouteTab,
+      page: TabPage,
+      children: [
+        //ネストする必要がある
+        AutoRoute(path: 'home', page: HomePage, children: []),
+        AutoRoute(
+            path: 'exchange',
+            page: EmptyRouterPage,
+            name: 'ExchangeTab',
+            children: [
+              AutoRoute(path: '', page: QrDisplayPage),
+              AutoRoute(path: 'scan', page: QrScanPage),
+              AutoRoute(path: 'receive', page: RecievePage),
+            ]),
+        AutoRoute(
+            path: 'friend',
+            page: EmptyRouterPage,
+            name: 'FriendTab',
+            children: [
+              AutoRoute(path: '', page: FriendPage),
+              AutoRoute(path: 'memoedit', page: MemoEditPage),
+            ]),
+      ],
+      initial: true,
+    ),
     AutoRoute(
       path: RoutePath.appRouteProfile,
       page: ProfilePage,
@@ -59,6 +60,11 @@ import 'package:auto_route/empty_router_widgets.dart';
     AutoRoute(
       path: RoutePath.appRoutSignUp,
       page: SignUpPage,
+      initial: true,
+    ),
+    AutoRoute(
+      path: RoutePath.appRouteSelectTemplate,
+      page: SelectTemplatePage,
       // initial: true,
     ),
     AutoRoute(

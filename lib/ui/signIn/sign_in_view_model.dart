@@ -39,7 +39,7 @@ class SignInViewModel extends StateNotifier<AsyncValue<SignInState>> {
     result.when(
       success: (appUser) {
         if (appUser != null) {
-          print(appUser.email);
+          print(appUser.toString());
         } else {
           state = AsyncValue.data(
             SignInState(
