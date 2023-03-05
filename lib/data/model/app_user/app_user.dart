@@ -8,6 +8,7 @@ part 'app_user.freezed.dart';
 
 @freezed
 abstract class AppUser with _$AppUser {
+  @JsonSerializable(explicitToJson: true)
   factory AppUser({
     required String uid,
     required String email,

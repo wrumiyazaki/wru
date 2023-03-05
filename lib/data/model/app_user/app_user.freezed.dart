@@ -158,6 +158,7 @@ class __$$_AppUserCopyWithImpl<$Res>
 
 /// @nodoc
 
+@JsonSerializable(explicitToJson: true)
 class _$_AppUser implements _AppUser {
   _$_AppUser(
       {required this.uid,
