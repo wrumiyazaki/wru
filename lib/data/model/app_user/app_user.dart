@@ -5,6 +5,7 @@ import 'package:wru/data/model/profile/profile.dart';
 import 'package:wru/data/model/received_card/received_card.dart';
 
 part 'app_user.freezed.dart';
+part 'app_user.g.dart';
 
 @freezed
 abstract class AppUser with _$AppUser {
