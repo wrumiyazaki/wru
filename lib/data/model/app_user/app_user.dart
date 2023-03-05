@@ -24,4 +24,7 @@ abstract class AppUser with _$AppUser {
       email: firebaseUser.email!,
     );
   }
+
+  factory AppUser.fromJson(Map<String, dynamic> json) =>
+      _$AppUserFromJson(json);
 }

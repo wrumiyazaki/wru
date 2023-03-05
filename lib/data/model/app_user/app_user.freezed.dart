@@ -14,6 +14,10 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+AppUser _$AppUserFromJson(Map<String, dynamic> json) {
+  return _AppUser.fromJson(json);
+}
+
 /// @nodoc
 mixin _$AppUser {
   String get uid => throw _privateConstructorUsedError;
@@ -22,6 +26,7 @@ mixin _$AppUser {
   List<Card>? get myCards => throw _privateConstructorUsedError;
   List<ReceivedCard>? get receivedCards => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $AppUserCopyWith<AppUser> get copyWith => throw _privateConstructorUsedError;
 }
@@ -169,6 +174,9 @@ class _$_AppUser implements _AppUser {
       : _myCards = myCards,
         _receivedCards = receivedCards;
 
+  factory _$_AppUser.fromJson(Map<String, dynamic> json) =>
+      _$$_AppUserFromJson(json);
+
   @override
   final String uid;
   @override
@@ -213,6 +221,7 @@ class _$_AppUser implements _AppUser {
                 .equals(other._receivedCards, _receivedCards));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -227,6 +236,13 @@ class _$_AppUser implements _AppUser {
   @pragma('vm:prefer-inline')
   _$$_AppUserCopyWith<_$_AppUser> get copyWith =>
       __$$_AppUserCopyWithImpl<_$_AppUser>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_AppUserToJson(
+      this,
+    );
+  }
 }
 
 abstract class _AppUser implements AppUser {
@@ -236,6 +252,8 @@ abstract class _AppUser implements AppUser {
       final Profile? profile,
       final List<Card>? myCards,
       final List<ReceivedCard>? receivedCards}) = _$_AppUser;
+
+  factory _AppUser.fromJson(Map<String, dynamic> json) = _$_AppUser.fromJson;
 
   @override
   String get uid;

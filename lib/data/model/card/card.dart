@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'card.freezed.dart';
+part 'card.g.dart';
 
 @freezed
 abstract class Card with _$Card {
