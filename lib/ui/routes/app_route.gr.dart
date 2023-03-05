@@ -97,7 +97,7 @@ class AppRouter extends _i11.RootStackRouter {
         _i11.RouteConfig(
           '/#redirect',
           path: '/',
-          redirectTo: '/select_template',
+          redirectTo: '/signUp',
           fullMatch: true,
         ),
         _i11.RouteConfig(

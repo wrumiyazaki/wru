@@ -1,5 +1,6 @@
 import 'package:wru/data/model/app_user/app_user.dart';
 
 abstract class UsersDataSource {
-  void create(AppUser appUser);
+  Future<void> create(AppUser appUser);
+  Future<AppUser> fetch(String uid);
 }

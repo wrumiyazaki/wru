@@ -17,7 +17,7 @@ import 'package:wru/ui/tabs/tab_page.dart';
     AutoRoute(
       path: RoutePath.appRouteSelectTemplate,
       page: SelectTemplatePage,
-      initial: true,
+      // initial: true,
     ),
     AutoRoute(
       path: RoutePath.appRouteTab,
@@ -28,7 +28,7 @@ import 'package:wru/ui/tabs/tab_page.dart';
         AutoRoute(path: 'exchange', page: ExchangePage),
         AutoRoute(path: 'friend', page: FriendPage),
       ],
-      initial: true,
+      // initial: true,
     ),
     AutoRoute(
       path: RoutePath.appRouteProfile,
@@ -46,7 +46,7 @@ import 'package:wru/ui/tabs/tab_page.dart';
     AutoRoute(
       path: RoutePath.appRoutSignUp,
       page: SignUpPage,
-      // initial: true,
+      initial: true,
     ),
     AutoRoute(
       path: RoutePath.appRouteEnterInformation,
