@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:wru/data/data_source/firebase/auth_data_source_impl.dart';
+import 'package:wru/data/data_source/firebase/autu/auth_data_source_impl.dart';
 import 'package:wru/data/model/result/result.dart';
 import 'package:wru/data/model/app_user/app_user.dart';
 import 'package:wru/data/repository/sign_up/sign_up_repository.dart';
