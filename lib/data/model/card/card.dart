@@ -6,7 +6,14 @@ part 'card.g.dart';
 @freezed
 abstract class NameCard with _$NameCard {
   factory NameCard({
-    required String hoge,
+    String? name,
+    String? namePhonetic,
+    String? university,
+    String? major,
+    String? grade,
+    String? text,
+    String? imgUrl,
+    String? faceImgUrl,
   }) = _NameCard;
 
   factory NameCard.fromJson(Map<String, dynamic> json) =>
