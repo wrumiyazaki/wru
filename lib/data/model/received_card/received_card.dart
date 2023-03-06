@@ -7,7 +7,7 @@ part 'received_card.g.dart';
 @freezed
 abstract class ReceivedCard with _$ReceivedCard {
   factory ReceivedCard({
-    required Card card,
+    required NameCard card,
     required String memo,
   }) = _ReceivedCard;
 

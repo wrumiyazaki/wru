@@ -20,7 +20,7 @@ ReceivedCard _$ReceivedCardFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ReceivedCard {
-  Card get card => throw _privateConstructorUsedError;
+  NameCard get card => throw _privateConstructorUsedError;
   String get memo => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -35,9 +35,9 @@ abstract class $ReceivedCardCopyWith<$Res> {
           ReceivedCard value, $Res Function(ReceivedCard) then) =
       _$ReceivedCardCopyWithImpl<$Res, ReceivedCard>;
   @useResult
-  $Res call({Card card, String memo});
+  $Res call({NameCard card, String memo});
 
-  $CardCopyWith<$Res> get card;
+  $NameCardCopyWith<$Res> get card;
 }
 
 /// @nodoc
@@ -60,7 +60,7 @@ class _$ReceivedCardCopyWithImpl<$Res, $Val extends ReceivedCard>
       card: null == card
           ? _value.card
           : card // ignore: cast_nullable_to_non_nullable
-              as Card,
+              as NameCard,
       memo: null == memo
           ? _value.memo
           : memo // ignore: cast_nullable_to_non_nullable
@@ -70,8 +70,8 @@ class _$ReceivedCardCopyWithImpl<$Res, $Val extends ReceivedCard>
 
   @override
   @pragma('vm:prefer-inline')
-  $CardCopyWith<$Res> get card {
-    return $CardCopyWith<$Res>(_value.card, (value) {
+  $NameCardCopyWith<$Res> get card {
+    return $NameCardCopyWith<$Res>(_value.card, (value) {
       return _then(_value.copyWith(card: value) as $Val);
     });
   }
@@ -85,10 +85,10 @@ abstract class _$$_ReceivedCardCopyWith<$Res>
       __$$_ReceivedCardCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Card card, String memo});
+  $Res call({NameCard card, String memo});
 
   @override
-  $CardCopyWith<$Res> get card;
+  $NameCardCopyWith<$Res> get card;
 }
 
 /// @nodoc
@@ -109,7 +109,7 @@ class __$$_ReceivedCardCopyWithImpl<$Res>
       card: null == card
           ? _value.card
           : card // ignore: cast_nullable_to_non_nullable
-              as Card,
+              as NameCard,
       memo: null == memo
           ? _value.memo
           : memo // ignore: cast_nullable_to_non_nullable
@@ -127,7 +127,7 @@ class _$_ReceivedCard implements _ReceivedCard {
       _$$_ReceivedCardFromJson(json);
 
   @override
-  final Card card;
+  final NameCard card;
   @override
   final String memo;
 
@@ -165,13 +165,14 @@ class _$_ReceivedCard implements _ReceivedCard {
 
 abstract class _ReceivedCard implements ReceivedCard {
   factory _ReceivedCard(
-      {required final Card card, required final String memo}) = _$_ReceivedCard;
+      {required final NameCard card,
+      required final String memo}) = _$_ReceivedCard;
 
   factory _ReceivedCard.fromJson(Map<String, dynamic> json) =
       _$_ReceivedCard.fromJson;
 
   @override
-  Card get card;
+  NameCard get card;
   @override
   String get memo;
   @override

@@ -23,7 +23,7 @@ mixin _$AppUser {
   String get uid => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   Profile? get profile => throw _privateConstructorUsedError;
-  List<Card>? get myCards => throw _privateConstructorUsedError;
+  List<NameCard>? get myCards => throw _privateConstructorUsedError;
   List<ReceivedCard>? get receivedCards => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -40,7 +40,7 @@ abstract class $AppUserCopyWith<$Res> {
       {String uid,
       String email,
       Profile? profile,
-      List<Card>? myCards,
+      List<NameCard>? myCards,
       List<ReceivedCard>? receivedCards});
 
   $ProfileCopyWith<$Res>? get profile;
@@ -81,7 +81,7 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
       myCards: freezed == myCards
           ? _value.myCards
           : myCards // ignore: cast_nullable_to_non_nullable
-              as List<Card>?,
+              as List<NameCard>?,
       receivedCards: freezed == receivedCards
           ? _value.receivedCards
           : receivedCards // ignore: cast_nullable_to_non_nullable
@@ -113,7 +113,7 @@ abstract class _$$_AppUserCopyWith<$Res> implements $AppUserCopyWith<$Res> {
       {String uid,
       String email,
       Profile? profile,
-      List<Card>? myCards,
+      List<NameCard>? myCards,
       List<ReceivedCard>? receivedCards});
 
   @override
@@ -152,7 +152,7 @@ class __$$_AppUserCopyWithImpl<$Res>
       myCards: freezed == myCards
           ? _value._myCards
           : myCards // ignore: cast_nullable_to_non_nullable
-              as List<Card>?,
+              as List<NameCard>?,
       receivedCards: freezed == receivedCards
           ? _value._receivedCards
           : receivedCards // ignore: cast_nullable_to_non_nullable
@@ -169,7 +169,7 @@ class _$_AppUser implements _AppUser {
       {required this.uid,
       required this.email,
       this.profile,
-      final List<Card>? myCards,
+      final List<NameCard>? myCards,
       final List<ReceivedCard>? receivedCards})
       : _myCards = myCards,
         _receivedCards = receivedCards;
@@ -183,9 +183,9 @@ class _$_AppUser implements _AppUser {
   final String email;
   @override
   final Profile? profile;
-  final List<Card>? _myCards;
+  final List<NameCard>? _myCards;
   @override
-  List<Card>? get myCards {
+  List<NameCard>? get myCards {
     final value = _myCards;
     if (value == null) return null;
     if (_myCards is EqualUnmodifiableListView) return _myCards;
@@ -250,7 +250,7 @@ abstract class _AppUser implements AppUser {
       {required final String uid,
       required final String email,
       final Profile? profile,
-      final List<Card>? myCards,
+      final List<NameCard>? myCards,
       final List<ReceivedCard>? receivedCards}) = _$_AppUser;
 
   factory _AppUser.fromJson(Map<String, dynamic> json) = _$_AppUser.fromJson;
@@ -262,7 +262,7 @@ abstract class _AppUser implements AppUser {
   @override
   Profile? get profile;
   @override
-  List<Card>? get myCards;
+  List<NameCard>? get myCards;
   @override
   List<ReceivedCard>? get receivedCards;
   @override

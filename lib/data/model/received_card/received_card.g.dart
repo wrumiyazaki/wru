@@ -8,7 +8,7 @@ part of 'received_card.dart';
 
 _$_ReceivedCard _$$_ReceivedCardFromJson(Map<String, dynamic> json) =>
     _$_ReceivedCard(
-      card: Card.fromJson(json['card'] as Map<String, dynamic>),
+      card: NameCard.fromJson(json['card'] as Map<String, dynamic>),
       memo: json['memo'] as String,
     );
 
