@@ -19,9 +19,7 @@ class QRCodeNotifier extends StateNotifier<Barcode> {
   }
 }
 
-class ExchangeViewModel extends StatelessWidget {
-  ExchangeViewModel({super.key});
-
+class ExchangeViewModel {
   String myQrCode() {
     //firebaseから取得した
     return 'myCardID';
@@ -40,10 +38,5 @@ class ExchangeViewModel extends StatelessWidget {
 
   void memoSave(String text) {
     print(text);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
   }
 }
