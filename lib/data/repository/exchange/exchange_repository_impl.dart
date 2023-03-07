@@ -14,7 +14,7 @@ class ExchangeRepositoryImpl implements ExchangeRepository {
   late final FirebaseFirestore db = _ref.read(firebaseFirestoreProvider);
   final usersCollection = 'users';
   final receivedCardsCollection = 'receivedCards';
-  //本当はQRから読み取った名刺の情報群(Json? インスタンス? String?)
+  //本当はQRから読み取った名刺の情報群(Json? インスタンス? String?) #TODO
   late NameCard recivedNameCard = NameCard(
       name: 'aa',
       university: 'miyadai',
