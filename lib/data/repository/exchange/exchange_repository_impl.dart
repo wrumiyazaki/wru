@@ -15,6 +15,7 @@ class ExchangeRepositoryImpl implements ExchangeRepository {
   Ref _ref;
   late final FirebaseFirestore db = _ref.read(firebaseFirestoreProvider);
   final usersCollection = 'users';
+  final myCardsCollection = 'myCards';
   final receivedCardsCollection = 'receivedCards';
   //本当はQRから読み取った名刺の情報群(Json? インスタンス? String?) #TODO
   late ReceivedCard recivedNameCard = ReceivedCard(
@@ -35,8 +36,30 @@ class ExchangeRepositoryImpl implements ExchangeRepository {
     return 'a';
   }
 
-  Future<String> fetchMyNameCard() async {
-    return 'b';
+  Future<NameCard> fetchMyNameCard(String uid, String docID) async {
+    final NameCard nameCard = await db
+        .collection(usersCollection)
+        .doc(uid)
+        .collection(myCardsCollection)
+        .doc(docID)
+        .get()
+        .then((snapshot) => NameCard.fromJson(snapshot.data()!));
+    return nameCard;
+  }
+
+  Future<List> fetchMyCardsDocId(String uid) async {
+    List docList = [];
+    await db
+        .collection(usersCollection)
+        .doc(uid)
+        .collection(myCardsCollection)
+        .get()
+        .then(
+          (querysnapshot) => querysnapshot.docs.forEach((element) {
+            docList.add(element.id);
+          }),
+        );
+    return docList;
   }
 }
 

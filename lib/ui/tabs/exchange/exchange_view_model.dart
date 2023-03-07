@@ -1,5 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:wru/data/model/card/card.dart';
+import 'package:wru/data/model/sent_card/sent_card.dart';
 import 'package:wru/data/repository/exchange/exchange_repository_impl.dart';
 
 class QRCodeNotifier extends StateNotifier<Barcode> {
@@ -17,28 +19,29 @@ class QRCodeNotifier extends StateNotifier<Barcode> {
 }
 
 class ExchangeViewModel {
-  String myQrCode() {
-    // //名前とかも取ってくる必要があるが一旦置いとく
-    // NameCard nameCard = NameCard(
-    //   imgUrl: 'https://odahara.jp/omitumori/meishi/img/meishi_hutsu_img.png',
-    //   faceImgUrl:
-    //       'https://images.unsplash.com/photo-1598439210625-5067c578f3f6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80',
-    // );
-    // print(nameCard.toJson());
-    // Provider((ref) {
-    //   print(ref
-    //       .read(usersDataSourceProvider)
-    //       .
-    //       //fetch(uid) ほんとはuidも取ってこないといけない
-    //       fetch(''));
-    // });
+  Future<Map> myQrCode(WidgetRef ref) async {
+    NameCard nameCard =
+        await ref.read(exchangeRepositoryProvider).fetchMyNameCard(
+            //uidとdocumentIDをとってくる #TODO
+            '4MXOY43lcRVTSA8GVq1X8ioCqBf1',
+            'NEdDuSgTN2MeDNEtTejz');
+    List docllist = await ref
+        .read(exchangeRepositoryProvider)
+        //uidを取ってくる #TODO
+        .fetchMyCardsDocId('4MXOY43lcRVTSA8GVq1X8ioCqBf1');
 
-    //firebaseから取得した
-    return 'myCardID';
+    Map sentCardJson = SentCard(
+            //uidを取ってくる #TODO
+            uid: '4MXOY43lcRVTSA8GVq1X8ioCqBf1',
+            //自分の名刺が今は１個しかないためindexは0
+            documentID: docllist[0],
+            card: nameCard)
+        .toJson();
+    return sentCardJson;
   }
 
-  String myName() {
-    String cardid = myQrCode();
+  Future<String> myName(WidgetRef ref) async {
+    // String cardid = await myQrCode(ref);
     //cardIDを使って名刺の中に書いてある名前を取得してそれを返す
     return '小林';
   }
