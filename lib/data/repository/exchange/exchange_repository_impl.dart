@@ -17,8 +17,8 @@ class ExchangeRepositoryImpl implements ExchangeRepository {
   final usersCollection = 'users';
   final receivedCardsCollection = 'receivedCards';
   //本当はQRから読み取った名刺の情報群(Json? インスタンス? String?) #TODO
-  late ReceivedCard recivedNameCard =
-      ReceivedCard(card: NameCard(faceImgUrl: 'aa'), memo: 'aa');
+  late ReceivedCard recivedNameCard = ReceivedCard(
+      uid: 'u', documentID: 's', card: NameCard(faceImgUrl: 'aa'), memo: 'aa');
 
   @override
   Future<void> saveNameCard(String uid) async {
