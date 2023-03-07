@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:wru/data/model/app_user/app_user.dart';
 import 'package:wru/data/model/card/card.dart';
+import 'package:wru/data/model/received_card/received_card.dart';
 import 'package:wru/data/provider/firebase_firestore_provider.dart';
 import 'package:wru/data/repository/exchange/exchange_repository.dart';
 
@@ -15,12 +17,8 @@ class ExchangeRepositoryImpl implements ExchangeRepository {
   final usersCollection = 'users';
   final receivedCardsCollection = 'receivedCards';
   //本当はQRから読み取った名刺の情報群(Json? インスタンス? String?) #TODO
-  late NameCard recivedNameCard = NameCard(
-      name: 'aa',
-      university: 'miyadai',
-      text: 'sample',
-      imgUrl: 'https',
-      faceImgUrl: 'faceUrl');
+  late ReceivedCard recivedNameCard =
+      ReceivedCard(card: NameCard(faceImgUrl: 'aa'), memo: 'aa');
 
   @override
   Future<void> saveNameCard(String uid) async {
