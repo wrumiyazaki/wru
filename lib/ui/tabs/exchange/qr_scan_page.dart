@@ -114,7 +114,7 @@ class QrScanPage extends HookConsumerWidget {
             child: FloatingActionButton(
               onPressed: () {
                 controllernotifier.controller!.pauseCamera();
-                ExchangeViewModel().saveNameCard(ref);
+                ExchangeViewModel().saveNameReceivedCard(ref);
                 context.router.push(const RecieveRoute());
               },
             ),

@@ -37,11 +37,11 @@ final myQrCodeInfoProvider = FutureProvider((ref) async {
 });
 
 class ExchangeViewModel {
-  void saveNameCard(WidgetRef ref) {
+  void saveNameReceivedCard(WidgetRef ref) {
     ref
         .read(exchangeRepositoryProvider)
         //下の引数にはuidがはいる#TODO
-        .saveNameCard('4MXOY43lcRVTSA8GVq1X8ioCqBf1');
+        .saveReceivedCard('4MXOY43lcRVTSA8GVq1X8ioCqBf1');
   }
 
   void memoSave(String text) {
