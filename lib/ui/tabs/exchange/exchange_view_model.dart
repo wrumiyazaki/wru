@@ -18,39 +18,25 @@ class QRCodeNotifier extends StateNotifier<Barcode> {
   }
 }
 
+final myQrCodeInfoProvider = FutureProvider((ref) async {
+  final List docList = await ref
+      .read(exchangeRepositoryProvider)
+      //uidを取ってくる #TODO
+      .fetchMyCardsDocId('4MXOY43lcRVTSA8GVq1X8ioCqBf1');
+  final NameCard nameCard = await ref
+      .read(exchangeRepositoryProvider)
+      //uidとdocumentIDをとってくる #TODO
+      .fetchMyNameCard('4MXOY43lcRVTSA8GVq1X8ioCqBf1', docList[0]);
+  final SentCard sentCard = SentCard(
+      //uidを取ってくる #TODO
+      uid: '4MXOY43lcRVTSA8GVq1X8ioCqBf1',
+      //自分の名刺が今は１個しかないためindexは0
+      documentID: docList[0],
+      card: nameCard);
+  return sentCard;
+});
+
 class ExchangeViewModel {
-  Future<Map> myQrCode(WidgetRef ref) async {
-    NameCard nameCard =
-        await ref.read(exchangeRepositoryProvider).fetchMyNameCard(
-            //uidとdocumentIDをとってくる #TODO
-            '4MXOY43lcRVTSA8GVq1X8ioCqBf1',
-            'NEdDuSgTN2MeDNEtTejz');
-    List docllist = await ref
-        .read(exchangeRepositoryProvider)
-        //uidを取ってくる #TODO
-        .fetchMyCardsDocId('4MXOY43lcRVTSA8GVq1X8ioCqBf1');
-
-    Map sentCardJson = SentCard(
-            //uidを取ってくる #TODO
-            uid: '4MXOY43lcRVTSA8GVq1X8ioCqBf1',
-            //自分の名刺が今は１個しかないためindexは0
-            documentID: docllist[0],
-            card: nameCard)
-        .toJson();
-    return sentCardJson;
-  }
-
-  Future<String> myName(WidgetRef ref) async {
-    // String cardid = await myQrCode(ref);
-    //cardIDを使って名刺の中に書いてある名前を取得してそれを返す
-    return '小林';
-  }
-
-  String yourName(String cardid) {
-    //cardIDを使って名刺の中に書いてある名前を取得してそれを返す
-    return '小林';
-  }
-
   void saveNameCard(WidgetRef ref) {
     ref
         .read(exchangeRepositoryProvider)

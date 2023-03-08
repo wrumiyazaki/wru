@@ -20,6 +20,7 @@ class QrDisplayPage extends HookConsumerWidget {
     final controllernotifier = ref.watch(qrCodeProvider.notifier);
     final onCamerastate = ref.watch(onCameraProvider);
     final onCameranotifier = ref.read(onCameraProvider.notifier);
+    final myQrInfo = ref.watch(myQrCodeInfoProvider);
 
     return Container(
       color: theme.appColors.exchangeBackground,
@@ -33,22 +34,32 @@ class QrDisplayPage extends HookConsumerWidget {
             Align(
               alignment: Alignment(0, -0.5),
               child: RotatedBox(
-                quarterTurns: 2,
-                child: Text(
-                  '${ExchangeViewModel().myName()}の名刺です',
-                  style: theme.textTheme.h60
-                      .copyWith(color: theme.appColors.qrCode),
-                ),
-              ),
+                  quarterTurns: 2,
+                  child: myQrInfo.when(
+                    loading: () => const CircularProgressIndicator(),
+                    error: (error, stack) => Text('Error: $error'),
+                    data: (info) {
+                      return Text(
+                        '${info.card.name}の名刺です',
+                        style: theme.textTheme.h60
+                            .copyWith(color: theme.appColors.qrCode),
+                      );
+                    },
+                  )),
             ),
             Align(
-              child: QrImage(
-                data: ExchangeViewModel().myQrCode(),
-                version: QrVersions.auto,
-                size: 250,
-                foregroundColor: theme.appColors.qrCode,
-              ),
-            ),
+                child: myQrInfo.when(
+              loading: () {},
+              error: (error, stack) => Text('Error: $error'),
+              data: (info) {
+                return QrImage(
+                  data: info.toJson().toString(),
+                  version: QrVersions.auto,
+                  size: 250,
+                  foregroundColor: theme.appColors.qrCode,
+                );
+              },
+            )),
             Align(
               alignment: Alignment(-0.6, 0.6),
               child: IconButton(
