@@ -8,7 +8,7 @@ class QRCodeNotifier extends StateNotifier<Barcode> {
   QRViewController? controller;
   QRCodeNotifier() : super(Barcode(null, BarcodeFormat.unknown, null));
 
-  //QRコードを読み取ったあとの処理を書く
+  //QRコードを読み取ったあとの処理を書く#TODO
   //受け取り画面に遷移と受け取った名刺をfirebaseに保存
   void onQRViewCreated(QRViewController controller) {
     this.controller = controller;
@@ -25,7 +25,7 @@ final myQrCodeInfoProvider = FutureProvider((ref) async {
       .fetchMyCardsDocId('4MXOY43lcRVTSA8GVq1X8ioCqBf1');
   final NameCard nameCard = await ref
       .read(exchangeRepositoryProvider)
-      //uidとdocumentIDをとってくる #TODO
+      //uidを取ってくる #TODO
       .fetchMyNameCard('4MXOY43lcRVTSA8GVq1X8ioCqBf1', docList[0]);
   final SentCard sentCard = SentCard(
       //uidを取ってくる #TODO
@@ -40,7 +40,7 @@ class ExchangeViewModel {
   void saveNameReceivedCard(WidgetRef ref) {
     ref
         .read(exchangeRepositoryProvider)
-        //下の引数にはuidがはいる#TODO
+        //uidを取ってくる#TODO
         .saveReceivedCard('4MXOY43lcRVTSA8GVq1X8ioCqBf1');
   }
 
