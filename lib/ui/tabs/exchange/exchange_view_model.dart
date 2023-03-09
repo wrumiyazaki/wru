@@ -6,6 +6,9 @@ import 'package:wru/data/model/received_card/received_card.dart';
 import 'package:wru/data/model/sent_card/sent_card.dart';
 import 'package:wru/data/repository/exchange/exchange_repository_impl.dart';
 
+//uidを取ってくる#TODO
+final tentativeuid = '4MXOY43lcRVTSA8GVq1X8ioCqBf1';
+
 class ReceivedCardNotifier extends StateNotifier<ReceivedCard> {
   ReceivedCardNotifier()
       : super(ReceivedCard(uid: '', documentID: '', card: NameCard()));
@@ -44,9 +47,8 @@ class QRCodeNotifier extends StateNotifier<Barcode> {
               .getReceivedCard(tentativeReceivedCard);
           ref
               .read(exchangeRepositoryProvider)
-              //uidを取ってくる#TODO
               //保存する
-              .saveReceivedCard('4MXOY43lcRVTSA8GVq1X8ioCqBf1');
+              .saveReceivedCard(tentativeuid);
         },
       );
     });
@@ -56,15 +58,12 @@ class QRCodeNotifier extends StateNotifier<Barcode> {
 final myQrCodeInfoProvider = FutureProvider((ref) async {
   final List docList = await ref
       .read(exchangeRepositoryProvider)
-      //uidを取ってくる #TODO
-      .fetchMyCardsDocId('4MXOY43lcRVTSA8GVq1X8ioCqBf1');
+      .fetchMyCardsDocId(tentativeuid);
   final NameCard nameCard = await ref
       .read(exchangeRepositoryProvider)
-      //uidを取ってくる #TODO
-      .fetchMyNameCard('4MXOY43lcRVTSA8GVq1X8ioCqBf1', docList[0]);
+      .fetchMyNameCard(tentativeuid, docList[0]);
   final SentCard sentCard = SentCard(
-      //uidを取ってくる #TODO
-      uid: '4MXOY43lcRVTSA8GVq1X8ioCqBf1',
+      uid: tentativeuid,
       //自分の名刺が今は１個しかないためindexは0
       documentID: docList[0],
       card: nameCard);

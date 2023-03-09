@@ -21,20 +21,38 @@ class ExchangeRepositoryImpl implements ExchangeRepository {
       StateNotifierProvider<ReceivedCardNotifier, ReceivedCard>(
           (ref) => ReceivedCardNotifier());
 
+  //自動生成された同じドキュメントを扱う
+  late final receivedCardRef = db
+      .collection(usersCollection)
+      .doc(tentativeuid)
+      .collection(receivedCardsCollection)
+      .doc();
+
   @override
   Future<void> saveReceivedCard(String uid) async {
-    final receivedCardRef = db
-        .collection(usersCollection)
-        .doc(uid)
-        .collection(receivedCardsCollection)
-        .doc();
     receivedCardRef.set(_ref.watch(receivedCardProvider).toJson());
   }
 
   Future saveMemo() async {}
 
-  Future<String> fetchImages() async {
-    return 'a';
+  Future<String?> fetchImages() async {
+    String? imgUrl;
+    receivedCardRef.get().then(
+      (value) {
+        imgUrl = value.get('imgUrl');
+      },
+    );
+    return imgUrl;
+  }
+
+  Future<String?> fetchFaceImages() async {
+    String? faceImgUrl;
+    receivedCardRef.get().then(
+      (value) {
+        faceImgUrl = value.get('faceImgUrl');
+      },
+    );
+    return faceImgUrl;
   }
 
   Future<NameCard> fetchMyNameCard(String uid, String docID) async {
