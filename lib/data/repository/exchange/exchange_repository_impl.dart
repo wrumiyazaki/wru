@@ -17,11 +17,10 @@ class ExchangeRepositoryImpl implements ExchangeRepository {
   final usersCollection = 'users';
   final myCardsCollection = 'myCards';
   final receivedCardsCollection = 'receivedCards';
-  Map nameCardJson = NameCard(name: 'name').toJson();
+  NameCard nameCardJson = NameCard(name: 'name');
   //本当はQRから読み取った名刺の情報群(Json? インスタンス? String?) #TODO
   late Map<String, dynamic> receivedNameCardInfo =
-      ReceivedCard(uid: 'ooo', documentID: 'aaa', namecard: nameCardJson)
-          .toJson();
+      ReceivedCard(uid: 'ooo', documentID: 'aaa', card: nameCardJson).toJson();
 
   @override
   Future<void> saveReceivedCard(String uid) async {
