@@ -22,7 +22,7 @@ ReceivedCard _$ReceivedCardFromJson(Map<String, dynamic> json) {
 mixin _$ReceivedCard {
   String get uid => throw _privateConstructorUsedError;
   String get documentID => throw _privateConstructorUsedError;
-  Map<dynamic, dynamic> get namecard => throw _privateConstructorUsedError;
+  NameCard get card => throw _privateConstructorUsedError;
   String get memo => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -37,11 +37,9 @@ abstract class $ReceivedCardCopyWith<$Res> {
           ReceivedCard value, $Res Function(ReceivedCard) then) =
       _$ReceivedCardCopyWithImpl<$Res, ReceivedCard>;
   @useResult
-  $Res call(
-      {String uid,
-      String documentID,
-      Map<dynamic, dynamic> namecard,
-      String memo});
+  $Res call({String uid, String documentID, NameCard card, String memo});
+
+  $NameCardCopyWith<$Res> get card;
 }
 
 /// @nodoc
@@ -59,7 +57,7 @@ class _$ReceivedCardCopyWithImpl<$Res, $Val extends ReceivedCard>
   $Res call({
     Object? uid = null,
     Object? documentID = null,
-    Object? namecard = null,
+    Object? card = null,
     Object? memo = null,
   }) {
     return _then(_value.copyWith(
@@ -71,15 +69,23 @@ class _$ReceivedCardCopyWithImpl<$Res, $Val extends ReceivedCard>
           ? _value.documentID
           : documentID // ignore: cast_nullable_to_non_nullable
               as String,
-      namecard: null == namecard
-          ? _value.namecard
-          : namecard // ignore: cast_nullable_to_non_nullable
-              as Map<dynamic, dynamic>,
+      card: null == card
+          ? _value.card
+          : card // ignore: cast_nullable_to_non_nullable
+              as NameCard,
       memo: null == memo
           ? _value.memo
           : memo // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $NameCardCopyWith<$Res> get card {
+    return $NameCardCopyWith<$Res>(_value.card, (value) {
+      return _then(_value.copyWith(card: value) as $Val);
+    });
   }
 }
 
@@ -91,11 +97,10 @@ abstract class _$$_ReceivedCardCopyWith<$Res>
       __$$_ReceivedCardCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String uid,
-      String documentID,
-      Map<dynamic, dynamic> namecard,
-      String memo});
+  $Res call({String uid, String documentID, NameCard card, String memo});
+
+  @override
+  $NameCardCopyWith<$Res> get card;
 }
 
 /// @nodoc
@@ -111,7 +116,7 @@ class __$$_ReceivedCardCopyWithImpl<$Res>
   $Res call({
     Object? uid = null,
     Object? documentID = null,
-    Object? namecard = null,
+    Object? card = null,
     Object? memo = null,
   }) {
     return _then(_$_ReceivedCard(
@@ -123,10 +128,10 @@ class __$$_ReceivedCardCopyWithImpl<$Res>
           ? _value.documentID
           : documentID // ignore: cast_nullable_to_non_nullable
               as String,
-      namecard: null == namecard
-          ? _value._namecard
-          : namecard // ignore: cast_nullable_to_non_nullable
-              as Map<dynamic, dynamic>,
+      card: null == card
+          ? _value.card
+          : card // ignore: cast_nullable_to_non_nullable
+              as NameCard,
       memo: null == memo
           ? _value.memo
           : memo // ignore: cast_nullable_to_non_nullable
@@ -141,9 +146,8 @@ class _$_ReceivedCard implements _ReceivedCard {
   _$_ReceivedCard(
       {required this.uid,
       required this.documentID,
-      required final Map<dynamic, dynamic> namecard,
-      this.memo = ''})
-      : _namecard = namecard;
+      required this.card,
+      this.memo = ''});
 
   factory _$_ReceivedCard.fromJson(Map<String, dynamic> json) =>
       _$$_ReceivedCardFromJson(json);
@@ -152,21 +156,15 @@ class _$_ReceivedCard implements _ReceivedCard {
   final String uid;
   @override
   final String documentID;
-  final Map<dynamic, dynamic> _namecard;
   @override
-  Map<dynamic, dynamic> get namecard {
-    if (_namecard is EqualUnmodifiableMapView) return _namecard;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_namecard);
-  }
-
+  final NameCard card;
   @override
   @JsonKey()
   final String memo;
 
   @override
   String toString() {
-    return 'ReceivedCard(uid: $uid, documentID: $documentID, namecard: $namecard, memo: $memo)';
+    return 'ReceivedCard(uid: $uid, documentID: $documentID, card: $card, memo: $memo)';
   }
 
   @override
@@ -177,14 +175,13 @@ class _$_ReceivedCard implements _ReceivedCard {
             (identical(other.uid, uid) || other.uid == uid) &&
             (identical(other.documentID, documentID) ||
                 other.documentID == documentID) &&
-            const DeepCollectionEquality().equals(other._namecard, _namecard) &&
+            (identical(other.card, card) || other.card == card) &&
             (identical(other.memo, memo) || other.memo == memo));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, uid, documentID,
-      const DeepCollectionEquality().hash(_namecard), memo);
+  int get hashCode => Object.hash(runtimeType, uid, documentID, card, memo);
 
   @JsonKey(ignore: true)
   @override
@@ -204,7 +201,7 @@ abstract class _ReceivedCard implements ReceivedCard {
   factory _ReceivedCard(
       {required final String uid,
       required final String documentID,
-      required final Map<dynamic, dynamic> namecard,
+      required final NameCard card,
       final String memo}) = _$_ReceivedCard;
 
   factory _ReceivedCard.fromJson(Map<String, dynamic> json) =
@@ -215,7 +212,7 @@ abstract class _ReceivedCard implements ReceivedCard {
   @override
   String get documentID;
   @override
-  Map<dynamic, dynamic> get namecard;
+  NameCard get card;
   @override
   String get memo;
   @override

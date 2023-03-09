@@ -9,7 +9,7 @@ abstract class ReceivedCard with _$ReceivedCard {
   factory ReceivedCard({
     required String uid,
     required String documentID,
-    required Map namecard,
+    required NameCard card,
     @Default('') String memo,
   }) = _ReceivedCard;
 
