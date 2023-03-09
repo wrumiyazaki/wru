@@ -1,11 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:wru/data/model/app_user/app_user.dart';
 import 'package:wru/data/model/card/card.dart';
 import 'package:wru/data/model/received_card/received_card.dart';
 import 'package:wru/data/provider/firebase_firestore_provider.dart';
 import 'package:wru/data/repository/exchange/exchange_repository.dart';
+import 'package:wru/ui/tabs/exchange/exchange_view_model.dart';
 
 final exchangeRepositoryProvider =
     Provider((ref) => ExchangeRepositoryImpl(ref));
@@ -18,18 +17,18 @@ class ExchangeRepositoryImpl implements ExchangeRepository {
   final myCardsCollection = 'myCards';
   final receivedCardsCollection = 'receivedCards';
   NameCard nameCardJson = NameCard(name: 'name');
-  //本当はQRから読み取った名刺の情報群(Json? インスタンス? String?) #TODO
-  late Map<String, dynamic> receivedNameCardInfo =
-      ReceivedCard(uid: 'ooo', documentID: 'aaa', card: nameCardJson).toJson();
+  final receivedCardProvider =
+      StateNotifierProvider<ReceivedCardNotifier, ReceivedCard>(
+          (ref) => ReceivedCardNotifier());
 
   @override
   Future<void> saveReceivedCard(String uid) async {
-    print(receivedNameCardInfo);
-    db
+    final receivedCardRef = db
         .collection(usersCollection)
         .doc(uid)
         .collection(receivedCardsCollection)
-        .add(receivedNameCardInfo);
+        .doc();
+    receivedCardRef.set(_ref.watch(receivedCardProvider).toJson());
   }
 
   Future saveMemo() async {}

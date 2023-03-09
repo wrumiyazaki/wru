@@ -5,7 +5,6 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:wru/ui/hooks/use_l10n.dart';
 import 'package:wru/ui/routes/app_route.gr.dart';
 import 'package:wru/ui/tabs/exchange/exchange_state.dart';
-import 'package:wru/ui/tabs/exchange/exchange_view_model.dart';
 import 'package:wru/ui/theme/app_theme.dart';
 
 class QrScanPage extends HookConsumerWidget {
@@ -114,7 +113,7 @@ class QrScanPage extends HookConsumerWidget {
             child: FloatingActionButton(
               onPressed: () {
                 controllernotifier.controller!.pauseCamera();
-                ExchangeViewModel().saveNameReceivedCard(ref);
+                controllernotifier.onQRViewCreated;
                 context.router.push(const RecieveRoute());
               },
             ),

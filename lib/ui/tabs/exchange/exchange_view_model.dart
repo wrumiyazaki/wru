@@ -11,7 +11,6 @@ class ReceivedCardNotifier extends StateNotifier<ReceivedCard> {
       : super(ReceivedCard(uid: '', documentID: '', card: NameCard()));
   void getReceivedCard(ReceivedCard receivedCard) {
     state = receivedCard;
-    print(receivedCard);
   }
 }
 
@@ -43,6 +42,11 @@ class QRCodeNotifier extends StateNotifier<Barcode> {
               .read(receivedProvider.notifier)
               //受け取った情報をプロバイダーで扱えるようになる
               .getReceivedCard(tentativeReceivedCard);
+          ref
+              .read(exchangeRepositoryProvider)
+              //uidを取ってくる#TODO
+              //保存する
+              .saveReceivedCard('4MXOY43lcRVTSA8GVq1X8ioCqBf1');
         },
       );
     });
@@ -68,13 +72,6 @@ final myQrCodeInfoProvider = FutureProvider((ref) async {
 });
 
 class ExchangeViewModel {
-  void saveNameReceivedCard(WidgetRef ref) {
-    ref
-        .read(exchangeRepositoryProvider)
-        //uidを取ってくる#TODO
-        .saveReceivedCard('4MXOY43lcRVTSA8GVq1X8ioCqBf1');
-  }
-
   void memoSave(String text) {
     print(text);
   }
