@@ -56,6 +56,17 @@ class ExchangeRepositoryImpl implements ExchangeRepository {
     return faceImgUrl;
   }
 
+  @override
+  Future<String?> fetchReceivedUid() async {
+    String? imgUrl;
+    receivedCardRef.get().then(
+      (value) async {
+        imgUrl = await value.data()!['uid'];
+      },
+    );
+    return imgUrl;
+  }
+
   Future<NameCard> fetchMyNameCard(String uid, String docID) async {
     final NameCard nameCard = await db
         .collection(usersCollection)

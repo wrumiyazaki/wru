@@ -6,6 +6,7 @@ abstract class ExchangeRepository {
   Future<void> saveMemo();
   Future<String?> fetchImage();
   Future<String?> fetchFaceImage();
+  Future<String?> fetchReceivedUid();
   Future<NameCard> fetchMyNameCard(String uid, String docID);
   Future<List> fetchMyCardsDocId(String uid);
 }
