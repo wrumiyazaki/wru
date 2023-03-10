@@ -4,7 +4,8 @@ import 'package:wru/data/model/card/card.dart';
 abstract class ExchangeRepository {
   Future<void> saveReceivedCard(String uid);
   Future<void> saveMemo();
-  Future<String?> fetchImages();
+  Future<String?> fetchImage();
+  Future<String?> fetchFaceImage();
   Future<NameCard> fetchMyNameCard(String uid, String docID);
   Future<List> fetchMyCardsDocId(String uid);
 }

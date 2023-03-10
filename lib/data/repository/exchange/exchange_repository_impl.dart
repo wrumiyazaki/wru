@@ -16,7 +16,6 @@ class ExchangeRepositoryImpl implements ExchangeRepository {
   final usersCollection = 'users';
   final myCardsCollection = 'myCards';
   final receivedCardsCollection = 'receivedCards';
-  NameCard nameCardJson = NameCard(name: 'name');
   final receivedCardProvider =
       StateNotifierProvider<ReceivedCardNotifier, ReceivedCard>(
           (ref) => ReceivedCardNotifier());
@@ -35,21 +34,23 @@ class ExchangeRepositoryImpl implements ExchangeRepository {
 
   Future saveMemo() async {}
 
-  Future<String?> fetchImages() async {
+  @override
+  Future<String?> fetchImage() async {
     String? imgUrl;
     receivedCardRef.get().then(
-      (value) {
-        imgUrl = value.get('imgUrl');
+      (value) async {
+        imgUrl = await value.data()!['namecard']['imgUrl'];
       },
     );
     return imgUrl;
   }
 
-  Future<String?> fetchFaceImages() async {
+  @override
+  Future<String?> fetchFaceImage() async {
     String? faceImgUrl;
     receivedCardRef.get().then(
-      (value) {
-        faceImgUrl = value.get('faceImgUrl');
+      (value) async {
+        faceImgUrl = await value.data()!['namecard']['faceImgUrl'];
       },
     );
     return faceImgUrl;
