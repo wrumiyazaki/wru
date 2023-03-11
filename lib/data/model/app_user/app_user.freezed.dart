@@ -14,11 +14,19 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+AppUser _$AppUserFromJson(Map<String, dynamic> json) {
+  return _AppUser.fromJson(json);
+}
+
 /// @nodoc
 mixin _$AppUser {
   String get uid => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
+  Profile? get profile => throw _privateConstructorUsedError;
+  List<Card>? get myCards => throw _privateConstructorUsedError;
+  List<ReceivedCard>? get receivedCards => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $AppUserCopyWith<AppUser> get copyWith => throw _privateConstructorUsedError;
 }
@@ -28,7 +36,14 @@ abstract class $AppUserCopyWith<$Res> {
   factory $AppUserCopyWith(AppUser value, $Res Function(AppUser) then) =
       _$AppUserCopyWithImpl<$Res, AppUser>;
   @useResult
-  $Res call({String uid, String email});
+  $Res call(
+      {String uid,
+      String email,
+      Profile? profile,
+      List<Card>? myCards,
+      List<ReceivedCard>? receivedCards});
+
+  $ProfileCopyWith<$Res>? get profile;
 }
 
 /// @nodoc
@@ -46,6 +61,9 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
   $Res call({
     Object? uid = null,
     Object? email = null,
+    Object? profile = freezed,
+    Object? myCards = freezed,
+    Object? receivedCards = freezed,
   }) {
     return _then(_value.copyWith(
       uid: null == uid
@@ -56,7 +74,31 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
+      profile: freezed == profile
+          ? _value.profile
+          : profile // ignore: cast_nullable_to_non_nullable
+              as Profile?,
+      myCards: freezed == myCards
+          ? _value.myCards
+          : myCards // ignore: cast_nullable_to_non_nullable
+              as List<Card>?,
+      receivedCards: freezed == receivedCards
+          ? _value.receivedCards
+          : receivedCards // ignore: cast_nullable_to_non_nullable
+              as List<ReceivedCard>?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ProfileCopyWith<$Res>? get profile {
+    if (_value.profile == null) {
+      return null;
+    }
+
+    return $ProfileCopyWith<$Res>(_value.profile!, (value) {
+      return _then(_value.copyWith(profile: value) as $Val);
+    });
   }
 }
 
@@ -67,7 +109,15 @@ abstract class _$$_AppUserCopyWith<$Res> implements $AppUserCopyWith<$Res> {
       __$$_AppUserCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String uid, String email});
+  $Res call(
+      {String uid,
+      String email,
+      Profile? profile,
+      List<Card>? myCards,
+      List<ReceivedCard>? receivedCards});
+
+  @override
+  $ProfileCopyWith<$Res>? get profile;
 }
 
 /// @nodoc
@@ -82,6 +132,9 @@ class __$$_AppUserCopyWithImpl<$Res>
   $Res call({
     Object? uid = null,
     Object? email = null,
+    Object? profile = freezed,
+    Object? myCards = freezed,
+    Object? receivedCards = freezed,
   }) {
     return _then(_$_AppUser(
       uid: null == uid
@@ -92,23 +145,67 @@ class __$$_AppUserCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
+      profile: freezed == profile
+          ? _value.profile
+          : profile // ignore: cast_nullable_to_non_nullable
+              as Profile?,
+      myCards: freezed == myCards
+          ? _value._myCards
+          : myCards // ignore: cast_nullable_to_non_nullable
+              as List<Card>?,
+      receivedCards: freezed == receivedCards
+          ? _value._receivedCards
+          : receivedCards // ignore: cast_nullable_to_non_nullable
+              as List<ReceivedCard>?,
     ));
   }
 }
 
 /// @nodoc
 
+@JsonSerializable(explicitToJson: true)
 class _$_AppUser implements _AppUser {
-  _$_AppUser({required this.uid, required this.email});
+  _$_AppUser(
+      {required this.uid,
+      required this.email,
+      this.profile,
+      final List<Card>? myCards,
+      final List<ReceivedCard>? receivedCards})
+      : _myCards = myCards,
+        _receivedCards = receivedCards;
+
+  factory _$_AppUser.fromJson(Map<String, dynamic> json) =>
+      _$$_AppUserFromJson(json);
 
   @override
   final String uid;
   @override
   final String email;
+  @override
+  final Profile? profile;
+  final List<Card>? _myCards;
+  @override
+  List<Card>? get myCards {
+    final value = _myCards;
+    if (value == null) return null;
+    if (_myCards is EqualUnmodifiableListView) return _myCards;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<ReceivedCard>? _receivedCards;
+  @override
+  List<ReceivedCard>? get receivedCards {
+    final value = _receivedCards;
+    if (value == null) return null;
+    if (_receivedCards is EqualUnmodifiableListView) return _receivedCards;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'AppUser(uid: $uid, email: $email)';
+    return 'AppUser(uid: $uid, email: $email, profile: $profile, myCards: $myCards, receivedCards: $receivedCards)';
   }
 
   @override
@@ -117,27 +214,57 @@ class _$_AppUser implements _AppUser {
         (other.runtimeType == runtimeType &&
             other is _$_AppUser &&
             (identical(other.uid, uid) || other.uid == uid) &&
-            (identical(other.email, email) || other.email == email));
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.profile, profile) || other.profile == profile) &&
+            const DeepCollectionEquality().equals(other._myCards, _myCards) &&
+            const DeepCollectionEquality()
+                .equals(other._receivedCards, _receivedCards));
   }
 
+  @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, uid, email);
+  int get hashCode => Object.hash(
+      runtimeType,
+      uid,
+      email,
+      profile,
+      const DeepCollectionEquality().hash(_myCards),
+      const DeepCollectionEquality().hash(_receivedCards));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$_AppUserCopyWith<_$_AppUser> get copyWith =>
       __$$_AppUserCopyWithImpl<_$_AppUser>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_AppUserToJson(
+      this,
+    );
+  }
 }
 
 abstract class _AppUser implements AppUser {
-  factory _AppUser({required final String uid, required final String email}) =
-      _$_AppUser;
+  factory _AppUser(
+      {required final String uid,
+      required final String email,
+      final Profile? profile,
+      final List<Card>? myCards,
+      final List<ReceivedCard>? receivedCards}) = _$_AppUser;
+
+  factory _AppUser.fromJson(Map<String, dynamic> json) = _$_AppUser.fromJson;
 
   @override
   String get uid;
   @override
   String get email;
+  @override
+  Profile? get profile;
+  @override
+  List<Card>? get myCards;
+  @override
+  List<ReceivedCard>? get receivedCards;
   @override
   @JsonKey(ignore: true)
   _$$_AppUserCopyWith<_$_AppUser> get copyWith =>
