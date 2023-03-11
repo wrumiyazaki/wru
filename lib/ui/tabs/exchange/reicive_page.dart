@@ -1,9 +1,5 @@
-import 'dart:math';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:wru/ui/hooks/use_l10n.dart';
 import 'package:wru/ui/routes/app_route.gr.dart';
@@ -13,6 +9,17 @@ import 'package:wru/ui/theme/app_theme.dart';
 
 class RecievePage extends HookConsumerWidget {
   const RecievePage({super.key});
+
+  Image? returnImage(String? url) {
+    if (url == null) {
+      return null;
+    } else {
+      return Image.network(
+        url,
+        fit: BoxFit.contain,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -41,22 +48,13 @@ class RecievePage extends HookConsumerWidget {
             width: 413.636,
             padding: EdgeInsets.fromLTRB(10, 40, 10, 0),
             child: GestureDetector(
-              onTap: () {
-                imagestatenotifier.state = !imagestate;
-                print(imagestate);
-              },
-              child: imagestate
-                  ? Image.asset(
-                      //firebase
-                      'assets/img/namecard-sample.png',
-                      fit: BoxFit.contain,
-                    )
-                  : Image.network(
-                      //firebase
-                      'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/800px-Image_created_with_a_mobile_phone.png',
-                      fit: BoxFit.contain,
-                    ),
-            ),
+                onTap: () {
+                  imagestatenotifier.state = !imagestate;
+                  print(imagestate);
+                },
+                child: imagestate
+                    ? returnImage(ExchangeViewModel().fetchImageVM())
+                    : returnImage(ExchangeViewModel().fetchFaceImageVM())),
           ),
           Container(
             padding: EdgeInsets.fromLTRB(20, 40, 20, 10),
