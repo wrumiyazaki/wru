@@ -15,6 +15,16 @@ class ReceivedCardNotifier extends StateNotifier<ReceivedCard> {
   void getReceivedCard(ReceivedCard receivedCard) {
     state = receivedCard;
   }
+
+  void changeMemo(String text) {
+    state = state.copyWith(memo: text);
+    //メモを変更したあとfirestoreに保存する必要がある
+    Provider(
+      (ref) {
+        ref.read(exchangeRepositoryProvider).saveReceivedCard(tentativeuid);
+      },
+    );
+  }
 }
 
 class QRCodeNotifier extends StateNotifier<Barcode> {
@@ -71,10 +81,6 @@ final myQrCodeInfoProvider = FutureProvider((ref) async {
 });
 
 class ExchangeViewModel {
-  void memoSave(String text) {
-    print(text);
-  }
-
   String? fetchImageVM() {
     String? imageUrl;
     Provider(

@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:wru/data/model/received_card/received_card.dart';
 import 'package:wru/ui/hooks/use_l10n.dart';
 import 'package:wru/ui/routes/app_route.gr.dart';
 import 'package:wru/ui/tabs/exchange/exchange_state.dart';
@@ -29,6 +30,9 @@ class RecievePage extends HookConsumerWidget {
     final imagestate = ref.watch(imageprovider);
     final imagestatenotifier = ref.read(imageprovider.notifier);
     String memo = '';
+    final receivedCardProvider =
+        StateNotifierProvider<ReceivedCardNotifier, ReceivedCard>(
+            (ref) => ReceivedCardNotifier());
 
     return SingleChildScrollView(
       child: Column(
@@ -78,7 +82,7 @@ class RecievePage extends HookConsumerWidget {
               onPressed: () {
                 context.router.push(TabRoute());
                 //firebaseにメモを保存
-                ExchangeViewModel().memoSave(memo);
+                ref.read(receivedCardProvider.notifier).changeMemo(memo);
               },
               child: Text(l10n.save),
             ),

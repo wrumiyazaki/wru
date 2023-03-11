@@ -32,8 +32,6 @@ class ExchangeRepositoryImpl implements ExchangeRepository {
     receivedCardRef.set(_ref.watch(receivedCardProvider).toJson());
   }
 
-  Future saveMemo() async {}
-
   @override
   Future<String?> fetchImage() async {
     String? imgUrl;
