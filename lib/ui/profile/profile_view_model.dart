@@ -1,37 +1,30 @@
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:wru/ui/profile/profile_state.dart';
 
 //要素数増やすならview_modelとListView(edit_page側は条件分岐もある)内も
-class MapKey extends StatelessWidget {
-  MapKey({super.key});
 
-  String name = 'name';
-  String namePhonetic = 'namePhonetic';
-  String userID = 'userID';
-  String birthday = 'birthday';
-  String telePhoneNumber = 'telePhoneNumber';
-  String email = 'email';
-  String gender = 'gender';
-  String belonging1 = 'belonging1';
-  String belonging2 = 'belonging2';
-  String belonging3 = 'belonging3';
+class getProfileListNotifier extends StateNotifier<List> {
+  getProfileListNotifier() : super(getProfileList);
+  String printText(index) {
+    return state[index];
+  }
 
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
+  void changeProfiles(templist) {
+    for (int i = 0; i < state.length; i++) {
+      state[i] = templist[i];
+    }
   }
 }
 
-//firebaseからとってきたもの
-Map getMap = {
-  MapKey().name: '小林ゆうひ',
-  MapKey().namePhonetic: 'kobaaydsasf',
-  MapKey().userID: 'sdfaddas',
-  MapKey().birthday: 'asdf',
-  MapKey().telePhoneNumber: 'asdf',
-  MapKey().email: 'asdf',
-  MapKey().gender: 'asdf',
-  MapKey().belonging1: 'asdf',
-  MapKey().belonging2: 'asdf',
-  MapKey().belonging3: 'asdf',
-};
+class tempProfileListNotifier extends StateNotifier<List> {
+  tempProfileListNotifier() : super(tempProfileList);
+  void changeProfile(index, text) {
+    state[index] = text;
+  }
+
+  List returnTempList() {
+    return state;
+  }
+}

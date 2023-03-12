@@ -3,28 +3,49 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:wru/ui/hooks/use_l10n.dart';
+import 'package:wru/ui/profile/profile_state.dart';
 import 'package:wru/ui/profile/profile_view_model.dart';
 import 'package:wru/ui/routes/app_route.gr.dart';
 import 'package:wru/ui/theme/app_theme.dart';
-import 'profile_page.dart';
 
 class ProfileEditPage extends HookConsumerWidget {
   const ProfileEditPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final boolprovider =
+        StateProvider((ref) => false); //ページが再描画されるときにfalseになってほしいのでここに書く
     final theme = ref.watch(appThemeProvider);
     final l10n = useL10n();
+    final _getProfileListProvider =
+        StateNotifierProvider<getProfileListNotifier, List>(
+            (ref) => getProfileListNotifier());
+    final _tempProfileListProvider =
+        StateNotifierProvider<tempProfileListNotifier, List>(
+            (ref) => tempProfileListNotifier());
+
+    List<String> profilePropList = [
+      l10n.name,
+      l10n.namePhonetic,
+      l10n.userID,
+      l10n.birthday,
+      l10n.telePhoneNumber,
+      l10n.email,
+      l10n.gender,
+      l10n.belonging1,
+      l10n.belonging2,
+      l10n.belonging3,
+    ];
 
     //プロフィール編集１つ分のWidget
-    Widget modelToWidget(index, mapkey) {
+    Widget modelToWidget(index) {
       return Container(
         child: Column(children: [
           Container(
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.fromLTRB(30, 20, 0, 5),
             child: Text(
-              ProfilePropList().profilePropList[index],
+              profilePropList[index],
               style: theme.textTheme.h20.copyWith(color: Colors.grey.shade700),
             ),
           ),
@@ -34,9 +55,15 @@ class ProfileEditPage extends HookConsumerWidget {
             child: TextFormField(
               style: theme.textTheme.h40,
               inputFormatters: [LengthLimitingTextInputFormatter(20)],
-              controller: TextEditingController(text: getMap[mapkey]),
+              controller: TextEditingController(
+                  text: ref
+                      .watch(_getProfileListProvider.notifier)
+                      .printText(index)),
               onChanged: (value) {
-                getMap[mapkey] = value;
+                ref
+                    .read(_tempProfileListProvider.notifier)
+                    .changeProfile(index, value);
+                ref.read(boolprovider.notifier).state = true;
               },
             ),
           ),
@@ -58,32 +85,39 @@ class ProfileEditPage extends HookConsumerWidget {
         backgroundColor: theme.appColors.background,
         elevation: 0,
         actions: [
-          TextButton(
-            style: TextButton.styleFrom(),
-            onPressed: () {
-              // firebaseに保存する処理がここにくる
-              context.pushRoute(TabRoute());
-            },
-            child: Text(
-              '保存',
-              style: theme.textTheme.h40.copyWith(color: Colors.black),
+          Consumer(
+            builder: (context, ref, child) => Container(
+              child: ref.watch(boolprovider)
+                  ? TextButton(
+                      style: TextButton.styleFrom(),
+                      onPressed: () {
+                        ref
+                            .read(_getProfileListProvider.notifier)
+                            //リストを書き換える処理
+                            //各変更を保持しておいて一気に変更するためにはtempListが必要
+                            .changeProfiles(ref
+                                .read(_tempProfileListProvider.notifier)
+                                .returnTempList());
+                        // firebaseに保存する処理がここにくる
+                        context.pushRoute(TabRoute());
+                        ref.read(boolprovider.notifier).state = false;
+                      },
+                      child: Text(
+                        '保存',
+                        style:
+                            theme.textTheme.h40.copyWith(color: Colors.black),
+                      ),
+                    )
+                  : null,
             ),
           )
         ],
       ),
-      body: ListView(
-        children: [
-          modelToWidget(0, MapKey().name),
-          modelToWidget(1, MapKey().namePhonetic),
-          modelToWidget(2, MapKey().userID),
-          modelToWidget(3, MapKey().birthday),
-          modelToWidget(4, MapKey().telePhoneNumber),
-          modelToWidget(5, MapKey().email),
-          modelToWidget(6, MapKey().gender),
-          modelToWidget(7, MapKey().belonging1),
-          modelToWidget(8, MapKey().belonging2),
-          modelToWidget(9, MapKey().belonging3),
-        ],
+      body: ListView.builder(
+        itemCount: profilePropList.length,
+        itemBuilder: (context, index) {
+          return modelToWidget(index);
+        },
       ),
     );
   }
