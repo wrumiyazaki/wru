@@ -17,7 +17,7 @@ class ProfileMapNotifier extends StateNotifier<Map?> {
 }
 
 class getProfileListNotifier extends StateNotifier<List> {
-  getProfileListNotifier() : super(getProfileList);
+  getProfileListNotifier() : super(ProfileLists().getProfileList);
 
   String printText(index) {
     return state[index];
@@ -31,7 +31,7 @@ class getProfileListNotifier extends StateNotifier<List> {
 }
 
 class tempProfileListNotifier extends StateNotifier<List> {
-  tempProfileListNotifier() : super(tempProfileList);
+  tempProfileListNotifier() : super(ProfileLists().tempProfileList);
 
   void changeProfile(index, text) {
     state[index] = text;
