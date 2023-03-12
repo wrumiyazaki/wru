@@ -5,8 +5,20 @@ import 'package:wru/ui/profile/profile_state.dart';
 
 //要素数増やすならview_modelとListView(edit_page側は条件分岐もある)内も
 
+//uidを取得#TODO
+String profileUid = '4MXOY43lcRVTSA8GVq1X8ioCqBf1';
+
+class ProfileMapNotifier extends StateNotifier<Map?> {
+  ProfileMapNotifier() : super(null);
+
+  void getProfileMap(Map? firestoreProfile) {
+    state = firestoreProfile;
+  }
+}
+
 class getProfileListNotifier extends StateNotifier<List> {
   getProfileListNotifier() : super(getProfileList);
+
   String printText(index) {
     return state[index];
   }
@@ -20,6 +32,7 @@ class getProfileListNotifier extends StateNotifier<List> {
 
 class tempProfileListNotifier extends StateNotifier<List> {
   tempProfileListNotifier() : super(tempProfileList);
+
   void changeProfile(index, text) {
     state[index] = text;
   }
