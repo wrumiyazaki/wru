@@ -16,9 +16,6 @@ class ProfileEditPage extends HookConsumerWidget {
         StateProvider((ref) => false); //ページが再描画されるときにfalseになってほしいのでここに書く
     final theme = ref.watch(appThemeProvider);
     final l10n = useL10n();
-    final _tempProfileListProvider =
-        StateNotifierProvider<tempProfileListNotifier, List>(
-            (ref) => tempProfileListNotifier());
 
     List<String> profilePropList = [
       l10n.name,
@@ -57,7 +54,7 @@ class ProfileEditPage extends HookConsumerWidget {
                       .printText(index)),
               onChanged: (value) {
                 ref
-                    .read(_tempProfileListProvider.notifier)
+                    .read(tempProfileListProvider.notifier)
                     .changeProfile(index, value);
                 ref.read(boolprovider.notifier).state = true;
               },
@@ -92,9 +89,10 @@ class ProfileEditPage extends HookConsumerWidget {
                             //リストを書き換える処理
                             //各変更を保持しておいて一気に変更するためにはtempListが必要
                             .changeProfiles(ref
-                                .read(_tempProfileListProvider.notifier)
+                                .read(tempProfileListProvider.notifier)
                                 .returnTempList());
-                        // firebaseに保存する処理がここにくる
+                        // firebaseに保存する処理
+                        ProfileViewModel().toSave(ref);
                         context.pushRoute(TabRoute());
                         ref.read(boolprovider.notifier).state = false;
                       },

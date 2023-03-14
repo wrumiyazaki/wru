@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:wru/data/provider/firebase_firestore_provider.dart';
 import 'package:wru/data/repository/profile/profile_repository.dart';
+import 'package:wru/ui/profile/profile_state.dart';
 import 'package:wru/ui/profile/profile_view_model.dart';
 
 final profileRepositoryProvider = Provider((ref) => ProfileRepositoryImpl(ref));
@@ -25,5 +26,12 @@ class ProfileRepositoryImpl implements ProfileRepository {
       profileMap = documentMap[profileField];
     }
     return Future<Map>.value(profileMap);
+  }
+
+  void saveProfileMap(Map map, int index) {
+    profileRef.update({
+      '$profileField.${ProfileLists().profileKeyList[index]}':
+          map[ProfileLists().profileKeyList[index]],
+    });
   }
 }

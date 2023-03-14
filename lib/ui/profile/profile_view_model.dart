@@ -14,18 +14,28 @@ final getProfileListProvider =
 class getProfileListNotifier extends StateNotifier<List> {
   getProfileListNotifier() : super(ProfileLists().getProfileList);
 
-  void printState() {
-    print(state);
+  List printState() {
+    return state;
   }
 
-  String printText(index) {
+  String? printText(index) {
     return state[index];
   }
 
+  //受け取ったとき
   void profileMapToList(Map map) {
     for (int i = 0; i < ProfileLists().profileKeyList.length; i++) {
       state[i] = map[ProfileLists().profileKeyList[i]];
     }
+  }
+
+  //保存するとき
+  Map profileListToMap() {
+    Map map = {};
+    for (int i = 0; i < ProfileLists().profileKeyList.length; i++) {
+      map[ProfileLists().profileKeyList[i]] = state[i];
+    }
+    return map;
   }
 
   void changeProfiles(tempList) {
@@ -35,8 +45,16 @@ class getProfileListNotifier extends StateNotifier<List> {
   }
 }
 
+final tempProfileListProvider =
+    StateNotifierProvider<tempProfileListNotifier, List>(
+        (ref) => tempProfileListNotifier());
+
 class tempProfileListNotifier extends StateNotifier<List> {
   tempProfileListNotifier() : super(ProfileLists().tempProfileList);
+
+  void reflectProfileList(List profileList) {
+    state = profileList;
+  }
 
   void changeProfile(index, text) {
     state[index] = text;
@@ -51,5 +69,16 @@ class ProfileViewModel {
   Future<void> toFetch(WidgetRef ref) async {
     Map map = await ref.read(profileRepositoryProvider).fetchProfileMap();
     ref.read(getProfileListProvider.notifier).profileMapToList(map);
+
+    //tempListにgetProfileListの内容を入れる
+    ref.read(tempProfileListProvider.notifier).reflectProfileList(
+        ref.read(getProfileListProvider.notifier).printState());
+  }
+
+  void toSave(WidgetRef ref) {
+    Map map = ref.read(getProfileListProvider.notifier).profileListToMap();
+    for (int i = 0; i < ProfileLists().profileKeyList.length; i++) {
+      ref.read(profileRepositoryProvider).saveProfileMap(map, i);
+    }
   }
 }

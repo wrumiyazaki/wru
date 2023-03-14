@@ -43,10 +43,13 @@ class ProfilePage extends HookConsumerWidget {
           Container(
             alignment: Alignment.centerLeft,
             padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
-            child: Text(
-              ref.read(getProfileListProvider.notifier).printText(index),
-              style: theme.textTheme.h40,
-            ),
+            child: ref.read(getProfileListProvider.notifier).printText(index) ==
+                    null
+                ? Text('')
+                : Text(
+                    ref.read(getProfileListProvider.notifier).printText(index)!,
+                    style: theme.textTheme.h40,
+                  ),
           ),
         ]),
       );
