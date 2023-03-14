@@ -12,26 +12,16 @@ class ProfileRepositoryImpl implements ProfileRepository {
   late final FirebaseFirestore db = _ref.read(firebaseFirestoreProvider);
   late final DocumentReference profileRef =
       db.collection(usersCollection).doc(profileUid);
-  final profileMapProvider = StateNotifierProvider<ProfileMapNotifier, Map?>(
-      (ref) => ProfileMapNotifier());
 
   @override
-  Future<void> fetchProfileMap() async {
+  Future<Map> fetchProfileMap() async {
+    Map? documentMap;
     Map? profileMap;
-    profileRef.snapshots().listen(
-      (event) async {
-        final Map documentMap = event.data() as Map;
-        if (documentMap[profileField] != null) {
-          profileMap = documentMap[profileField];
-          Provider(
-            (ref) {
-              ref.read(profileMapProvider.notifier).getProfileMap(profileMap);
-            },
-          );
-        }
-        print(profileMap);
-      },
-      onError: (e) => print('error'),
-    );
+    DocumentSnapshot? snapshot = await profileRef.get();
+    documentMap = snapshot.data() as Map;
+    if (documentMap[profileField] != null) {
+      profileMap = documentMap[profileField];
+    }
+    return Future<Map>.value(profileMap);
   }
 }
