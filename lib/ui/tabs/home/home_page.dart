@@ -1,14 +1,11 @@
-import 'dart:math';
-
 import 'package:auto_route/auto_route.dart';
-import 'package:wru/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:wru/ui/hooks/use_l10n.dart';
+import 'package:wru/ui/profile/profile_view_model.dart';
 import 'package:wru/ui/routes/app_route.gr.dart';
 import 'package:wru/ui/tabs/home/home_view_model.dart';
 import 'package:wru/ui/theme/app_text_theme.dart';
 import 'package:wru/ui/theme/app_theme.dart';
-import 'package:wru/ui/xxx/xxx_view_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class HomePage extends HookConsumerWidget {
@@ -85,12 +82,13 @@ class HomePage extends HookConsumerWidget {
                     border: Border.all(
                         color: theme.appColors.homeProfileText, width: 2)),
                 child: IconButton(
-                  icon: const Icon(Icons.settings),
-                  iconSize: 80,
-                  color: theme.appColors.homeProfileText,
-                  onPressed: () =>
-                      AutoRouter.of(context).push(const ProfileRoute()),
-                ),
+                    icon: const Icon(Icons.settings),
+                    iconSize: 80,
+                    color: theme.appColors.homeProfileText,
+                    onPressed: () async {
+                      await ProfileViewModel().toFetch(ref);
+                      AutoRouter.of(context).push(const ProfileRoute());
+                    }),
               ),
             ],
           ),

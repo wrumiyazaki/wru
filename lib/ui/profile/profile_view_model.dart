@@ -7,6 +7,10 @@ import 'package:wru/ui/profile/profile_state.dart';
 //uidを取得#TODO
 String profileUid = '4MXOY43lcRVTSA8GVq1X8ioCqBf1';
 
+final getProfileListProvider =
+    StateNotifierProvider<getProfileListNotifier, List>(
+        (ref) => getProfileListNotifier());
+
 class getProfileListNotifier extends StateNotifier<List> {
   getProfileListNotifier() : super(ProfileLists().getProfileList);
 
@@ -22,7 +26,6 @@ class getProfileListNotifier extends StateNotifier<List> {
     for (int i = 0; i < ProfileLists().profileKeyList.length; i++) {
       state[i] = map[ProfileLists().profileKeyList[i]];
     }
-    print('maptolistEnd');
   }
 
   void changeProfiles(tempList) {
@@ -45,12 +48,8 @@ class tempProfileListNotifier extends StateNotifier<List> {
 }
 
 class ProfileViewModel {
-  final profileRepositoryProvider =
-      Provider((ref) => ProfileRepositoryImpl(ref));
-  final getProfileListProvider = Provider((ref) => getProfileListNotifier());
-
-  void toFetch(WidgetRef ref) async {
+  Future<void> toFetch(WidgetRef ref) async {
     Map map = await ref.read(profileRepositoryProvider).fetchProfileMap();
-    ref.read(getProfileListProvider).profileMapToList(map);
+    ref.read(getProfileListProvider.notifier).profileMapToList(map);
   }
 }

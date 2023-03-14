@@ -1,10 +1,7 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:wru/ui/hooks/use_l10n.dart';
-import 'package:wru/ui/profile/profile_state.dart';
 import 'package:wru/ui/profile/profile_view_model.dart';
 import 'package:wru/ui/routes/app_route.gr.dart';
 import 'package:wru/ui/theme/app_theme.dart';
@@ -17,9 +14,6 @@ class ProfilePage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(appThemeProvider);
     final l10n = useL10n();
-    final _getProfileListProvider =
-        StateNotifierProvider<getProfileListNotifier, List>(
-            (ref) => getProfileListNotifier());
 
     List<String> profilePropList = [
       l10n.name,
@@ -50,7 +44,7 @@ class ProfilePage extends HookConsumerWidget {
             alignment: Alignment.centerLeft,
             padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
             child: Text(
-              ref.read(_getProfileListProvider.notifier).printText(index),
+              ref.read(getProfileListProvider.notifier).printText(index),
               style: theme.textTheme.h40,
             ),
           ),
