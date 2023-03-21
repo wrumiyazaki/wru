@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:wru/data/model/card/card.dart';
+import 'package:wru/data/model/sent_card/sent_card.dart';
 import 'package:wru/ui/hooks/use_l10n.dart';
 import 'package:wru/ui/routes/app_route.gr.dart';
 import 'package:wru/ui/tabs/exchange/exchange_state.dart';
@@ -23,6 +27,13 @@ class QrScanPage extends HookConsumerWidget {
             MediaQuery.of(context).size.height < 300)
         ? 150.0
         : 300;
+
+    //スキャンしたデータを仮で再現する #TODO
+    NameCard tentativenameCard =
+        NameCard(name: 'name', imgUrl: 'ss', faceImgUrl: 'ss');
+    //tentativeReceivedNameCardInfoがinfoの代替
+    String tentativeReceivedNameCardInfo = jsonEncode(
+        SentCard(uid: 'ooo', documentID: 'aaa', card: tentativenameCard));
 
     return AbsorbPointer(
       //childのWidgetの操作を受け付けるか
@@ -114,7 +125,9 @@ class QrScanPage extends HookConsumerWidget {
               onPressed: () {
                 controllernotifier.controller!.pauseCamera();
                 controllernotifier.onQRViewCreated;
-                context.router.push(const RecieveRoute());
+                //情報を渡す
+                context.router.push(ReceivedInterfaceRoute(
+                    info: tentativeReceivedNameCardInfo));
               },
             ),
           )

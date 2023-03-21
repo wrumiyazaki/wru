@@ -16,9 +16,6 @@ class ExchangeRepositoryImpl implements ExchangeRepository {
   final usersCollection = 'users';
   final myCardsCollection = 'myCards';
   final receivedCardsCollection = 'receivedCards';
-  final receivedCardProvider =
-      StateNotifierProvider<ReceivedCardNotifier, ReceivedCard>(
-          (ref) => ReceivedCardNotifier());
 
   //自動生成された同じドキュメントを扱う
   late final receivedCardRef = db
@@ -30,6 +27,7 @@ class ExchangeRepositoryImpl implements ExchangeRepository {
   @override
   Future<void> saveReceivedCard(String uid) async {
     receivedCardRef.set(_ref.watch(receivedCardProvider).toJson());
+    print('セーブ');
   }
 
   @override

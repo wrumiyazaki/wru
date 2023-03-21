@@ -9,7 +9,8 @@ import 'package:wru/ui/tabs/exchange/exchange_view_model.dart';
 import 'package:wru/ui/theme/app_theme.dart';
 
 class RecievePage extends HookConsumerWidget {
-  const RecievePage({super.key});
+  RecievePage({super.key, required this.info});
+  String info;
 
   Image? returnImage(String? url) {
     if (url == null) {
@@ -76,17 +77,17 @@ class RecievePage extends HookConsumerWidget {
               controller: TextEditingController(text: memo),
             ),
           ),
-          Container(
-            alignment: Alignment.center,
-            child: ElevatedButton(
-              onPressed: () {
-                context.router.push(TabRoute());
-                //firebaseにメモを保存
-                ref.read(receivedCardProvider.notifier).changeMemo(memo);
-              },
-              child: Text(l10n.save),
-            ),
-          ),
+          // Container(
+          //   alignment: Alignment.center,
+          //   child: ElevatedButton(
+          //     onPressed: () {
+          //       context.router.push(TabRoute());
+          //       //firebaseにメモを保存
+          //       ref.read(receivedCardProvider.notifier).changeMemo(memo);
+          //     },
+          //     child: Text(l10n.save),
+          //   ),
+          // ),
         ],
       ),
     );

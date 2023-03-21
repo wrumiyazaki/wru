@@ -6,6 +6,7 @@ import 'package:wru/ui/profile/profile_page.dart';
 import 'package:wru/ui/routes/route_path.dart';
 import 'package:wru/ui/tabs/exchange/qr_display_page.dart';
 import 'package:wru/ui/tabs/exchange/qr_scan_page.dart';
+import 'package:wru/ui/tabs/exchange/received_interface_page.dart';
 import 'package:wru/ui/tabs/exchange/reicive_page.dart';
 import 'package:wru/ui/signIn/sign_in_page.dart';
 import 'package:wru/ui/signUp/sign_up_page.dart';
@@ -31,7 +32,9 @@ import 'package:auto_route/empty_router_widgets.dart';
             children: [
               AutoRoute(path: '', page: QrDisplayPage),
               AutoRoute(path: 'scan', page: QrScanPage),
-              AutoRoute(path: 'receive', page: RecievePage),
+              AutoRoute<String>(
+                  path: 'receiveInterface', page: ReceivedInterfacePage),
+              AutoRoute<String>(path: 'receive', page: RecievePage),
             ]),
         AutoRoute(
             path: 'friend',
