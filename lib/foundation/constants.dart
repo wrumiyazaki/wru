@@ -34,4 +34,7 @@ class Constants {
       ) ??
       Flavor.dev;
   static bool get enablePreview => const bool.fromEnvironment('PREVIEW');
+
+  /// 名刺のアスペクト比
+  static double cardAspectRatio = 99 / 55;
 }
