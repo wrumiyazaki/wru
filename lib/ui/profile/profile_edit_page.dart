@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:wru/ui/hooks/use_l10n.dart';
-import 'package:wru/ui/profile/profile_state.dart';
 import 'package:wru/ui/profile/profile_view_model.dart';
 import 'package:wru/ui/routes/app_route.gr.dart';
 import 'package:wru/ui/theme/app_theme.dart';
@@ -17,12 +16,6 @@ class ProfileEditPage extends HookConsumerWidget {
         StateProvider((ref) => false); //ページが再描画されるときにfalseになってほしいのでここに書く
     final theme = ref.watch(appThemeProvider);
     final l10n = useL10n();
-    final _getProfileListProvider =
-        StateNotifierProvider<getProfileListNotifier, List>(
-            (ref) => getProfileListNotifier());
-    final _tempProfileListProvider =
-        StateNotifierProvider<tempProfileListNotifier, List>(
-            (ref) => tempProfileListNotifier());
 
     List<String> profilePropList = [
       l10n.name,
@@ -57,11 +50,11 @@ class ProfileEditPage extends HookConsumerWidget {
               inputFormatters: [LengthLimitingTextInputFormatter(20)],
               controller: TextEditingController(
                   text: ref
-                      .watch(_getProfileListProvider.notifier)
+                      .watch(getProfileListProvider.notifier)
                       .printText(index)),
               onChanged: (value) {
                 ref
-                    .read(_tempProfileListProvider.notifier)
+                    .read(tempProfileListProvider.notifier)
                     .changeProfile(index, value);
                 ref.read(boolprovider.notifier).state = true;
               },
@@ -92,13 +85,14 @@ class ProfileEditPage extends HookConsumerWidget {
                       style: TextButton.styleFrom(),
                       onPressed: () {
                         ref
-                            .read(_getProfileListProvider.notifier)
+                            .read(getProfileListProvider.notifier)
                             //リストを書き換える処理
                             //各変更を保持しておいて一気に変更するためにはtempListが必要
                             .changeProfiles(ref
-                                .read(_tempProfileListProvider.notifier)
+                                .read(tempProfileListProvider.notifier)
                                 .returnTempList());
-                        // firebaseに保存する処理がここにくる
+                        // firebaseに保存する処理
+                        ProfileViewModel().toSave(ref);
                         context.pushRoute(TabRoute());
                         ref.read(boolprovider.notifier).state = false;
                       },
