@@ -18,6 +18,7 @@ class ReceivedCardNotifier extends StateNotifier<ReceivedCard> {
       : super(ReceivedCard(uid: '', documentID: '', card: NameCard()));
   void getReceivedCard(ReceivedCard receivedCard, WidgetRef ref) {
     state = receivedCard;
+    print('一旦プロバイダー');
     ref.read(exchangeRepositoryProvider).saveReceivedCard(tentativeuid);
   }
 
@@ -25,6 +26,10 @@ class ReceivedCardNotifier extends StateNotifier<ReceivedCard> {
     //メモを変更したあとfirestoreに保存する必要がある
     state = state.copyWith(memo: text);
     ref.read(exchangeRepositoryProvider).saveReceivedCard(tentativeuid);
+  }
+
+  String returnReceivedName() {
+    return state.card.name!;
   }
 }
 
@@ -54,29 +59,20 @@ final myQrCodeInfoProvider = FutureProvider((ref) async {
       uid: tentativeuid,
       //自分の名刺が今は１個しかないためindexは0
       documentID: docList[0],
-      card: nameCard);
+      card: nameCard.toJson());
   return sentCard;
 });
 
 class ExchangeViewModel {
-  String? fetchImageVM() {
+  String? fetchImageVM(WidgetRef ref) {
     String? imageUrl;
-    Provider(
-      (ref) async {
-        imageUrl = await ref.read(exchangeRepositoryProvider).fetchImage();
-      },
-    );
+    ref.read(exchangeRepositoryProvider).fetchFaceImage();
     return imageUrl;
   }
 
-  String? fetchFaceImageVM() {
+  String? fetchFaceImageVM(WidgetRef ref) {
     String? faceImageUrl;
-    Provider(
-      (ref) async {
-        faceImageUrl =
-            await ref.read(exchangeRepositoryProvider).fetchFaceImage();
-      },
-    );
+    ref.read(exchangeRepositoryProvider).fetchFaceImage();
     return faceImageUrl;
   }
 }

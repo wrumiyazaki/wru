@@ -78,9 +78,11 @@ class AppRouter extends _i16.RootStackRouter {
       );
     },
     HomeRoute.name: (routeData) {
+      final args =
+          routeData.argsAs<HomeRouteArgs>(orElse: () => const HomeRouteArgs());
       return _i16.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: const _i8.HomePage(),
+        child: _i8.HomePage(key: args.key),
       );
     },
     ExchangeTab.name: (routeData) {
@@ -322,14 +324,26 @@ class EnterInformationRoute extends _i16.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i8.HomePage]
-class HomeRoute extends _i16.PageRouteInfo<void> {
-  const HomeRoute()
+class HomeRoute extends _i16.PageRouteInfo<HomeRouteArgs> {
+  HomeRoute({_i17.Key? key})
       : super(
           HomeRoute.name,
           path: 'home',
+          args: HomeRouteArgs(key: key),
         );
 
   static const String name = 'HomeRoute';
+}
+
+class HomeRouteArgs {
+  const HomeRouteArgs({this.key});
+
+  final _i17.Key? key;
+
+  @override
+  String toString() {
+    return 'HomeRouteArgs{key: $key}';
+  }
 }
 
 /// generated route for

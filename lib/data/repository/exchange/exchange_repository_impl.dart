@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:wru/data/model/card/card.dart';
 import 'package:wru/data/model/received_card/received_card.dart';
+import 'package:wru/data/model/sent_card/sent_card.dart';
 import 'package:wru/data/provider/firebase_firestore_provider.dart';
 import 'package:wru/data/repository/exchange/exchange_repository.dart';
 import 'package:wru/ui/tabs/exchange/exchange_view_model.dart';
@@ -26,7 +30,23 @@ class ExchangeRepositoryImpl implements ExchangeRepository {
 
   @override
   Future<void> saveReceivedCard(String uid) async {
-    receivedCardRef.set(_ref.watch(receivedCardProvider).toJson());
+    Map<String, dynamic> saveMap = _ref.watch(receivedCardProvider).toJson();
+    NameCard tentativenameCardMap =
+        NameCard(name: 'konkon', imgUrl: 'kyou', faceImgUrl: 'ss');
+    //tentativeReceivedNameCardInfoがinfoの代替
+    Map tentativeNamecardJson = tentativenameCardMap.toJson();
+    Map<String, dynamic> tentativeSentNameCardInfo =
+        SentCard(uid: '325', documentID: 'aaa', card: tentativeNamecardJson)
+            .toJson();
+    //Stringに直す
+    String tentativeSentNameCardString = jsonEncode(tentativeSentNameCardInfo);
+    //StringをMapになおす
+    Map<String, dynamic> tentativeReceivedNameCardInfo =
+        jsonDecode(tentativeSentNameCardString);
+
+    print(tentativeReceivedNameCardInfo);
+    await receivedCardRef.set(tentativeReceivedNameCardInfo);
+    print('ここは通れない');
     print('セーブ');
   }
 
@@ -89,7 +109,3 @@ class ExchangeRepositoryImpl implements ExchangeRepository {
     return docList;
   }
 }
-
-// Result.guardFuture(() {
-// return Result.success(data: 0);
-// });

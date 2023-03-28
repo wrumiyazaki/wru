@@ -27,13 +27,14 @@ class QrScanPage extends HookConsumerWidget {
             MediaQuery.of(context).size.height < 300)
         ? 150.0
         : 300;
+    QRViewController controller;
 
     //スキャンしたデータを仮で再現する #TODO
     NameCard tentativenameCard =
         NameCard(name: 'name', imgUrl: 'ss', faceImgUrl: 'ss');
     //tentativeReceivedNameCardInfoがinfoの代替
-    String tentativeReceivedNameCardInfo = jsonEncode(
-        SentCard(uid: 'ooo', documentID: 'aaa', card: tentativenameCard));
+    String tentativeReceivedNameCardInfo = jsonEncode(SentCard(
+        uid: 'ooo', documentID: 'aaa', card: tentativenameCard.toJson()));
 
     return AbsorbPointer(
       //childのWidgetの操作を受け付けるか

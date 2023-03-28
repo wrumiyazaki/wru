@@ -27,13 +27,16 @@ class ReceivedInterfacePage extends HookConsumerWidget {
               ),
             ),
             onPressed: () {
-              context.router.push(RecieveRoute(info: info));
               //セーブ
               //受け取ったjsonをRecivedCardに当てはめる
               final ReceivedCard receivedCard = jsonDecode(info);
+              final Map<String, dynamic> receivedInfoMap = json.decode(info);
+              var receivedCardtekito =
+                  new ReceivedCard.fromJson(receivedInfoMap);
               ref
                   .read(receivedCardProvider.notifier)
                   .getReceivedCard(receivedCard, ref);
+              context.router.push(RecieveRoute(info: info));
             },
             child: Text('名刺を受け取る'),
           ),

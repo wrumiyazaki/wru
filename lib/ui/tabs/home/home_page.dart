@@ -1,10 +1,16 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:wru/data/model/card/card.dart';
+import 'package:wru/data/model/received_card/received_card.dart';
+import 'package:wru/data/model/sent_card/sent_card.dart';
+import 'package:wru/data/repository/exchange/exchange_repository_impl.dart';
 import 'package:wru/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:wru/ui/hooks/use_l10n.dart';
 import 'package:wru/ui/routes/app_route.gr.dart';
+import 'package:wru/ui/tabs/exchange/exchange_view_model.dart';
 import 'package:wru/ui/tabs/home/home_view_model.dart';
 import 'package:wru/ui/theme/app_text_theme.dart';
 import 'package:wru/ui/theme/app_theme.dart';
@@ -12,7 +18,7 @@ import 'package:wru/ui/xxx/xxx_view_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class HomePage extends HookConsumerWidget {
-  const HomePage({Key? key}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -121,17 +127,29 @@ class HomePage extends HookConsumerWidget {
                 elevation: 0,
               ),
               //ボタンとテキストを並べる
-              child: Column(children: [
-                const Icon(
-                  Icons.add_to_photos,
-                  size: 80,
-                  color: Colors.grey,
-                ),
-                Text(
-                  l10n.design,
-                  style: theme.textTheme.h50.copyWith(color: Colors.grey),
-                )
-              ]),
+              child: Row(
+                children: [
+                  Column(children: [
+                    const Icon(
+                      Icons.add_to_photos,
+                      size: 80,
+                      color: Colors.grey,
+                    ),
+                    Text(
+                      l10n.design,
+                      style: theme.textTheme.h50.copyWith(color: Colors.grey),
+                    )
+                  ]),
+                  ElevatedButton(
+                      onPressed: () {
+                        print('ボタンが押された');
+                        ref
+                            .read(exchangeRepositoryProvider)
+                            .saveReceivedCard(tentativeuid);
+                      },
+                      child: null)
+                ],
+              ),
               onPressed: () {
                 //名刺作成画面に遷移
               },

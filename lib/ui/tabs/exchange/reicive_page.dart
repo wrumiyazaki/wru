@@ -31,9 +31,6 @@ class RecievePage extends HookConsumerWidget {
     final imagestate = ref.watch(imageprovider);
     final imagestatenotifier = ref.read(imageprovider.notifier);
     String memo = '';
-    final receivedCardProvider =
-        StateNotifierProvider<ReceivedCardNotifier, ReceivedCard>(
-            (ref) => ReceivedCardNotifier());
 
     return SingleChildScrollView(
       child: Column(
@@ -43,10 +40,8 @@ class RecievePage extends HookConsumerWidget {
             child: Text(
               style: theme.textTheme.h50
                   .copyWith(color: theme.appColors.receivePageText),
-              // '${ExchangeViewModel().yourName(controllerstate.code!)}さんから名刺が届きました♪'
-              '小林${l10n.nameCardFrom}',
+              '${ref.read(receivedCardProvider.notifier).returnReceivedName()} ${l10n.nameCardFrom}',
             ),
-            // alignment: Alignment.center,
           ),
           Container(
             height: 250,
@@ -58,8 +53,8 @@ class RecievePage extends HookConsumerWidget {
                   print(imagestate);
                 },
                 child: imagestate
-                    ? returnImage(ExchangeViewModel().fetchImageVM())
-                    : returnImage(ExchangeViewModel().fetchFaceImageVM())),
+                    ? returnImage(ExchangeViewModel().fetchImageVM(ref))
+                    : returnImage(ExchangeViewModel().fetchFaceImageVM(ref))),
           ),
           Container(
             padding: EdgeInsets.fromLTRB(20, 40, 20, 10),

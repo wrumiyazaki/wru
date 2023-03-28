@@ -22,7 +22,7 @@ SentCard _$SentCardFromJson(Map<String, dynamic> json) {
 mixin _$SentCard {
   String get uid => throw _privateConstructorUsedError;
   String get documentID => throw _privateConstructorUsedError;
-  NameCard get card => throw _privateConstructorUsedError;
+  Map<dynamic, dynamic> get card => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,9 +35,7 @@ abstract class $SentCardCopyWith<$Res> {
   factory $SentCardCopyWith(SentCard value, $Res Function(SentCard) then) =
       _$SentCardCopyWithImpl<$Res, SentCard>;
   @useResult
-  $Res call({String uid, String documentID, NameCard card});
-
-  $NameCardCopyWith<$Res> get card;
+  $Res call({String uid, String documentID, Map<dynamic, dynamic> card});
 }
 
 /// @nodoc
@@ -69,16 +67,8 @@ class _$SentCardCopyWithImpl<$Res, $Val extends SentCard>
       card: null == card
           ? _value.card
           : card // ignore: cast_nullable_to_non_nullable
-              as NameCard,
+              as Map<dynamic, dynamic>,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $NameCardCopyWith<$Res> get card {
-    return $NameCardCopyWith<$Res>(_value.card, (value) {
-      return _then(_value.copyWith(card: value) as $Val);
-    });
   }
 }
 
@@ -89,10 +79,7 @@ abstract class _$$_SentCardCopyWith<$Res> implements $SentCardCopyWith<$Res> {
       __$$_SentCardCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String uid, String documentID, NameCard card});
-
-  @override
-  $NameCardCopyWith<$Res> get card;
+  $Res call({String uid, String documentID, Map<dynamic, dynamic> card});
 }
 
 /// @nodoc
@@ -120,9 +107,9 @@ class __$$_SentCardCopyWithImpl<$Res>
           : documentID // ignore: cast_nullable_to_non_nullable
               as String,
       card: null == card
-          ? _value.card
+          ? _value._card
           : card // ignore: cast_nullable_to_non_nullable
-              as NameCard,
+              as Map<dynamic, dynamic>,
     ));
   }
 }
@@ -131,7 +118,10 @@ class __$$_SentCardCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_SentCard implements _SentCard {
   _$_SentCard(
-      {required this.uid, required this.documentID, required this.card});
+      {required this.uid,
+      required this.documentID,
+      required final Map<dynamic, dynamic> card})
+      : _card = card;
 
   factory _$_SentCard.fromJson(Map<String, dynamic> json) =>
       _$$_SentCardFromJson(json);
@@ -140,8 +130,13 @@ class _$_SentCard implements _SentCard {
   final String uid;
   @override
   final String documentID;
+  final Map<dynamic, dynamic> _card;
   @override
-  final NameCard card;
+  Map<dynamic, dynamic> get card {
+    if (_card is EqualUnmodifiableMapView) return _card;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_card);
+  }
 
   @override
   String toString() {
@@ -156,12 +151,13 @@ class _$_SentCard implements _SentCard {
             (identical(other.uid, uid) || other.uid == uid) &&
             (identical(other.documentID, documentID) ||
                 other.documentID == documentID) &&
-            (identical(other.card, card) || other.card == card));
+            const DeepCollectionEquality().equals(other._card, _card));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, uid, documentID, card);
+  int get hashCode => Object.hash(
+      runtimeType, uid, documentID, const DeepCollectionEquality().hash(_card));
 
   @JsonKey(ignore: true)
   @override
@@ -181,7 +177,7 @@ abstract class _SentCard implements SentCard {
   factory _SentCard(
       {required final String uid,
       required final String documentID,
-      required final NameCard card}) = _$_SentCard;
+      required final Map<dynamic, dynamic> card}) = _$_SentCard;
 
   factory _SentCard.fromJson(Map<String, dynamic> json) = _$_SentCard.fromJson;
 
@@ -190,7 +186,7 @@ abstract class _SentCard implements SentCard {
   @override
   String get documentID;
   @override
-  NameCard get card;
+  Map<dynamic, dynamic> get card;
   @override
   @JsonKey(ignore: true)
   _$$_SentCardCopyWith<_$_SentCard> get copyWith =>
