@@ -16,10 +16,6 @@ class ProfileEditPage extends HookConsumerWidget {
         StateProvider((ref) => false); //ページが再描画されるときにfalseになってほしいのでここに書く
     final theme = ref.watch(appThemeProvider);
     final l10n = useL10n();
-    final getProfileListState = ref.watch(getProfileListProvider);
-    final getProfileListNotifier = ref.read(getProfileListProvider.notifier);
-    final tempListState = ref.watch(tempListProvider);
-    final tempListNotifier = ref.read(tempListProvider.notifier);
 
     List<String> profilePropList = [
       l10n.name,
@@ -52,10 +48,14 @@ class ProfileEditPage extends HookConsumerWidget {
             child: TextFormField(
               style: theme.textTheme.h40,
               inputFormatters: [LengthLimitingTextInputFormatter(20)],
-              controller:
-                  TextEditingController(text: getProfileListState[index]),
+              controller: TextEditingController(
+                  text: ref
+                      .watch(getProfileListProvider.notifier)
+                      .printText(index)),
               onChanged: (value) {
-                tempListNotifier.state[index] = value;
+                ref
+                    .read(tempProfileListProvider.notifier)
+                    .changeProfile(index, value);
                 ref.read(boolprovider.notifier).state = true;
               },
             ),
@@ -84,14 +84,15 @@ class ProfileEditPage extends HookConsumerWidget {
                   ? TextButton(
                       style: TextButton.styleFrom(),
                       onPressed: () {
-                        //リストを書き換える処理
-                        //各変更を保持しておいて一気に変更するためにはtempListが必要
-                        //？？プロバイダーで監視しておかないと変更されない
-                        //この処理をViewModelにうまく書く方法がわからない
-                        for (int i = 0; i < profilePropList.length; i++) {
-                          getProfileListNotifier.state[i] = tempListState[i];
-                        }
-                        // firebaseに保存する処理がここにくる
+                        ref
+                            .read(getProfileListProvider.notifier)
+                            //リストを書き換える処理
+                            //各変更を保持しておいて一気に変更するためにはtempListが必要
+                            .changeProfiles(ref
+                                .read(tempProfileListProvider.notifier)
+                                .returnTempList());
+                        // firebaseに保存する処理
+                        ProfileViewModel().toSave(ref);
                         context.pushRoute(TabRoute());
                         ref.read(boolprovider.notifier).state = false;
                       },

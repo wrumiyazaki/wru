@@ -1,48 +1,84 @@
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:wru/data/repository/profile/profile_repository_impl.dart';
+import 'package:wru/ui/profile/profile_state.dart';
 
 //要素数増やすならview_modelとListView(edit_page側は条件分岐もある)内も
-class ProfileLists extends StatelessWidget {
-  ProfileLists({super.key});
 
-  //firebaseからとってきたもの
-  List getProfileList = [
-    '小林ゆうひ',
-    'kobayashiyuhi',
-    'userID',
-    '2002年/7月/22日',
-    '0909-8869-9235',
-    'qiuwphef@gmail.com',
-    '男',
-    '宮崎大学工学部',
-    '水泳部',
-    'サークル',
-  ];
+//uidを取得#TODO
+String profileUid = '4MXOY43lcRVTSA8GVq1X8ioCqBf1';
 
-  late List tempList = [
-    getProfileList[0],
-    getProfileList[1],
-    getProfileList[2],
-    getProfileList[3],
-    getProfileList[4],
-    getProfileList[5],
-    getProfileList[6],
-    getProfileList[7],
-    getProfileList[8],
-    getProfileList[9],
-  ];
+final getProfileListProvider =
+    StateNotifierProvider<getProfileListNotifier, List>(
+        (ref) => getProfileListNotifier());
 
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
+class getProfileListNotifier extends StateNotifier<List> {
+  getProfileListNotifier() : super(ProfileLists().getProfileList);
+
+  List printState() {
+    return state;
+  }
+
+  String? printText(index) {
+    return state[index];
+  }
+
+  //受け取ったとき
+  void profileMapToList(Map map) {
+    for (int i = 0; i < ProfileLists().profileKeyList.length; i++) {
+      state[i] = map[ProfileLists().profileKeyList[i]];
+    }
+  }
+
+  //保存するとき
+  Map profileListToMap() {
+    Map map = {};
+    for (int i = 0; i < ProfileLists().profileKeyList.length; i++) {
+      map[ProfileLists().profileKeyList[i]] = state[i];
+    }
+    return map;
+  }
+
+  void changeProfiles(tempList) {
+    for (int i = 0; i < state.length; i++) {
+      state[i] = tempList[i];
+    }
   }
 }
 
-final getProfileListProvider = StateProvider((ref) {
-  return ProfileLists().getProfileList;
-});
+final tempProfileListProvider =
+    StateNotifierProvider<tempProfileListNotifier, List>(
+        (ref) => tempProfileListNotifier());
 
-final tempListProvider = StateProvider<List>((ref) {
-  return ProfileLists().tempList;
-});
+class tempProfileListNotifier extends StateNotifier<List> {
+  tempProfileListNotifier() : super(ProfileLists().tempProfileList);
+
+  void reflectProfileList(List profileList) {
+    state = profileList;
+  }
+
+  void changeProfile(index, text) {
+    state[index] = text;
+  }
+
+  List returnTempList() {
+    return state;
+  }
+}
+
+class ProfileViewModel {
+  Future<void> toFetch(WidgetRef ref) async {
+    Map map = await ref.read(profileRepositoryProvider).fetchProfileMap();
+    ref.read(getProfileListProvider.notifier).profileMapToList(map);
+
+    //tempListにgetProfileListの内容を入れる
+    ref.read(tempProfileListProvider.notifier).reflectProfileList(
+        ref.read(getProfileListProvider.notifier).printState());
+  }
+
+  void toSave(WidgetRef ref) {
+    Map map = ref.read(getProfileListProvider.notifier).profileListToMap();
+    for (int i = 0; i < ProfileLists().profileKeyList.length; i++) {
+      ref.read(profileRepositoryProvider).saveProfileMap(map, i);
+    }
+  }
+}
