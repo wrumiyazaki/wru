@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -37,7 +39,7 @@ class QrDisplayPage extends HookConsumerWidget {
                     error: (error, stack) => Text('Error: $error'),
                     data: (info) {
                       return Text(
-                        '${info.card.name}の名刺です',
+                        '${info.card['name']}の名刺です',
                         style: theme.textTheme.h60
                             .copyWith(color: theme.appColors.qrCode),
                       );
@@ -50,7 +52,7 @@ class QrDisplayPage extends HookConsumerWidget {
               error: (error, stack) => Text('Error: $error'),
               data: (info) {
                 return QrImage(
-                  data: info.toJson().toString(),
+                  data: jsonEncode(info.toJson()),
                   version: QrVersions.auto,
                   size: 250,
                   foregroundColor: theme.appColors.qrCode,

@@ -16,7 +16,7 @@ final receivedCardProvider =
 
 class ReceivedCardNotifier extends StateNotifier<ReceivedCard> {
   ReceivedCardNotifier()
-      : super(ReceivedCard(uid: '', documentID: '', card: NameCard()));
+      : super(ReceivedCard(uid: '', documentID: '', card: NameCard().toJson()));
   void getReceivedCard(ReceivedCard receivedCard, WidgetRef ref) {
     state = receivedCard;
     ref.read(exchangeRepositoryProvider).saveReceivedCard(tentativeuid);
@@ -59,7 +59,7 @@ final myQrCodeInfoProvider = FutureProvider((ref) async {
       uid: tentativeuid,
       //自分の名刺が今は１個しかないためindexは0
       documentID: docList[0],
-      card: nameCard);
+      card: nameCard.toJson());
   return sentCard;
 });
 
