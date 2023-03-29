@@ -14,7 +14,6 @@ class MemoEditPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(appThemeProvider);
     final l10n = useL10n();
-    final controllerstate = ref.watch(qrCodeProvider);
     final imagestate = ref.watch(imageprovider);
     final imagestatenotifier = ref.read(imageprovider.notifier);
     final friendindexstate = ref.watch(frinedindexprovider);

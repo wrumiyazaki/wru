@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:wru/data/model/card/card.dart';
 import 'package:wru/data/model/received_card/received_card.dart';
@@ -28,18 +29,22 @@ class ReceivedCardNotifier extends StateNotifier<ReceivedCard> {
   }
 }
 
-class QRCodeNotifier extends StateNotifier<Barcode> {
-  QRViewController? controller;
-  QRCodeNotifier() : super(Barcode(null, BarcodeFormat.unknown, null));
+//カメラのコントローラー
+final cameraControllerProvider =
+    StateNotifierProvider<CameraControllerNotifier, MobileScannerController>(
+        (ref) => CameraControllerNotifier());
 
-  //QRコードを読み取ったあとの処理を書く#TODO
-  //受け取り画面に遷移と受け取った名刺をfirebaseに保存
-  void onQRViewCreated(QRViewController controller) {
-    this.controller = controller;
-    this.controller!.scannedDataStream.listen((scanData) {
-      state = scanData;
-      // state.codeでデータを取れる
-    });
+class CameraControllerNotifier extends StateNotifier<MobileScannerController> {
+  CameraControllerNotifier()
+      : super(MobileScannerController(
+          detectionSpeed: DetectionSpeed.noDuplicates,
+        ));
+  void startCamera() {
+    state.start();
+  }
+
+  void stopCamera() {
+    state.stop();
   }
 }
 

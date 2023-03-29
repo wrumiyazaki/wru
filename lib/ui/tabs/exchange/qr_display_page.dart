@@ -17,9 +17,6 @@ class QrDisplayPage extends HookConsumerWidget {
     final l10n = useL10n();
     final absorb = ref.watch(absorbProvider);
     final absorbnotifier = ref.watch(absorbProvider.notifier);
-    final controllernotifier = ref.watch(qrCodeProvider.notifier);
-    final onCamerastate = ref.watch(onCameraProvider);
-    final onCameranotifier = ref.read(onCameraProvider.notifier);
     final myQrInfo = ref.watch(myQrCodeInfoProvider);
 
     return Container(
@@ -100,10 +97,7 @@ class QrDisplayPage extends HookConsumerWidget {
                 onPressed: () async {
                   absorbnotifier.state = true;
                   context.router.push(QrScanRoute());
-                  if (onCamerastate == true) {
-                    controllernotifier.controller!.resumeCamera();
-                  }
-                  onCameranotifier.state = false;
+                  ref.read(cameraControllerProvider.notifier).startCamera();
                   await Future.delayed(Duration(milliseconds: 300));
                   absorbnotifier.state = false;
                 },
@@ -115,10 +109,7 @@ class QrDisplayPage extends HookConsumerWidget {
                 onPressed: () async {
                   absorbnotifier.state = true;
                   context.router.push(QrScanRoute());
-                  if (onCamerastate == true) {
-                    controllernotifier.controller!.resumeCamera();
-                  }
-                  onCameranotifier.state = false;
+                  ref.read(cameraControllerProvider.notifier).startCamera();
                   await Future.delayed(Duration(milliseconds: 300));
                   absorbnotifier.state = false;
                 },
