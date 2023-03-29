@@ -3,12 +3,14 @@ import 'dart:convert';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:wru/data/model/card/card.dart';
 import 'package:wru/data/model/sent_card/sent_card.dart';
 import 'package:wru/ui/hooks/use_l10n.dart';
 import 'package:wru/ui/routes/app_route.gr.dart';
 import 'package:wru/ui/tabs/exchange/exchange_state.dart';
+import 'package:wru/ui/tabs/exchange/exchange_view_model.dart';
 import 'package:wru/ui/theme/app_theme.dart';
 
 class QrScanPage extends HookConsumerWidget {
@@ -21,8 +23,6 @@ class QrScanPage extends HookConsumerWidget {
     final l10n = useL10n();
     final absorb = ref.watch(absorbProvider);
     final absorbnotifier = ref.watch(absorbProvider.notifier);
-    final controllerstate = ref.watch(qrCodeProvider);
-    final controllernotifier = ref.watch(qrCodeProvider.notifier);
     final double scanArea = (MediaQuery.of(context).size.width < 300 ||
             MediaQuery.of(context).size.height < 300)
         ? 150.0
@@ -41,18 +41,12 @@ class QrScanPage extends HookConsumerWidget {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          Expanded(
-            child: QRView(
-              key: qrKey,
-              onQRViewCreated: controllernotifier.onQRViewCreated,
-              overlay: QrScannerOverlayShape(
-                  borderColor: Colors.grey,
-                  borderRadius: 20,
-                  borderLength: 70,
-                  borderWidth: 20,
-                  cutOutSize: scanArea),
-              onPermissionSet: (ctrl, p) => _onPermissionSet(context, ctrl, p),
-            ),
+          Align(
+            alignment: Alignment.center,
+            child: MobileScanner(
+                fit: BoxFit.fill,
+                controller: ref.watch(cameraControllerProvider),
+                onDetect: (barcode) {}),
           ),
           Align(
             alignment: Alignment(-0.6, 0.6),
@@ -65,7 +59,7 @@ class QrScanPage extends HookConsumerWidget {
               onPressed: () async {
                 absorbnotifier.state = true;
                 context.router.push(const QrDisplayRoute());
-                controllernotifier.controller!.pauseCamera();
+                ref.read(cameraControllerProvider.notifier).stopCamera();
                 await Future.delayed(Duration(milliseconds: 300));
                 absorbnotifier.state = false;
               },
@@ -84,7 +78,7 @@ class QrScanPage extends HookConsumerWidget {
               onPressed: () async {
                 absorbnotifier.state = true;
                 context.router.push(const QrDisplayRoute());
-                controllernotifier.controller!.pauseCamera();
+                ref.read(cameraControllerProvider.notifier).stopCamera();
                 await Future.delayed(Duration(milliseconds: 300));
                 absorbnotifier.state = false;
               },
@@ -123,8 +117,7 @@ class QrScanPage extends HookConsumerWidget {
             //実際は読み込まれたら遷移する
             child: FloatingActionButton(
               onPressed: () {
-                controllernotifier.controller!.pauseCamera();
-                controllernotifier.onQRViewCreated;
+                ref.read(cameraControllerProvider.notifier).stopCamera();
                 //情報を渡す
                 context.router.push(ReceivedInterfaceRoute(
                     info: tentativeReceivedNameCardInfo));
@@ -134,14 +127,5 @@ class QrScanPage extends HookConsumerWidget {
         ],
       ),
     );
-  }
-
-  void _onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {
-    debugPrint('${DateTime.now().toIso8601String()}_onPermissionSet $p');
-    if (!p) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('no Permission')),
-      );
-    }
   }
 }
