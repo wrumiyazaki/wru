@@ -42,12 +42,12 @@ class QrScanPage extends HookConsumerWidget {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          MobileScanner(
-            fit: BoxFit.fill,
-            onDetect: (barcode) {
-              String? data = barcode.raw;
-              print(data);
-            },
+          Align(
+            alignment: Alignment.center,
+            child: MobileScanner(
+                fit: BoxFit.fill,
+                controller: ref.watch(cameraControllerProvider),
+                onDetect: (barcode) {}),
           ),
           Align(
             alignment: Alignment(-0.6, 0.6),
