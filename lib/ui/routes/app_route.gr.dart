@@ -11,9 +11,9 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i16;
+import 'package:auto_route/auto_route.dart' as _i15;
 import 'package:auto_route/empty_router_widgets.dart' as _i9;
-import 'package:flutter/material.dart' as _i17;
+import 'package:flutter/material.dart' as _i16;
 import 'package:wru/ui/create_card/pages/enter_information_page.dart' as _i7;
 import 'package:wru/ui/create_card/pages/select_template_page.dart' as _i6;
 import 'package:wru/ui/profile/profile_edit_page.dart' as _i3;
@@ -22,81 +22,80 @@ import 'package:wru/ui/signIn/sign_in_page.dart' as _i4;
 import 'package:wru/ui/signUp/sign_up_page.dart' as _i5;
 import 'package:wru/ui/tabs/exchange/qr_display_page.dart' as _i10;
 import 'package:wru/ui/tabs/exchange/qr_scan_page.dart' as _i11;
-import 'package:wru/ui/tabs/exchange/received_interface_page.dart' as _i12;
-import 'package:wru/ui/tabs/exchange/reicive_page.dart' as _i13;
-import 'package:wru/ui/tabs/friend/friend_page.dart' as _i14;
-import 'package:wru/ui/tabs/friend/memo_edit_page.dart' as _i15;
+import 'package:wru/ui/tabs/exchange/reicive_page.dart' as _i12;
+import 'package:wru/ui/tabs/friend/friend_page.dart' as _i13;
+import 'package:wru/ui/tabs/friend/memo_edit_page.dart' as _i14;
 import 'package:wru/ui/tabs/home/home_page.dart' as _i8;
 import 'package:wru/ui/tabs/tab_page.dart' as _i1;
 
-class AppRouter extends _i16.RootStackRouter {
-  AppRouter([_i17.GlobalKey<_i17.NavigatorState>? navigatorKey])
+class AppRouter extends _i15.RootStackRouter {
+  AppRouter([_i16.GlobalKey<_i16.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
-  final Map<String, _i16.PageFactory> pagesMap = {
+  final Map<String, _i15.PageFactory> pagesMap = {
     TabRoute.name: (routeData) {
-      return _i16.AdaptivePage<dynamic>(
+      return _i15.AdaptivePage<dynamic>(
         routeData: routeData,
         child: const _i1.TabPage(),
       );
     },
     ProfileRoute.name: (routeData) {
-      return _i16.AdaptivePage<dynamic>(
+      return _i15.AdaptivePage<dynamic>(
         routeData: routeData,
         child: const _i2.ProfilePage(),
       );
     },
     ProfileEditRoute.name: (routeData) {
-      return _i16.AdaptivePage<dynamic>(
+      return _i15.AdaptivePage<dynamic>(
         routeData: routeData,
         child: const _i3.ProfileEditPage(),
       );
     },
     SignInRoute.name: (routeData) {
-      return _i16.AdaptivePage<dynamic>(
+      return _i15.AdaptivePage<dynamic>(
         routeData: routeData,
         child: const _i4.SignInPage(),
       );
     },
     SignUpRoute.name: (routeData) {
-      return _i16.AdaptivePage<dynamic>(
+      return _i15.AdaptivePage<dynamic>(
         routeData: routeData,
         child: const _i5.SignUpPage(),
       );
     },
     SelectTemplateRoute.name: (routeData) {
-      return _i16.AdaptivePage<dynamic>(
+      return _i15.AdaptivePage<dynamic>(
         routeData: routeData,
         child: const _i6.SelectTemplatePage(),
       );
     },
     EnterInformationRoute.name: (routeData) {
-      return _i16.AdaptivePage<dynamic>(
+      return _i15.AdaptivePage<dynamic>(
         routeData: routeData,
         child: const _i7.EnterInformationPage(),
       );
     },
     HomeRoute.name: (routeData) {
-      return _i16.AdaptivePage<dynamic>(
+      return _i15.AdaptivePage<dynamic>(
         routeData: routeData,
         child: const _i8.HomePage(),
       );
     },
     ExchangeTab.name: (routeData) {
-      return _i16.AdaptivePage<dynamic>(
+      return _i15.AdaptivePage<dynamic>(
         routeData: routeData,
         child: const _i9.EmptyRouterPage(),
       );
     },
     FriendTab.name: (routeData) {
-      return _i16.AdaptivePage<dynamic>(
+      return _i15.AdaptivePage<dynamic>(
         routeData: routeData,
         child: const _i9.EmptyRouterPage(),
       );
     },
     QrDisplayRoute.name: (routeData) {
-      return _i16.AdaptivePage<dynamic>(
+      return _i15.AdaptivePage<dynamic>(
         routeData: routeData,
         child: const _i10.QrDisplayPage(),
       );
@@ -104,26 +103,16 @@ class AppRouter extends _i16.RootStackRouter {
     QrScanRoute.name: (routeData) {
       final args = routeData.argsAs<QrScanRouteArgs>(
           orElse: () => const QrScanRouteArgs());
-      return _i16.AdaptivePage<dynamic>(
+      return _i15.AdaptivePage<dynamic>(
         routeData: routeData,
         child: _i11.QrScanPage(key: args.key),
       );
     },
-    ReceivedInterfaceRoute.name: (routeData) {
-      final args = routeData.argsAs<ReceivedInterfaceRouteArgs>();
-      return _i16.AdaptivePage<String>(
-        routeData: routeData,
-        child: _i12.ReceivedInterfacePage(
-          key: args.key,
-          info: args.info,
-        ),
-      );
-    },
     RecieveRoute.name: (routeData) {
       final args = routeData.argsAs<RecieveRouteArgs>();
-      return _i16.AdaptivePage<String>(
+      return _i15.AdaptivePage<String>(
         routeData: routeData,
-        child: _i13.RecievePage(
+        child: _i12.RecievePage(
           key: args.key,
           info: args.info,
         ),
@@ -132,74 +121,69 @@ class AppRouter extends _i16.RootStackRouter {
     FriendRoute.name: (routeData) {
       final args = routeData.argsAs<FriendRouteArgs>(
           orElse: () => const FriendRouteArgs());
-      return _i16.AdaptivePage<dynamic>(
+      return _i15.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: _i14.FriendPage(key: args.key),
+        child: _i13.FriendPage(key: args.key),
       );
     },
     MemoEditRoute.name: (routeData) {
-      return _i16.AdaptivePage<dynamic>(
+      return _i15.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: const _i15.MemoEditPage(),
+        child: const _i14.MemoEditPage(),
       );
     },
   };
 
   @override
-  List<_i16.RouteConfig> get routes => [
-        _i16.RouteConfig(
+  List<_i15.RouteConfig> get routes => [
+        _i15.RouteConfig(
           '/#redirect',
           path: '/',
           redirectTo: '/tab',
           fullMatch: true,
         ),
-        _i16.RouteConfig(
+        _i15.RouteConfig(
           TabRoute.name,
           path: '/tab',
           children: [
-            _i16.RouteConfig(
+            _i15.RouteConfig(
               HomeRoute.name,
               path: 'home',
               parent: TabRoute.name,
             ),
-            _i16.RouteConfig(
+            _i15.RouteConfig(
               ExchangeTab.name,
               path: 'exchange',
               parent: TabRoute.name,
               children: [
-                _i16.RouteConfig(
+                _i15.RouteConfig(
                   QrDisplayRoute.name,
                   path: '',
                   parent: ExchangeTab.name,
                 ),
-                _i16.RouteConfig(
+                _i15.RouteConfig(
                   QrScanRoute.name,
                   path: 'scan',
                   parent: ExchangeTab.name,
                 ),
-                _i16.RouteConfig(
-                  ReceivedInterfaceRoute.name,
-                  path: 'receiveInterface',
-                  parent: ExchangeTab.name,
-                ),
-                _i16.RouteConfig(
+                _i15.RouteConfig(
                   RecieveRoute.name,
                   path: 'receive',
                   parent: ExchangeTab.name,
                 ),
               ],
             ),
-            _i16.RouteConfig(
+            _i15.RouteConfig(
               FriendTab.name,
               path: 'friend',
               parent: TabRoute.name,
               children: [
-                _i16.RouteConfig(
+                _i15.RouteConfig(
                   FriendRoute.name,
                   path: '',
                   parent: FriendTab.name,
                 ),
-                _i16.RouteConfig(
+                _i15.RouteConfig(
                   MemoEditRoute.name,
                   path: 'memoedit',
                   parent: FriendTab.name,
@@ -208,27 +192,27 @@ class AppRouter extends _i16.RootStackRouter {
             ),
           ],
         ),
-        _i16.RouteConfig(
+        _i15.RouteConfig(
           ProfileRoute.name,
           path: '/profile',
         ),
-        _i16.RouteConfig(
+        _i15.RouteConfig(
           ProfileEditRoute.name,
           path: '/profile',
         ),
-        _i16.RouteConfig(
+        _i15.RouteConfig(
           SignInRoute.name,
           path: '/signIn',
         ),
-        _i16.RouteConfig(
+        _i15.RouteConfig(
           SignUpRoute.name,
           path: '/signUp',
         ),
-        _i16.RouteConfig(
+        _i15.RouteConfig(
           SelectTemplateRoute.name,
           path: '/select_template',
         ),
-        _i16.RouteConfig(
+        _i15.RouteConfig(
           EnterInformationRoute.name,
           path: '/enter_information',
         ),
@@ -237,8 +221,8 @@ class AppRouter extends _i16.RootStackRouter {
 
 /// generated route for
 /// [_i1.TabPage]
-class TabRoute extends _i16.PageRouteInfo<void> {
-  const TabRoute({List<_i16.PageRouteInfo>? children})
+class TabRoute extends _i15.PageRouteInfo<void> {
+  const TabRoute({List<_i15.PageRouteInfo>? children})
       : super(
           TabRoute.name,
           path: '/tab',
@@ -250,7 +234,7 @@ class TabRoute extends _i16.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.ProfilePage]
-class ProfileRoute extends _i16.PageRouteInfo<void> {
+class ProfileRoute extends _i15.PageRouteInfo<void> {
   const ProfileRoute()
       : super(
           ProfileRoute.name,
@@ -262,7 +246,7 @@ class ProfileRoute extends _i16.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.ProfileEditPage]
-class ProfileEditRoute extends _i16.PageRouteInfo<void> {
+class ProfileEditRoute extends _i15.PageRouteInfo<void> {
   const ProfileEditRoute()
       : super(
           ProfileEditRoute.name,
@@ -274,7 +258,7 @@ class ProfileEditRoute extends _i16.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i4.SignInPage]
-class SignInRoute extends _i16.PageRouteInfo<void> {
+class SignInRoute extends _i15.PageRouteInfo<void> {
   const SignInRoute()
       : super(
           SignInRoute.name,
@@ -286,7 +270,7 @@ class SignInRoute extends _i16.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i5.SignUpPage]
-class SignUpRoute extends _i16.PageRouteInfo<void> {
+class SignUpRoute extends _i15.PageRouteInfo<void> {
   const SignUpRoute()
       : super(
           SignUpRoute.name,
@@ -298,7 +282,7 @@ class SignUpRoute extends _i16.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i6.SelectTemplatePage]
-class SelectTemplateRoute extends _i16.PageRouteInfo<void> {
+class SelectTemplateRoute extends _i15.PageRouteInfo<void> {
   const SelectTemplateRoute()
       : super(
           SelectTemplateRoute.name,
@@ -310,7 +294,7 @@ class SelectTemplateRoute extends _i16.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i7.EnterInformationPage]
-class EnterInformationRoute extends _i16.PageRouteInfo<void> {
+class EnterInformationRoute extends _i15.PageRouteInfo<void> {
   const EnterInformationRoute()
       : super(
           EnterInformationRoute.name,
@@ -322,7 +306,7 @@ class EnterInformationRoute extends _i16.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i8.HomePage]
-class HomeRoute extends _i16.PageRouteInfo<void> {
+class HomeRoute extends _i15.PageRouteInfo<void> {
   const HomeRoute()
       : super(
           HomeRoute.name,
@@ -334,8 +318,8 @@ class HomeRoute extends _i16.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i9.EmptyRouterPage]
-class ExchangeTab extends _i16.PageRouteInfo<void> {
-  const ExchangeTab({List<_i16.PageRouteInfo>? children})
+class ExchangeTab extends _i15.PageRouteInfo<void> {
+  const ExchangeTab({List<_i15.PageRouteInfo>? children})
       : super(
           ExchangeTab.name,
           path: 'exchange',
@@ -347,8 +331,8 @@ class ExchangeTab extends _i16.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i9.EmptyRouterPage]
-class FriendTab extends _i16.PageRouteInfo<void> {
-  const FriendTab({List<_i16.PageRouteInfo>? children})
+class FriendTab extends _i15.PageRouteInfo<void> {
+  const FriendTab({List<_i15.PageRouteInfo>? children})
       : super(
           FriendTab.name,
           path: 'friend',
@@ -360,7 +344,7 @@ class FriendTab extends _i16.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i10.QrDisplayPage]
-class QrDisplayRoute extends _i16.PageRouteInfo<void> {
+class QrDisplayRoute extends _i15.PageRouteInfo<void> {
   const QrDisplayRoute()
       : super(
           QrDisplayRoute.name,
@@ -372,8 +356,8 @@ class QrDisplayRoute extends _i16.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i11.QrScanPage]
-class QrScanRoute extends _i16.PageRouteInfo<QrScanRouteArgs> {
-  QrScanRoute({_i17.Key? key})
+class QrScanRoute extends _i15.PageRouteInfo<QrScanRouteArgs> {
+  QrScanRoute({_i16.Key? key})
       : super(
           QrScanRoute.name,
           path: 'scan',
@@ -386,7 +370,7 @@ class QrScanRoute extends _i16.PageRouteInfo<QrScanRouteArgs> {
 class QrScanRouteArgs {
   const QrScanRouteArgs({this.key});
 
-  final _i17.Key? key;
+  final _i16.Key? key;
 
   @override
   String toString() {
@@ -395,45 +379,10 @@ class QrScanRouteArgs {
 }
 
 /// generated route for
-/// [_i12.ReceivedInterfacePage]
-class ReceivedInterfaceRoute
-    extends _i16.PageRouteInfo<ReceivedInterfaceRouteArgs> {
-  ReceivedInterfaceRoute({
-    _i17.Key? key,
-    required String info,
-  }) : super(
-          ReceivedInterfaceRoute.name,
-          path: 'receiveInterface',
-          args: ReceivedInterfaceRouteArgs(
-            key: key,
-            info: info,
-          ),
-        );
-
-  static const String name = 'ReceivedInterfaceRoute';
-}
-
-class ReceivedInterfaceRouteArgs {
-  const ReceivedInterfaceRouteArgs({
-    this.key,
-    required this.info,
-  });
-
-  final _i17.Key? key;
-
-  final String info;
-
-  @override
-  String toString() {
-    return 'ReceivedInterfaceRouteArgs{key: $key, info: $info}';
-  }
-}
-
-/// generated route for
-/// [_i13.RecievePage]
-class RecieveRoute extends _i16.PageRouteInfo<RecieveRouteArgs> {
+/// [_i12.RecievePage]
+class RecieveRoute extends _i15.PageRouteInfo<RecieveRouteArgs> {
   RecieveRoute({
-    _i17.Key? key,
+    _i16.Key? key,
     required String info,
   }) : super(
           RecieveRoute.name,
@@ -453,7 +402,7 @@ class RecieveRouteArgs {
     required this.info,
   });
 
-  final _i17.Key? key;
+  final _i16.Key? key;
 
   final String info;
 
@@ -464,9 +413,9 @@ class RecieveRouteArgs {
 }
 
 /// generated route for
-/// [_i14.FriendPage]
-class FriendRoute extends _i16.PageRouteInfo<FriendRouteArgs> {
-  FriendRoute({_i17.Key? key})
+/// [_i13.FriendPage]
+class FriendRoute extends _i15.PageRouteInfo<FriendRouteArgs> {
+  FriendRoute({_i16.Key? key})
       : super(
           FriendRoute.name,
           path: '',
@@ -479,7 +428,7 @@ class FriendRoute extends _i16.PageRouteInfo<FriendRouteArgs> {
 class FriendRouteArgs {
   const FriendRouteArgs({this.key});
 
-  final _i17.Key? key;
+  final _i16.Key? key;
 
   @override
   String toString() {
@@ -488,8 +437,8 @@ class FriendRouteArgs {
 }
 
 /// generated route for
-/// [_i15.MemoEditPage]
-class MemoEditRoute extends _i16.PageRouteInfo<void> {
+/// [_i14.MemoEditPage]
+class MemoEditRoute extends _i15.PageRouteInfo<void> {
   const MemoEditRoute()
       : super(
           MemoEditRoute.name,

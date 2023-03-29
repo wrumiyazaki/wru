@@ -43,12 +43,17 @@ class QrScanPage extends HookConsumerWidget {
         children: [
           Align(
             alignment: Alignment.center,
+            //モバイルスキャナー
             child: MobileScanner(
                 fit: BoxFit.fill,
                 controller: ref.watch(cameraControllerProvider),
+                //読み取ったとき
                 onDetect: (barcode) {
                   String? data = barcode.raw;
-                  print(data);
+                  if (data != null) {
+                    ref.read(cameraControllerProvider.notifier).stopCamera();
+                    context.router.push(RecieveRoute(info: data));
+                  }
                 }),
           ),
           Align(
@@ -122,8 +127,8 @@ class QrScanPage extends HookConsumerWidget {
               onPressed: () {
                 ref.read(cameraControllerProvider.notifier).stopCamera();
                 //情報を渡す
-                context.router.push(ReceivedInterfaceRoute(
-                    info: tentativeReceivedNameCardInfo));
+                context.router
+                    .push(RecieveRoute(info: tentativeReceivedNameCardInfo));
               },
             ),
           )
