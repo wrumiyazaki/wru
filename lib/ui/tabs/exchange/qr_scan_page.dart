@@ -6,7 +6,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:wru/data/model/card/card.dart';
+import 'package:wru/data/model/received_card/received_card.dart';
 import 'package:wru/data/model/sent_card/sent_card.dart';
+import 'package:wru/data/repository/exchange/exchange_repository_impl.dart';
 import 'package:wru/ui/hooks/use_l10n.dart';
 import 'package:wru/ui/routes/app_route.gr.dart';
 import 'package:wru/ui/tabs/exchange/exchange_state.dart';
@@ -53,6 +55,18 @@ class QrScanPage extends HookConsumerWidget {
                   if (data != null) {
                     ref.read(cameraControllerProvider.notifier).stopCamera();
                     context.router.push(RecieveRoute(info: data));
+                    //取得した文字列をカスタムクラスに戻す
+                    Map<String, dynamic> receivedMap = jsonDecode(data);
+                    ReceivedCard receivedCard =
+                        ReceivedCard.fromJson(receivedMap);
+                    //プロバイダーに管理させる
+                    ref
+                        .read(receivedCardProvider.notifier)
+                        .getReceivedCard(receivedCard, ref);
+                    //プロバイダーに管理させた名刺を保存
+                    ref
+                        .read(exchangeRepositoryProvider)
+                        .saveReceivedCard(tentativeuid);
                   }
                 }),
           ),
