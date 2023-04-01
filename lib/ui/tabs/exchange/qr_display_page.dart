@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -17,9 +19,6 @@ class QrDisplayPage extends HookConsumerWidget {
     final l10n = useL10n();
     final absorb = ref.watch(absorbProvider);
     final absorbnotifier = ref.watch(absorbProvider.notifier);
-    final controllernotifier = ref.watch(qrCodeProvider.notifier);
-    final onCamerastate = ref.watch(onCameraProvider);
-    final onCameranotifier = ref.read(onCameraProvider.notifier);
     final myQrInfo = ref.watch(myQrCodeInfoProvider);
 
     return Container(
@@ -40,7 +39,7 @@ class QrDisplayPage extends HookConsumerWidget {
                     error: (error, stack) => Text('Error: $error'),
                     data: (info) {
                       return Text(
-                        '${info.card.name}の名刺です',
+                        '${info.card['name']}の名刺です',
                         style: theme.textTheme.h60
                             .copyWith(color: theme.appColors.qrCode),
                       );
@@ -53,7 +52,7 @@ class QrDisplayPage extends HookConsumerWidget {
               error: (error, stack) => Text('Error: $error'),
               data: (info) {
                 return QrImage(
-                  data: info.toJson().toString(),
+                  data: jsonEncode(info.toJson()),
                   version: QrVersions.auto,
                   size: 250,
                   foregroundColor: theme.appColors.qrCode,
@@ -100,10 +99,7 @@ class QrDisplayPage extends HookConsumerWidget {
                 onPressed: () async {
                   absorbnotifier.state = true;
                   context.router.push(QrScanRoute());
-                  if (onCamerastate == true) {
-                    controllernotifier.controller!.resumeCamera();
-                  }
-                  onCameranotifier.state = false;
+                  ref.read(cameraControllerProvider.notifier).startCamera();
                   await Future.delayed(Duration(milliseconds: 300));
                   absorbnotifier.state = false;
                 },
@@ -115,10 +111,7 @@ class QrDisplayPage extends HookConsumerWidget {
                 onPressed: () async {
                   absorbnotifier.state = true;
                   context.router.push(QrScanRoute());
-                  if (onCamerastate == true) {
-                    controllernotifier.controller!.resumeCamera();
-                  }
-                  onCameranotifier.state = false;
+                  ref.read(cameraControllerProvider.notifier).startCamera();
                   await Future.delayed(Duration(milliseconds: 300));
                   absorbnotifier.state = false;
                 },

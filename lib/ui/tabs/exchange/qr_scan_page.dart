@@ -3,12 +3,16 @@ import 'dart:convert';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:wru/data/model/card/card.dart';
+import 'package:wru/data/model/received_card/received_card.dart';
 import 'package:wru/data/model/sent_card/sent_card.dart';
+import 'package:wru/data/repository/exchange/exchange_repository_impl.dart';
 import 'package:wru/ui/hooks/use_l10n.dart';
 import 'package:wru/ui/routes/app_route.gr.dart';
 import 'package:wru/ui/tabs/exchange/exchange_state.dart';
+import 'package:wru/ui/tabs/exchange/exchange_view_model.dart';
 import 'package:wru/ui/theme/app_theme.dart';
 
 class QrScanPage extends HookConsumerWidget {
@@ -21,8 +25,6 @@ class QrScanPage extends HookConsumerWidget {
     final l10n = useL10n();
     final absorb = ref.watch(absorbProvider);
     final absorbnotifier = ref.watch(absorbProvider.notifier);
-    final controllerstate = ref.watch(qrCodeProvider);
-    final controllernotifier = ref.watch(qrCodeProvider.notifier);
     final double scanArea = (MediaQuery.of(context).size.width < 300 ||
             MediaQuery.of(context).size.height < 300)
         ? 150.0
@@ -32,8 +34,8 @@ class QrScanPage extends HookConsumerWidget {
     NameCard tentativenameCard =
         NameCard(name: 'name', imgUrl: 'ss', faceImgUrl: 'ss');
     //tentativeReceivedNameCardInfoがinfoの代替
-    String tentativeReceivedNameCardInfo = jsonEncode(
-        SentCard(uid: 'ooo', documentID: 'aaa', card: tentativenameCard));
+    String tentativeReceivedNameCardInfo = jsonEncode(SentCard(
+        uid: 'ooo', documentID: 'aaa', card: tentativenameCard.toJson()));
 
     return AbsorbPointer(
       //childのWidgetの操作を受け付けるか
@@ -41,18 +43,32 @@ class QrScanPage extends HookConsumerWidget {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          Expanded(
-            child: QRView(
-              key: qrKey,
-              onQRViewCreated: controllernotifier.onQRViewCreated,
-              overlay: QrScannerOverlayShape(
-                  borderColor: Colors.grey,
-                  borderRadius: 20,
-                  borderLength: 70,
-                  borderWidth: 20,
-                  cutOutSize: scanArea),
-              onPermissionSet: (ctrl, p) => _onPermissionSet(context, ctrl, p),
-            ),
+          Align(
+            alignment: Alignment.center,
+            //モバイルスキャナー
+            child: MobileScanner(
+                fit: BoxFit.fill,
+                controller: ref.watch(cameraControllerProvider),
+                //読み取ったとき
+                onDetect: (barcode) {
+                  String? data = barcode.raw;
+                  if (data != null) {
+                    ref.read(cameraControllerProvider.notifier).stopCamera();
+                    context.router.push(RecieveRoute(info: data));
+                    //取得した文字列をカスタムクラスに戻す
+                    Map<String, dynamic> receivedMap = jsonDecode(data);
+                    ReceivedCard receivedCard =
+                        ReceivedCard.fromJson(receivedMap);
+                    //プロバイダーに管理させる
+                    ref
+                        .read(receivedCardProvider.notifier)
+                        .getReceivedCard(receivedCard, ref);
+                    //プロバイダーに管理させた名刺を保存
+                    ref
+                        .read(exchangeRepositoryProvider)
+                        .saveReceivedCard(tentativeuid);
+                  }
+                }),
           ),
           Align(
             alignment: Alignment(-0.6, 0.6),
@@ -65,7 +81,7 @@ class QrScanPage extends HookConsumerWidget {
               onPressed: () async {
                 absorbnotifier.state = true;
                 context.router.push(const QrDisplayRoute());
-                controllernotifier.controller!.pauseCamera();
+                ref.read(cameraControllerProvider.notifier).stopCamera();
                 await Future.delayed(Duration(milliseconds: 300));
                 absorbnotifier.state = false;
               },
@@ -84,7 +100,7 @@ class QrScanPage extends HookConsumerWidget {
               onPressed: () async {
                 absorbnotifier.state = true;
                 context.router.push(const QrDisplayRoute());
-                controllernotifier.controller!.pauseCamera();
+                ref.read(cameraControllerProvider.notifier).stopCamera();
                 await Future.delayed(Duration(milliseconds: 300));
                 absorbnotifier.state = false;
               },
@@ -124,25 +140,15 @@ class QrScanPage extends HookConsumerWidget {
 
             child: FloatingActionButton(
               onPressed: () {
-                controllernotifier.controller!.pauseCamera();
-                controllernotifier.onQRViewCreated;
+                ref.read(cameraControllerProvider.notifier).stopCamera();
                 //情報を渡す
-                context.router.push(ReceivedInterfaceRoute(
-                    info: tentativeReceivedNameCardInfo));
+                context.router
+                    .push(RecieveRoute(info: tentativeReceivedNameCardInfo));
               },
             ),
           )
         ],
       ),
     );
-  }
-
-  void _onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {
-    debugPrint('${DateTime.now().toIso8601String()}_onPermissionSet $p');
-    if (!p) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('no Permission')),
-      );
-    }
   }
 }

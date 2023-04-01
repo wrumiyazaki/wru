@@ -9,7 +9,7 @@ part of 'sent_card.dart';
 _$_SentCard _$$_SentCardFromJson(Map<String, dynamic> json) => _$_SentCard(
       uid: json['uid'] as String,
       documentID: json['documentID'] as String,
-      card: NameCard.fromJson(json['card'] as Map<String, dynamic>),
+      card: json['card'] as Map<String, dynamic>,
     );
 
 Map<String, dynamic> _$$_SentCardToJson(_$_SentCard instance) =>
