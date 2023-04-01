@@ -9,7 +9,7 @@ abstract class SentCard with _$SentCard {
   factory SentCard({
     required String uid,
     required String documentID,
-    required NameCard card,
+    required Map card,
   }) = _SentCard;
 
   factory SentCard.fromJson(Map<String, dynamic> json) =>
