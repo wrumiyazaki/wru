@@ -121,6 +121,7 @@ class QrScanPage extends HookConsumerWidget {
             alignment: Alignment.bottomRight,
             //名刺受け取り画面へ遷移するための仮のボタン
             //実際は読み込まれたら遷移する
+
             child: FloatingActionButton(
               onPressed: () {
                 controllernotifier.controller!.pauseCamera();
