@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:wru/ui/hooks/use_l10n.dart';
 import 'package:wru/ui/routes/app_route.gr.dart';
 import 'package:wru/ui/tabs/exchange/exchange_state.dart';
+import 'package:wru/ui/tabs/exchange/exchange_view_model.dart';
 import 'package:wru/ui/tabs/friend/friend_view_model.dart';
 import 'package:wru/ui/theme/app_theme.dart';
 
@@ -14,7 +15,6 @@ class MemoEditPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(appThemeProvider);
     final l10n = useL10n();
-    final controllerstate = ref.watch(qrCodeProvider);
     final imagestate = ref.watch(imageprovider);
     final imagestatenotifier = ref.read(imageprovider.notifier);
     final friendindexstate = ref.watch(frinedindexprovider);

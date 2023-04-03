@@ -16,14 +16,13 @@ class QRCodeNotifier extends StateNotifier<Barcode> {
   QRViewController? controller;
   QRCodeNotifier() : super(Barcode(null, BarcodeFormat.unknown, null));
 
-  //QRコードを読み取ったあとの処理を書く
   //受け取り画面に遷移と受け取った名刺をfirebaseに保存
-  void onQRViewCreated(QRViewController controller) {
-    this.controller = controller;
-    this.controller!.scannedDataStream.listen((scanData) {
-      state = scanData;
-    });
-  }
+  // void onQRViewCreated(QRViewController controller) {
+  //   this.controller = controller;
+  //   this.controller!.scannedDataStream.listen((scanData) {
+  //     state = scanData;
+  //   });
+  // }
 }
 
 class ExchangeViewModel extends StatelessWidget {
