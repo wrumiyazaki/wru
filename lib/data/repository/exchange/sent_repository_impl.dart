@@ -4,6 +4,8 @@ import 'package:wru/data/model/card/card.dart';
 import 'package:wru/data/provider/firebase_firestore_provider.dart';
 import 'package:wru/data/repository/exchange/sent_repositrory.dart';
 
+final sentRepositoryProvider = Provider((ref) => SentRepositoryImpl(ref));
+
 class SentRepositoryImpl implements SentRepository {
   SentRepositoryImpl(this._ref);
   final Ref _ref;
