@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:wru/ui/hooks/use_l10n.dart';
@@ -34,7 +35,12 @@ class QrScanPage extends HookConsumerWidget {
           Expanded(
             child: QRView(
               key: qrKey,
-              onQRViewCreated: controllernotifier.onQRViewCreated,
+              // onQRViewCreated: controllernotifier.onQRViewCreated,
+              onQRViewCreated: (ctl) {
+                controllernotifier.controller = ctl;
+                controllernotifier.controller!.scannedDataStream
+                    .listen((scanData) {});
+              },
               overlay: QrScannerOverlayShape(
                   borderColor: Colors.grey,
                   borderRadius: 20,

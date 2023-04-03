@@ -5,6 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
+final qrCodeProvider =
+    StateNotifierProvider.autoDispose<QRCodeNotifier, Barcode>((ref) {
+  final notifier = QRCodeNotifier();
+  ref.onDispose(() => notifier.controller?.dispose());
+  return notifier;
+});
+
 class QRCodeNotifier extends StateNotifier<Barcode> {
   QRViewController? controller;
   QRCodeNotifier() : super(Barcode(null, BarcodeFormat.unknown, null));
