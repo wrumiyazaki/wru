@@ -14,7 +14,7 @@ abstract class AppUser with _$AppUser {
     required String uid,
     required String email,
     Profile? profile,
-    List<Card>? myCards,
+    List<NameCard>? myCards,
     List<ReceivedCard>? receivedCards,
   }) = _AppUser;
 

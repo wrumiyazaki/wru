@@ -7,8 +7,10 @@ part 'received_card.g.dart';
 @freezed
 abstract class ReceivedCard with _$ReceivedCard {
   factory ReceivedCard({
-    required Card card,
-    required String memo,
+    required String uid,
+    required String documentID,
+    required NameCard card,
+    @Default('') String memo,
   }) = _ReceivedCard;
 
   factory ReceivedCard.fromJson(Map<String, dynamic> json) =>

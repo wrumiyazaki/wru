@@ -4,10 +4,18 @@ part 'card.freezed.dart';
 part 'card.g.dart';
 
 @freezed
-abstract class Card with _$Card {
-  factory Card({
-    required String hoge,
-  }) = _Card;
+abstract class NameCard with _$NameCard {
+  factory NameCard({
+    String? name,
+    String? namePhonetic,
+    String? university,
+    String? major,
+    String? grade,
+    String? text,
+    String? imgUrl,
+    String? faceImgUrl,
+  }) = _NameCard;
 
-  factory Card.fromJson(Map<String, dynamic> json) => _$CardFromJson(json);
+  factory NameCard.fromJson(Map<String, dynamic> json) =>
+      _$NameCardFromJson(json);
 }

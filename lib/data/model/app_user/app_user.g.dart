@@ -13,7 +13,7 @@ _$_AppUser _$$_AppUserFromJson(Map<String, dynamic> json) => _$_AppUser(
           ? null
           : Profile.fromJson(json['profile'] as Map<String, dynamic>),
       myCards: (json['myCards'] as List<dynamic>?)
-          ?.map((e) => Card.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => NameCard.fromJson(e as Map<String, dynamic>))
           .toList(),
       receivedCards: (json['receivedCards'] as List<dynamic>?)
           ?.map((e) => ReceivedCard.fromJson(e as Map<String, dynamic>))
