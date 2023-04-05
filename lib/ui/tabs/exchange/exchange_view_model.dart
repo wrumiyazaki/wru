@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
@@ -5,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:wru/data/model/card/card.dart';
+import 'package:wru/data/model/received_card/received_card.dart';
 import 'package:wru/data/model/sent_card/sent_card.dart';
+import 'package:wru/data/repository/exchange/receive_repository_impl.dart';
 import 'package:wru/data/repository/exchange/sent_repository_impl.dart';
 
 //uidをとってくる #TODO
@@ -21,16 +24,9 @@ final qrCodeProvider =
 class QRCodeNotifier extends StateNotifier<Barcode> {
   QRViewController? controller;
   QRCodeNotifier() : super(Barcode(null, BarcodeFormat.unknown, null));
-
-  //受け取り画面に遷移と受け取った名刺をfirebaseに保存
-  // void onQRViewCreated(QRViewController controller) {
-  //   this.controller = controller;
-  //   this.controller!.scannedDataStream.listen((scanData) {
-  //     state = scanData;
-  //   });
-  // }
 }
 
+//取得してきた自分の名刺
 final myQrInfoProvider = FutureProvider((ref) async {
   final List docList =
       await ref.read(sentRepositoryProvider).fetchMyCardsDocId(tentativeUid);
@@ -45,20 +41,27 @@ final myQrInfoProvider = FutureProvider((ref) async {
   return sentCard;
 });
 
-class ExchangeViewModel extends StatelessWidget {
-  ExchangeViewModel({super.key});
+//受け取った名刺
+final receivedCardProvider =
+    StateNotifierProvider<ReceivedCardNotifier, ReceivedCard?>(
+        (ref) => ReceivedCardNotifier(ref));
 
-  String yourName(String cardid) {
-    //cardIDを使って名刺の中に書いてある名前を取得してそれを返す
-    return '小林';
+class ReceivedCardNotifier extends StateNotifier<ReceivedCard?> {
+  ReceivedCardNotifier(this._ref) : super(null);
+  final Ref _ref;
+
+  void saveReceivedCard(String json) {
+    transJsonToReceivedCard(json);
+    saveFirestore();
   }
 
-  void memoSave(String text) {
-    print(text);
+  //受け取ったjsonをMapに変換し、providerで監視
+  void transJsonToReceivedCard(String st) {
+    Map<String, dynamic> receivedMap = jsonDecode(st);
+    state = ReceivedCard.fromJson(receivedMap);
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
+  void saveFirestore() {
+    _ref.read(receiveRepositoryProvider).save();
   }
 }

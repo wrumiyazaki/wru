@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:wru/data/model/received_card/received_card.dart';
 import 'package:wru/ui/hooks/use_l10n.dart';
 import 'package:wru/ui/routes/app_route.gr.dart';
 import 'package:wru/ui/tabs/exchange/exchange_state.dart';
@@ -39,7 +42,15 @@ class QrScanPage extends HookConsumerWidget {
               onQRViewCreated: (ctl) {
                 controllernotifier.controller = ctl;
                 controllernotifier.controller!.scannedDataStream
-                    .listen((scanData) {});
+                    .listen((scanData) {
+                  if (scanData.code != null) {
+                    controllernotifier.controller!.pauseCamera();
+                    ref
+                        .read(receivedCardProvider.notifier)
+                        .saveReceivedCard(scanData.code!);
+                    context.router.push(const RecieveRoute());
+                  }
+                });
               },
               overlay: QrScannerOverlayShape(
                   borderColor: Colors.grey,
