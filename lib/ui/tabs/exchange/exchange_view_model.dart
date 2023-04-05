@@ -46,8 +46,9 @@ final receivedCardProvider =
     StateNotifierProvider<ReceivedCardNotifier, ReceivedCard?>(
         (ref) => ReceivedCardNotifier(ref));
 
-class ReceivedCardNotifier extends StateNotifier<ReceivedCard?> {
-  ReceivedCardNotifier(this._ref) : super(null);
+class ReceivedCardNotifier extends StateNotifier<ReceivedCard> {
+  ReceivedCardNotifier(this._ref)
+      : super(ReceivedCard(uid: '', documentID: '', card: {}));
   final Ref _ref;
 
   void saveReceivedCard(String json) {
