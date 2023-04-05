@@ -28,12 +28,14 @@ class RecievePage extends HookConsumerWidget {
         children: [
           Container(
             padding: EdgeInsets.fromLTRB(10, 120, 10, 0),
-            child: Text(
-              style: theme.textTheme.h50
-                  .copyWith(color: theme.appColors.receivePageText),
-              // '${ExchangeViewModel().yourName(controllerstate.code!)}さんから名刺が届きました♪'
-              '小林${l10n.nameCardFrom}',
-            ),
+            child: ref.watch(receivedCardProvider)!.card['name'] != null
+                ? Text(
+                    style: theme.textTheme.h50
+                        .copyWith(color: theme.appColors.receivePageText),
+                    // '小林さんから名刺が届きました♪'
+                    '${ref.watch(receivedCardProvider)!.card['name']}${l10n.nameCardFrom}',
+                  )
+                : null,
             // alignment: Alignment.center,
           ),
           Container(
@@ -80,7 +82,7 @@ class RecievePage extends HookConsumerWidget {
               onPressed: () {
                 context.router.push(TabRoute());
                 //firebaseにメモを保存
-                ExchangeViewModel().memoSave(memo);
+                ref.watch(receivedCardProvider.notifier).saveMemo(memo);
               },
               child: Text(l10n.save),
             ),

@@ -55,10 +55,16 @@ class ReceivedCardNotifier extends StateNotifier<ReceivedCard?> {
     saveFirestore();
   }
 
+  void saveMemo(String st) {
+    state = state!.copyWith(memo: st);
+    saveFirestore();
+  }
+
   //受け取ったjsonをMapに変換し、providerで監視
   void transJsonToReceivedCard(String st) {
     Map<String, dynamic> receivedMap = jsonDecode(st);
-    state = ReceivedCard.fromJson(receivedMap);
+    ReceivedCard receivedCard = ReceivedCard.fromJson(receivedMap);
+    state = receivedCard;
   }
 
   void saveFirestore() {
