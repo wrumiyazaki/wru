@@ -57,7 +57,7 @@ class ReceivedCardNotifier extends StateNotifier<ReceivedCard> {
   }
 
   void saveMemo(String st) {
-    state = state!.copyWith(memo: st);
+    state = state.copyWith(memo: st);
     saveFirestore();
   }
 
