@@ -10,7 +10,9 @@ class SignInPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    //<AsyncValue<SignInState>>を保持するプロバイダー
     final state = ref.watch(signInViewModelProvider);
+    //<AsyncValue<SignInState>>の関数を呼び出す
     final viewModel = ref.watch(signInViewModelProvider.notifier);
     final router = useRouter();
     final l10n = useL10n();
@@ -48,7 +50,7 @@ class SignInPage extends HookConsumerWidget {
                         width: 100,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.blue),
+                              backgroundColor: Colors.white),
                           child: Text(l10n.signIn),
                           onPressed: () async {
                             try {
@@ -62,8 +64,9 @@ class SignInPage extends HookConsumerWidget {
                       ),
                     ],
                   ),
+                  //SignUpに遷移する
                   TextButton(
-                    onPressed: () => router.pop(),
+                    onPressed: () => router.push(const SignUpRoute()),
                     child: Text(l10n.toSignUp),
                   ),
                   SizedBox(

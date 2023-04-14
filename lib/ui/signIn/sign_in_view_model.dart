@@ -34,11 +34,14 @@ class SignInViewModel extends StateNotifier<AsyncValue<SignInState>> {
 
   Future<void> signIn() async {
     SignInState currentState = state.value!;
+    //取得したAppuUser
     final result =
         await _repository.signIn(currentState.email, currentState.password);
     result.when(
       success: (appUser) {
         if (appUser != null) {
+          //ログイン可能な場合の処理
+          //uidをプロバイダーでかんりする
           print(appUser.toString());
         } else {
           state = AsyncValue.data(

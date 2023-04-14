@@ -48,7 +48,7 @@ class SignUpPage extends HookConsumerWidget {
                         width: 100,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.lightGreen),
+                              backgroundColor: Colors.white),
                           child: Text(l10n.signUp),
                           onPressed: () async {
                             try {

@@ -18,6 +18,7 @@ class SignUpViewModel extends StateNotifier<AsyncValue<SignUpState>> {
 
   late final SignUpRepository _repository = _ref.read(signUpRepositoryProvider);
 
+  //ここの意味がわからない
   Future<void> load() async {
     state = const AsyncValue.data(
       SignUpState(),

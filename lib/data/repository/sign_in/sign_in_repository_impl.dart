@@ -21,6 +21,7 @@ class SignInRepositoryImpl implements SignInRepository {
       if (user == null) {
         return null;
       }
+      //取得したAppUserクラスを返す
       return await _usersDataSource.fetch(user.uid);
     });
   }
