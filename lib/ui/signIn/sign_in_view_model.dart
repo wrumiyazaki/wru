@@ -1,3 +1,4 @@
+import 'package:wru/data/provider/uid_provider.dart';
 import 'package:wru/data/repository/sign_in/sign_in_repository.dart';
 import 'package:wru/data/repository/sign_in/sign_in_repository_impl.dart';
 import 'package:wru/ui/signIn/sign_in_state.dart';
@@ -34,6 +35,7 @@ class SignInViewModel extends StateNotifier<AsyncValue<SignInState>> {
 
   Future<void> signIn() async {
     SignInState currentState = state.value!;
+    final uidNotifier = _ref.read(uidProvider.notifier);
     //取得したAppuUser
     final result =
         await _repository.signIn(currentState.email, currentState.password);
@@ -42,6 +44,7 @@ class SignInViewModel extends StateNotifier<AsyncValue<SignInState>> {
         if (appUser != null) {
           //ログイン可能な場合の処理
           //uidをプロバイダーでかんりする
+          uidNotifier.state = appUser.uid;
           print(appUser.toString());
         } else {
           state = AsyncValue.data(

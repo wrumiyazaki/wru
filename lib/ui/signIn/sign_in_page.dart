@@ -54,7 +54,9 @@ class SignInPage extends HookConsumerWidget {
                           child: Text(l10n.signIn),
                           onPressed: () async {
                             try {
-                              viewModel.signIn();
+                              await viewModel.signIn();
+                              //ログイン成功
+                              router.push(const TabRoute());
                             } catch (e) {
                               print(e.toString());
                               return;
