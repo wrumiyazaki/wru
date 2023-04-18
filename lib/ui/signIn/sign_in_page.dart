@@ -16,6 +16,7 @@ class SignInPage extends HookConsumerWidget {
     final viewModel = ref.watch(signInViewModelProvider.notifier);
     final router = useRouter();
     final l10n = useL10n();
+    final signInErrorState = ref.watch(signInErrorProvider);
 
     return state.when(
       data: (data) {
@@ -28,6 +29,10 @@ class SignInPage extends HookConsumerWidget {
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
+                  Text(
+                    signInErrorState,
+                    style: const TextStyle(fontSize: 15, color: Colors.red),
+                  ),
                   TextFormField(
                     decoration: InputDecoration(labelText: l10n.email),
                     onChanged: (value) => viewModel.updateEmailInputBox(value),
@@ -56,6 +61,7 @@ class SignInPage extends HookConsumerWidget {
                             try {
                               await viewModel.signIn();
                               //ログイン成功
+                              print('ログイン成功');
                               router.push(const TabRoute());
                             } catch (e) {
                               print(e.toString());

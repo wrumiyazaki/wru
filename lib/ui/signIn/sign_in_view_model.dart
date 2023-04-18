@@ -1,6 +1,8 @@
 import 'package:wru/data/provider/uid_provider.dart';
 import 'package:wru/data/repository/sign_in/sign_in_repository.dart';
 import 'package:wru/data/repository/sign_in/sign_in_repository_impl.dart';
+import 'package:wru/ui/hooks/use_router.dart';
+import 'package:wru/ui/routes/app_route.gr.dart';
 import 'package:wru/ui/signIn/sign_in_state.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -8,6 +10,8 @@ final signInViewModelProvider =
     StateNotifierProvider.autoDispose<SignInViewModel, AsyncValue<SignInState>>(
   (ref) => SignInViewModel(ref: ref),
 );
+
+final signInErrorProvider = StateProvider((ref) => '');
 
 class SignInViewModel extends StateNotifier<AsyncValue<SignInState>> {
   final AutoDisposeStateNotifierProviderRef _ref;
@@ -18,6 +22,7 @@ class SignInViewModel extends StateNotifier<AsyncValue<SignInState>> {
   }
 
   late final SignInRepository _repository = _ref.read(signInRepositoryProvider);
+  final router = useRouter();
 
   Future<void> load() async {
     state = const AsyncValue.data(
@@ -36,6 +41,7 @@ class SignInViewModel extends StateNotifier<AsyncValue<SignInState>> {
   Future<void> signIn() async {
     SignInState currentState = state.value!;
     final uidNotifier = _ref.read(uidProvider.notifier);
+    final errorNotifer = _ref.read(signInErrorProvider.notifier);
     //取得したAppuUser
     final result =
         await _repository.signIn(currentState.email, currentState.password);
@@ -55,8 +61,12 @@ class SignInViewModel extends StateNotifier<AsyncValue<SignInState>> {
           );
         }
       },
-      failure: (error) {
-        state = AsyncValue.error(error, StackTrace.current);
+      failure: (error) async {
+        print('失敗');
+        print(error);
+        errorNotifer.state = error.toString();
+        // state = AsyncValue.error(error, StackTrace.current);
+        router.push(const SignInRoute());
       },
     );
   }
