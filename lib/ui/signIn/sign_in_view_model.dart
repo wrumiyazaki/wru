@@ -11,7 +11,9 @@ final signInViewModelProvider =
   (ref) => SignInViewModel(ref: ref),
 );
 
-final signInErrorProvider = StateProvider((ref) => '');
+final signInErrorProvider = StateProvider<String>((ref) => '');
+
+final signInOrUpProvider = StateProvider<bool>((ref) => true);
 
 class SignInViewModel extends StateNotifier<AsyncValue<SignInState>> {
   final AutoDisposeStateNotifierProviderRef _ref;
@@ -41,8 +43,8 @@ class SignInViewModel extends StateNotifier<AsyncValue<SignInState>> {
   Future<void> signIn() async {
     SignInState currentState = state.value!;
     final uidNotifier = _ref.read(uidProvider.notifier);
-    final errorNotifer = _ref.read(signInErrorProvider.notifier);
-    //取得したAppuUser
+    final errorNotifier = _ref.read(signInErrorProvider.notifier);
+    //取得したAppUser
     final result =
         await _repository.signIn(currentState.email, currentState.password);
     result.when(
@@ -64,9 +66,8 @@ class SignInViewModel extends StateNotifier<AsyncValue<SignInState>> {
       failure: (error) async {
         print('失敗');
         print(error);
-        errorNotifer.state = error.toString();
+        errorNotifier.state = error.toString();
         // state = AsyncValue.error(error, StackTrace.current);
-        router.push(const SignInRoute());
       },
     );
   }

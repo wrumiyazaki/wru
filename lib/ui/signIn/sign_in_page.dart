@@ -17,6 +17,7 @@ class SignInPage extends HookConsumerWidget {
     final router = useRouter();
     final l10n = useL10n();
     final signInErrorState = ref.watch(signInErrorProvider);
+    final signBoolNotifier = ref.read(signInOrUpProvider.notifier);
 
     return state.when(
       data: (data) {
@@ -61,7 +62,6 @@ class SignInPage extends HookConsumerWidget {
                             try {
                               await viewModel.signIn();
                               //ログイン成功
-                              print('ログイン成功');
                               router.push(const TabRoute());
                             } catch (e) {
                               print(e.toString());
@@ -74,14 +74,17 @@ class SignInPage extends HookConsumerWidget {
                   ),
                   //SignUpに遷移する
                   TextButton(
-                    onPressed: () => router.push(const SignUpRoute()),
+                    onPressed: () {
+                      router.push(const SignUpRoute());
+                      signBoolNotifier.state = false;
+                    },
                     child: Text(l10n.toSignUp),
                   ),
                   SizedBox(
                     width: double.infinity,
                     child: Text(
                       data.errorMsg,
-                      style: TextStyle(color: Colors.red),
+                      style: const TextStyle(color: Colors.red),
                     ),
                   ),
                 ]),

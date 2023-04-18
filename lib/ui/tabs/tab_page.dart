@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:wru/ui/signIn/sign_in_page.dart';
+import 'package:wru/ui/signIn/sign_in_view_model.dart';
+import 'package:wru/ui/signUp/sign_up_page.dart';
 import 'package:wru/ui/theme/app_theme.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:auto_route/auto_route.dart';
@@ -13,6 +15,7 @@ class TabPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(appThemeProvider);
+    final signBoolProvider = ref.watch(signInOrUpProvider);
 
     return StreamBuilder(
       stream: FirebaseAuth.instance.authStateChanges(),
@@ -52,7 +55,11 @@ class TabPage extends HookConsumerWidget {
           );
         }
         //ログインしていない場合
-        return const SignInPage();
+        if (signBoolProvider == true) {
+          return const SignInPage();
+        } else {
+          return const SignUpPage();
+        }
       },
     );
   }
