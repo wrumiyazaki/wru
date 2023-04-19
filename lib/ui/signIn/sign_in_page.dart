@@ -10,10 +10,14 @@ class SignInPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    //<AsyncValue<SignInState>>を保持するプロバイダー
     final state = ref.watch(signInViewModelProvider);
+    //<AsyncValue<SignInState>>の関数を呼び出す
     final viewModel = ref.watch(signInViewModelProvider.notifier);
     final router = useRouter();
     final l10n = useL10n();
+    final signInErrorState = ref.watch(signInErrorProvider);
+    final signBoolNotifier = ref.read(signInOrUpProvider.notifier);
 
     return state.when(
       data: (data) {
@@ -26,6 +30,10 @@ class SignInPage extends HookConsumerWidget {
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
+                  Text(
+                    signInErrorState,
+                    style: const TextStyle(fontSize: 15, color: Colors.red),
+                  ),
                   TextFormField(
                     decoration: InputDecoration(labelText: l10n.email),
                     onChanged: (value) => viewModel.updateEmailInputBox(value),
@@ -48,11 +56,13 @@ class SignInPage extends HookConsumerWidget {
                         width: 100,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.blue),
+                              backgroundColor: Colors.white),
                           child: Text(l10n.signIn),
                           onPressed: () async {
                             try {
-                              viewModel.signIn();
+                              await viewModel.signIn();
+                              //ログイン成功
+                              router.push(const TabRoute());
                             } catch (e) {
                               print(e.toString());
                               return;
@@ -62,15 +72,19 @@ class SignInPage extends HookConsumerWidget {
                       ),
                     ],
                   ),
+                  //SignUpに遷移する
                   TextButton(
-                    onPressed: () => router.pop(),
+                    onPressed: () {
+                      router.push(const SignUpRoute());
+                      signBoolNotifier.state = false;
+                    },
                     child: Text(l10n.toSignUp),
                   ),
                   SizedBox(
                     width: double.infinity,
                     child: Text(
                       data.errorMsg,
-                      style: TextStyle(color: Colors.red),
+                      style: const TextStyle(color: Colors.red),
                     ),
                   ),
                 ]),

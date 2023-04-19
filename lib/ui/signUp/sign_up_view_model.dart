@@ -1,5 +1,8 @@
+import 'package:wru/data/provider/uid_provider.dart';
 import 'package:wru/data/repository/sign_up/sign_up_repository.dart';
 import 'package:wru/data/repository/sign_up/sign_up_repository_impl.dart';
+import 'package:wru/ui/hooks/use_router.dart';
+import 'package:wru/ui/routes/app_route.gr.dart';
 import 'package:wru/ui/signUp/sign_up_state.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -7,6 +10,8 @@ final signUpViewModelProvider =
     StateNotifierProvider.autoDispose<SignUpViewModel, AsyncValue<SignUpState>>(
   (ref) => SignUpViewModel(ref: ref),
 );
+
+final signUpErrorProvider = StateProvider((ref) => '');
 
 class SignUpViewModel extends StateNotifier<AsyncValue<SignUpState>> {
   final AutoDisposeStateNotifierProviderRef _ref;
@@ -17,7 +22,9 @@ class SignUpViewModel extends StateNotifier<AsyncValue<SignUpState>> {
   }
 
   late final SignUpRepository _repository = _ref.read(signUpRepositoryProvider);
+  final router = useRouter();
 
+  //ここの意味がわからない
   Future<void> load() async {
     state = const AsyncValue.data(
       SignUpState(),
@@ -34,12 +41,18 @@ class SignUpViewModel extends StateNotifier<AsyncValue<SignUpState>> {
 
   Future<void> singUp() async {
     SignUpState currentState = state.value!;
+    final uidNotifier = _ref.read(uidProvider.notifier);
+    final errorNotifier = _ref.read(signUpErrorProvider.notifier);
+    //取得したAppUser
     final result =
         await _repository.signUp(currentState.email, currentState.password);
     result.when(
       success: (appUser) {
         if (appUser != null) {
-          print(appUser.email);
+          //ログイン可能な場合の処理
+          //uidをプロバイダーでかんりする
+          uidNotifier.state = appUser.uid;
+          print(appUser.toString());
         } else {
           state = AsyncValue.data(
             SignUpState(
@@ -49,8 +62,11 @@ class SignUpViewModel extends StateNotifier<AsyncValue<SignUpState>> {
           );
         }
       },
-      failure: (error) {
-        state = AsyncValue.error(error, StackTrace.current);
+      failure: (error) async {
+        print('signUp失敗');
+        print(error);
+        errorNotifier.state = error.toString();
+        router.push(const SignUpRoute());
       },
     );
   }

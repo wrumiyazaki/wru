@@ -14,12 +14,12 @@
 import 'package:auto_route/auto_route.dart' as _i15;
 import 'package:auto_route/empty_router_widgets.dart' as _i9;
 import 'package:flutter/material.dart' as _i16;
-import 'package:wru/ui/create_card/pages/enter_information_page.dart' as _i7;
-import 'package:wru/ui/create_card/pages/select_template_page.dart' as _i6;
+import 'package:wru/ui/create_card/pages/enter_information_page.dart' as _i5;
+import 'package:wru/ui/create_card/pages/select_template_page.dart' as _i4;
 import 'package:wru/ui/profile/profile_edit_page.dart' as _i3;
 import 'package:wru/ui/profile/profile_page.dart' as _i2;
-import 'package:wru/ui/signIn/sign_in_page.dart' as _i4;
-import 'package:wru/ui/signUp/sign_up_page.dart' as _i5;
+import 'package:wru/ui/signIn/sign_in_page.dart' as _i6;
+import 'package:wru/ui/signUp/sign_up_page.dart' as _i7;
 import 'package:wru/ui/tabs/exchange/qr_display_page.dart' as _i10;
 import 'package:wru/ui/tabs/exchange/qr_scan_page.dart' as _i11;
 import 'package:wru/ui/tabs/exchange/reicive_page.dart' as _i12;
@@ -52,28 +52,28 @@ class AppRouter extends _i15.RootStackRouter {
         child: const _i3.ProfileEditPage(),
       );
     },
-    SignInRoute.name: (routeData) {
-      return _i15.AdaptivePage<dynamic>(
-        routeData: routeData,
-        child: const _i4.SignInPage(),
-      );
-    },
-    SignUpRoute.name: (routeData) {
-      return _i15.AdaptivePage<dynamic>(
-        routeData: routeData,
-        child: const _i5.SignUpPage(),
-      );
-    },
     SelectTemplateRoute.name: (routeData) {
       return _i15.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: const _i6.SelectTemplatePage(),
+        child: const _i4.SelectTemplatePage(),
       );
     },
     EnterInformationRoute.name: (routeData) {
       return _i15.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: const _i7.EnterInformationPage(),
+        child: const _i5.EnterInformationPage(),
+      );
+    },
+    SignInRoute.name: (routeData) {
+      return _i15.AdaptivePage<dynamic>(
+        routeData: routeData,
+        child: const _i6.SignInPage(),
+      );
+    },
+    SignUpRoute.name: (routeData) {
+      return _i15.AdaptivePage<dynamic>(
+        routeData: routeData,
+        child: const _i7.SignUpPage(),
       );
     },
     HomeRoute.name: (routeData) {
@@ -197,20 +197,20 @@ class AppRouter extends _i15.RootStackRouter {
           path: '/profile',
         ),
         _i15.RouteConfig(
-          SignInRoute.name,
-          path: '/signIn',
-        ),
-        _i15.RouteConfig(
-          SignUpRoute.name,
-          path: '/signUp',
-        ),
-        _i15.RouteConfig(
           SelectTemplateRoute.name,
           path: '/select_template',
         ),
         _i15.RouteConfig(
           EnterInformationRoute.name,
           path: '/enter_information',
+        ),
+        _i15.RouteConfig(
+          SignInRoute.name,
+          path: '/signIn',
+        ),
+        _i15.RouteConfig(
+          SignUpRoute.name,
+          path: '/signUp',
         ),
       ];
 }
@@ -253,31 +253,7 @@ class ProfileEditRoute extends _i15.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i4.SignInPage]
-class SignInRoute extends _i15.PageRouteInfo<void> {
-  const SignInRoute()
-      : super(
-          SignInRoute.name,
-          path: '/signIn',
-        );
-
-  static const String name = 'SignInRoute';
-}
-
-/// generated route for
-/// [_i5.SignUpPage]
-class SignUpRoute extends _i15.PageRouteInfo<void> {
-  const SignUpRoute()
-      : super(
-          SignUpRoute.name,
-          path: '/signUp',
-        );
-
-  static const String name = 'SignUpRoute';
-}
-
-/// generated route for
-/// [_i6.SelectTemplatePage]
+/// [_i4.SelectTemplatePage]
 class SelectTemplateRoute extends _i15.PageRouteInfo<void> {
   const SelectTemplateRoute()
       : super(
@@ -289,7 +265,7 @@ class SelectTemplateRoute extends _i15.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i7.EnterInformationPage]
+/// [_i5.EnterInformationPage]
 class EnterInformationRoute extends _i15.PageRouteInfo<void> {
   const EnterInformationRoute()
       : super(
@@ -298,6 +274,30 @@ class EnterInformationRoute extends _i15.PageRouteInfo<void> {
         );
 
   static const String name = 'EnterInformationRoute';
+}
+
+/// generated route for
+/// [_i6.SignInPage]
+class SignInRoute extends _i15.PageRouteInfo<void> {
+  const SignInRoute()
+      : super(
+          SignInRoute.name,
+          path: '/signIn',
+        );
+
+  static const String name = 'SignInRoute';
+}
+
+/// generated route for
+/// [_i7.SignUpPage]
+class SignUpRoute extends _i15.PageRouteInfo<void> {
+  const SignUpRoute()
+      : super(
+          SignUpRoute.name,
+          path: '/signUp',
+        );
+
+  static const String name = 'SignUpRoute';
 }
 
 /// generated route for

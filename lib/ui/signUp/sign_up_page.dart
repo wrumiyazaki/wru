@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:wru/ui/hooks/use_l10n.dart';
 import 'package:wru/ui/hooks/use_router.dart';
 import 'package:wru/ui/routes/app_route.gr.dart';
+import 'package:wru/ui/signIn/sign_in_view_model.dart';
 import 'package:wru/ui/signUp/sign_up_view_model.dart';
 
 class SignUpPage extends HookConsumerWidget {
@@ -14,6 +15,8 @@ class SignUpPage extends HookConsumerWidget {
     final viewModel = ref.watch(signUpViewModelProvider.notifier);
     final router = useRouter();
     final l10n = useL10n();
+    final signUpErrorState = ref.watch(signUpErrorProvider);
+    final signBoolNotifier = ref.read(signInOrUpProvider.notifier);
 
     return state.when(
       data: (data) {
@@ -26,6 +29,10 @@ class SignUpPage extends HookConsumerWidget {
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
+                  Text(
+                    signUpErrorState,
+                    style: const TextStyle(fontSize: 15, color: Colors.red),
+                  ),
                   TextFormField(
                     decoration: InputDecoration(labelText: l10n.email),
                     onChanged: (value) => viewModel.updateEmailInputBox(value),
@@ -48,11 +55,13 @@ class SignUpPage extends HookConsumerWidget {
                         width: 100,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.lightGreen),
+                              backgroundColor: Colors.white),
                           child: Text(l10n.signUp),
                           onPressed: () async {
                             try {
-                              viewModel.singUp();
+                              await viewModel.singUp();
+                              //サインアップ成功
+                              router.push(const TabRoute());
                             } catch (e) {
                               print(e.toString());
                               return;
@@ -62,8 +71,12 @@ class SignUpPage extends HookConsumerWidget {
                       ),
                     ],
                   ),
+                  //SignInに遷移する
                   TextButton(
-                    onPressed: () => router.push(const SignInRoute()),
+                    onPressed: () {
+                      router.push(const SignInRoute());
+                      signBoolNotifier.state = true;
+                    },
                     child: Text(l10n.toSignIn),
                   ),
                   SizedBox(

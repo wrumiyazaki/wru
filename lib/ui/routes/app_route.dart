@@ -4,11 +4,11 @@ import 'package:wru/ui/create_card/pages/select_template_page.dart';
 import 'package:wru/ui/profile/profile_edit_page.dart';
 import 'package:wru/ui/profile/profile_page.dart';
 import 'package:wru/ui/routes/route_path.dart';
+import 'package:wru/ui/signIn/sign_in_page.dart';
+import 'package:wru/ui/signUp/sign_up_page.dart';
 import 'package:wru/ui/tabs/exchange/qr_display_page.dart';
 import 'package:wru/ui/tabs/exchange/qr_scan_page.dart';
 import 'package:wru/ui/tabs/exchange/reicive_page.dart';
-import 'package:wru/ui/signIn/sign_in_page.dart';
-import 'package:wru/ui/signUp/sign_up_page.dart';
 import 'package:wru/ui/tabs/friend/friend_page.dart';
 import 'package:wru/ui/tabs/friend/memo_edit_page.dart';
 import 'package:wru/ui/tabs/home/home_page.dart';
@@ -53,16 +53,6 @@ import 'package:auto_route/empty_router_widgets.dart';
       page: ProfileEditPage,
     ),
     AutoRoute(
-      path: RoutePath.appRoutSignIn,
-      page: SignInPage,
-      // initial: true,
-    ),
-    AutoRoute(
-      path: RoutePath.appRoutSignUp,
-      page: SignUpPage,
-      initial: true,
-    ),
-    AutoRoute(
       path: RoutePath.appRouteSelectTemplate,
       page: SelectTemplatePage,
       // initial: true,
@@ -70,6 +60,14 @@ import 'package:auto_route/empty_router_widgets.dart';
     AutoRoute(
       path: RoutePath.appRouteEnterInformation,
       page: EnterInformationPage,
+    ),
+    AutoRoute(
+      path: RoutePath.appRoutSignIn,
+      page: SignInPage,
+    ),
+    AutoRoute(
+      path: RoutePath.appRoutSignUp,
+      page: SignUpPage,
     )
   ],
 )
