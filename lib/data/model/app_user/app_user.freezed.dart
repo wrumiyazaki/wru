@@ -22,9 +22,7 @@ AppUser _$AppUserFromJson(Map<String, dynamic> json) {
 mixin _$AppUser {
   String get uid => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
-  Profile? get profile => throw _privateConstructorUsedError;
-  List<NameCard>? get myCards => throw _privateConstructorUsedError;
-  List<ReceivedCard>? get receivedCards => throw _privateConstructorUsedError;
+  Map<dynamic, dynamic>? get profile => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,14 +34,7 @@ abstract class $AppUserCopyWith<$Res> {
   factory $AppUserCopyWith(AppUser value, $Res Function(AppUser) then) =
       _$AppUserCopyWithImpl<$Res, AppUser>;
   @useResult
-  $Res call(
-      {String uid,
-      String email,
-      Profile? profile,
-      List<NameCard>? myCards,
-      List<ReceivedCard>? receivedCards});
-
-  $ProfileCopyWith<$Res>? get profile;
+  $Res call({String uid, String email, Map<dynamic, dynamic>? profile});
 }
 
 /// @nodoc
@@ -62,8 +53,6 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
     Object? uid = null,
     Object? email = null,
     Object? profile = freezed,
-    Object? myCards = freezed,
-    Object? receivedCards = freezed,
   }) {
     return _then(_value.copyWith(
       uid: null == uid
@@ -77,28 +66,8 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
       profile: freezed == profile
           ? _value.profile
           : profile // ignore: cast_nullable_to_non_nullable
-              as Profile?,
-      myCards: freezed == myCards
-          ? _value.myCards
-          : myCards // ignore: cast_nullable_to_non_nullable
-              as List<NameCard>?,
-      receivedCards: freezed == receivedCards
-          ? _value.receivedCards
-          : receivedCards // ignore: cast_nullable_to_non_nullable
-              as List<ReceivedCard>?,
+              as Map<dynamic, dynamic>?,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $ProfileCopyWith<$Res>? get profile {
-    if (_value.profile == null) {
-      return null;
-    }
-
-    return $ProfileCopyWith<$Res>(_value.profile!, (value) {
-      return _then(_value.copyWith(profile: value) as $Val);
-    });
   }
 }
 
@@ -109,15 +78,7 @@ abstract class _$$_AppUserCopyWith<$Res> implements $AppUserCopyWith<$Res> {
       __$$_AppUserCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String uid,
-      String email,
-      Profile? profile,
-      List<NameCard>? myCards,
-      List<ReceivedCard>? receivedCards});
-
-  @override
-  $ProfileCopyWith<$Res>? get profile;
+  $Res call({String uid, String email, Map<dynamic, dynamic>? profile});
 }
 
 /// @nodoc
@@ -133,8 +94,6 @@ class __$$_AppUserCopyWithImpl<$Res>
     Object? uid = null,
     Object? email = null,
     Object? profile = freezed,
-    Object? myCards = freezed,
-    Object? receivedCards = freezed,
   }) {
     return _then(_$_AppUser(
       uid: null == uid
@@ -146,17 +105,9 @@ class __$$_AppUserCopyWithImpl<$Res>
           : email // ignore: cast_nullable_to_non_nullable
               as String,
       profile: freezed == profile
-          ? _value.profile
+          ? _value._profile
           : profile // ignore: cast_nullable_to_non_nullable
-              as Profile?,
-      myCards: freezed == myCards
-          ? _value._myCards
-          : myCards // ignore: cast_nullable_to_non_nullable
-              as List<NameCard>?,
-      receivedCards: freezed == receivedCards
-          ? _value._receivedCards
-          : receivedCards // ignore: cast_nullable_to_non_nullable
-              as List<ReceivedCard>?,
+              as Map<dynamic, dynamic>?,
     ));
   }
 }
@@ -168,11 +119,8 @@ class _$_AppUser implements _AppUser {
   _$_AppUser(
       {required this.uid,
       required this.email,
-      this.profile,
-      final List<NameCard>? myCards,
-      final List<ReceivedCard>? receivedCards})
-      : _myCards = myCards,
-        _receivedCards = receivedCards;
+      final Map<dynamic, dynamic>? profile})
+      : _profile = profile;
 
   factory _$_AppUser.fromJson(Map<String, dynamic> json) =>
       _$$_AppUserFromJson(json);
@@ -181,31 +129,19 @@ class _$_AppUser implements _AppUser {
   final String uid;
   @override
   final String email;
+  final Map<dynamic, dynamic>? _profile;
   @override
-  final Profile? profile;
-  final List<NameCard>? _myCards;
-  @override
-  List<NameCard>? get myCards {
-    final value = _myCards;
+  Map<dynamic, dynamic>? get profile {
+    final value = _profile;
     if (value == null) return null;
-    if (_myCards is EqualUnmodifiableListView) return _myCards;
+    if (_profile is EqualUnmodifiableMapView) return _profile;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
-  final List<ReceivedCard>? _receivedCards;
-  @override
-  List<ReceivedCard>? get receivedCards {
-    final value = _receivedCards;
-    if (value == null) return null;
-    if (_receivedCards is EqualUnmodifiableListView) return _receivedCards;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
+    return EqualUnmodifiableMapView(value);
   }
 
   @override
   String toString() {
-    return 'AppUser(uid: $uid, email: $email, profile: $profile, myCards: $myCards, receivedCards: $receivedCards)';
+    return 'AppUser(uid: $uid, email: $email, profile: $profile)';
   }
 
   @override
@@ -215,21 +151,13 @@ class _$_AppUser implements _AppUser {
             other is _$_AppUser &&
             (identical(other.uid, uid) || other.uid == uid) &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.profile, profile) || other.profile == profile) &&
-            const DeepCollectionEquality().equals(other._myCards, _myCards) &&
-            const DeepCollectionEquality()
-                .equals(other._receivedCards, _receivedCards));
+            const DeepCollectionEquality().equals(other._profile, _profile));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      uid,
-      email,
-      profile,
-      const DeepCollectionEquality().hash(_myCards),
-      const DeepCollectionEquality().hash(_receivedCards));
+      runtimeType, uid, email, const DeepCollectionEquality().hash(_profile));
 
   @JsonKey(ignore: true)
   @override
@@ -249,9 +177,7 @@ abstract class _AppUser implements AppUser {
   factory _AppUser(
       {required final String uid,
       required final String email,
-      final Profile? profile,
-      final List<NameCard>? myCards,
-      final List<ReceivedCard>? receivedCards}) = _$_AppUser;
+      final Map<dynamic, dynamic>? profile}) = _$_AppUser;
 
   factory _AppUser.fromJson(Map<String, dynamic> json) = _$_AppUser.fromJson;
 
@@ -260,11 +186,7 @@ abstract class _AppUser implements AppUser {
   @override
   String get email;
   @override
-  Profile? get profile;
-  @override
-  List<NameCard>? get myCards;
-  @override
-  List<ReceivedCard>? get receivedCards;
+  Map<dynamic, dynamic>? get profile;
   @override
   @JsonKey(ignore: true)
   _$$_AppUserCopyWith<_$_AppUser> get copyWith =>

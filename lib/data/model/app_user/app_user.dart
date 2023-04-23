@@ -13,16 +13,12 @@ abstract class AppUser with _$AppUser {
   factory AppUser({
     required String uid,
     required String email,
-    Profile? profile,
-    List<NameCard>? myCards,
-    List<ReceivedCard>? receivedCards,
+    Map? profile,
   }) = _AppUser;
 
   factory AppUser.fromFirebaseUser(User firebaseUser) {
     return AppUser(
-      uid: firebaseUser.uid,
-      email: firebaseUser.email!,
-    );
+        uid: firebaseUser.uid, email: firebaseUser.email!, profile: {});
   }
 
   factory AppUser.fromJson(Map<String, dynamic> json) =>
