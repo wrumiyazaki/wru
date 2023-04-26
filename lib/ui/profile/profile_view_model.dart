@@ -4,9 +4,6 @@ import 'package:wru/ui/profile/profile_state.dart';
 
 //要素数増やすならview_modelとListView(edit_page側は条件分岐もある)内も
 
-//uidを取得#TODO
-String profileUid = '4MXOY43lcRVTSA8GVq1X8ioCqBf1';
-
 final getProfileListProvider =
     StateNotifierProvider<getProfileListNotifier, List>(
         (ref) => getProfileListNotifier());
