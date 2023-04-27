@@ -6,7 +6,7 @@ import 'package:wru/ui/create_card/templates/input_items/input_items.dart';
 import 'package:wru/ui/create_card/templates/template.dart';
 
 final createCardViewModelProvider =
-    StateNotifierProvider.autoDispose<CreateCardViewModel, CreateCardState>(
+    StateNotifierProvider<CreateCardViewModel, CreateCardState>(
   (ref) => CreateCardViewModel(),
 );
 
@@ -28,16 +28,17 @@ class CreateCardViewModel extends StateNotifier<CreateCardState> {
       InputItemsTemplate.testInputInitialValue,
     );
 
+    //選択するテンプレートを並べる
     state = state.copyWith(
       templates: [
         normalTemplate,
-        testTemplate,
-        normalTemplate,
-        testTemplate,
-        normalTemplate,
-        testTemplate,
-        normalTemplate,
-        testTemplate,
+        // testTemplate,
+        // normalTemplate,
+        // testTemplate,
+        // normalTemplate,
+        // testTemplate,
+        // normalTemplate,
+        // testTemplate,
       ],
       enteredInformations: [],
     );
@@ -54,5 +55,20 @@ class CreateCardViewModel extends StateNotifier<CreateCardState> {
     var informations = [...state.enteredInformations];
     informations[idx] = value;
     state = state.copyWith(enteredInformations: informations);
+  }
+
+  //入力された情報をもとフィールドをfirebaseに保存
+  //つくった名刺の画像を保存
+  void listToMapMyInformation() {
+    //この関数をrepositrotyで呼ぶ
+    state.enteredInformations;
+    state.selectedTemplate!.inputItems[1].label;
+    Map map;
+    for (int i = 0; i < state.selectedTemplate!.inputItems.length; i++) {
+      map = {
+        state.selectedTemplate!.inputItems[i].label:
+            state.enteredInformations[i]
+      };
+    }
   }
 }
