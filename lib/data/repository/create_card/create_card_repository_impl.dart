@@ -20,16 +20,18 @@ class CreateCardRepositoryImpl implements CreateCardRepository {
   late final uid = _ref.watch(uidProvider);
   late final myCardRef =
       db.collection(usersCollection).doc(uid).collection(myCardsCollection);
-  late final createCard = _ref.watch(createCardViewModelProvider);
+  late final createCardState = _ref.watch(createCardViewModelProvider);
   late Map<String, dynamic> map;
 
   @override
   Future<void> save() async {
-    //リストをマップにする
-    for (int i = 0; i < createCard.selectedTemplate!.inputItems.length; i++) {
+    //入力された情報のリストをマップにする
+    for (int i = 0;
+        i < createCardState.selectedTemplate!.inputItems.length;
+        i++) {
       map = {
-        createCard.selectedTemplate!.inputItems[i].label:
-            createCard.enteredInformations[i]
+        createCardState.selectedTemplate!.inputItems[i].label:
+            createCardState.enteredInformations[i]
       };
     }
 
@@ -43,7 +45,9 @@ class CreateCardRepositoryImpl implements CreateCardRepository {
       //いままでにつくった名刺がない場合はドキュメントIDをつくって保存
       if (docList[0] != null) {
         myCardRef.doc().set(map);
-      } else {
+      }
+      //作成済みの場合は上書きする
+      else {
         myCardRef.doc(docList[1]).set(map);
       }
     });
