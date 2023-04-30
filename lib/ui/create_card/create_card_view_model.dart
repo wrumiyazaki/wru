@@ -1,3 +1,9 @@
+import 'dart:ffi';
+import 'dart:typed_data';
+import 'dart:ui';
+
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:wru/ui/create_card/create_card_state.dart';
 import 'package:wru/ui/create_card/templates/cards/normal_card_page.dart';
@@ -70,5 +76,23 @@ class CreateCardViewModel extends StateNotifier<CreateCardState> {
             state.enteredInformations[i]
       };
     }
+  }
+
+  Future<Uint8List?> widgetToImage(globalKey) async {
+    Uint8List? bytes;
+    final boundary =
+        globalKey.currentContext.findRenderObject() as RenderRepaintBoundary?;
+    if (boundary == null) {
+      return null;
+    }
+    final image = await boundary.toImage();
+    final byteData = await image.toByteData(format: ImageByteFormat.png);
+    bytes = byteData?.buffer.asUint8List();
+    if (bytes != null) {
+      print('nulじゃないよ');
+      return bytes;
+    }
+    print('nullです');
+    return null;
   }
 }

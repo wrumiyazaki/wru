@@ -1,3 +1,4 @@
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:wru/ui/create_card/create_card_view_model.dart';
@@ -11,6 +12,8 @@ class EnterInformationPage extends HookConsumerWidget {
     final theme = ref.watch(appThemeProvider);
     final state = ref.watch(createCardViewModelProvider);
     final viewModel = ref.watch(createCardViewModelProvider.notifier);
+    Uint8List? bytes;
+    final globalKey = GlobalKey();
 
     return Scaffold(
       backgroundColor: theme.appColors.background,
@@ -25,18 +28,25 @@ class EnterInformationPage extends HookConsumerWidget {
         backgroundColor: const Color(0xFF4e4f50),
       ),
       floatingActionButton: IconButton(
-        icon: const Icon(
-          Icons.check_circle_rounded,
-          size: 54,
-        ),
-        onPressed: () => print('submit'),
-      ),
+          icon: const Icon(
+            Icons.check_circle_rounded,
+            size: 54,
+          ),
+          onPressed: () async {
+            //保存ボタンを押した時
+            print('submit');
+            Uint8List? u8list = await viewModel.widgetToImage(globalKey);
+          }),
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.all(10),
           child: Column(
             children: [
-              state.selectedTemplate!.card,
+              //切り取りたいWidget
+              RepaintBoundary(
+                key: globalKey,
+                child: state.selectedTemplate!.card,
+              ),
               const SizedBox(
                 height: 8,
               ),
