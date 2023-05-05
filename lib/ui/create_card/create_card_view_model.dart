@@ -1,8 +1,5 @@
-import 'dart:ffi';
 import 'dart:typed_data';
 import 'dart:ui';
-
-import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:wru/ui/create_card/create_card_state.dart';
@@ -63,11 +60,22 @@ class CreateCardViewModel extends StateNotifier<CreateCardState> {
     state = state.copyWith(enteredInformations: informations);
   }
 
-  //入力された情報をもとフィールドをfirebaseに保存
-  //つくった名刺の画像を保存
-  void listToMapMyInformation() {
-    //この関数をrepositrotyで呼ぶ
-    state.enteredInformations;
+  Future<void> saveImageAndInfo(globalKey) async {
+    //名刺のウィジェットを画像（Uint8List）に変換する
+    Uint8List? bytes;
+    final boundary =
+        globalKey.currentContext.findRenderObject() as RenderRepaintBoundary?;
+    if (boundary == null) {
+      return;
+    }
+    final image = await boundary.toImage();
+    final byteData = await image.toByteData(format: ImageByteFormat.png);
+    bytes = byteData?.buffer.asUint8List();
+    if (bytes != null) {
+      print(bytes);
+      //#TODObytesをあげる
+    }
+    //入力された情報のリストからマップに変換する
     state.selectedTemplate!.inputItems[1].label;
     Map map;
     for (int i = 0; i < state.selectedTemplate!.inputItems.length; i++) {
@@ -76,23 +84,8 @@ class CreateCardViewModel extends StateNotifier<CreateCardState> {
             state.enteredInformations[i]
       };
     }
-  }
-
-  Future<Uint8List?> widgetToImage(globalKey) async {
-    Uint8List? bytes;
-    final boundary =
-        globalKey.currentContext.findRenderObject() as RenderRepaintBoundary?;
-    if (boundary == null) {
-      return null;
-    }
-    final image = await boundary.toImage();
-    final byteData = await image.toByteData(format: ImageByteFormat.png);
-    bytes = byteData?.buffer.asUint8List();
-    if (bytes != null) {
-      print('nulじゃないよ');
-      return bytes;
-    }
-    print('nullです');
-    return null;
+    //名刺(nameCard)の形に変換する
+    //保存
+    return;
   }
 }

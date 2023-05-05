@@ -11,7 +11,7 @@ class EnterInformationPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(appThemeProvider);
     final state = ref.watch(createCardViewModelProvider);
-    final viewModel = ref.watch(createCardViewModelProvider.notifier);
+    final viewModel = ref.read(createCardViewModelProvider.notifier);
     Uint8List? bytes;
     final globalKey = GlobalKey();
 
@@ -35,7 +35,7 @@ class EnterInformationPage extends HookConsumerWidget {
           onPressed: () async {
             //保存ボタンを押した時
             print('submit');
-            Uint8List? u8list = await viewModel.widgetToImage(globalKey);
+            await viewModel.saveImageAndInfo(globalKey);
           }),
       body: SafeArea(
         child: Container(
