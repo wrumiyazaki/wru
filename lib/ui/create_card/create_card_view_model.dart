@@ -1,9 +1,7 @@
-import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
 import 'package:flutter/rendering.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:wru/data/provider/local_path_provider.dart';
 import 'package:wru/data/repository/create_card/create_card_repository_impl.dart';
 import 'package:wru/ui/create_card/create_card_state.dart';
 import 'package:wru/ui/create_card/templates/cards/normal_card_page.dart';
@@ -68,26 +66,27 @@ class CreateCardViewModel extends StateNotifier<CreateCardState> {
   Future<void> saveImageAndInfo(globalKey) async {
     //名刺のウィジェットを画像（Uint8List）に変換する
     final imageUint8 = await widgetToUint8(globalKey);
+
     if (imageUint8 == null) {
       print('Uint8Listがnullです');
       return;
     }
+    //情報とimgUrlを保存するドキュメントを指定
+    final docId = await provider.fetchDocId();
+
     //storageでurlを取得する
-    provider.saveAndFetchStorageUrl(imageUint8);
+    final imgUrl = await provider.saveAndFetchStorageUrl(imageUint8, docId);
     print('完了');
 
-    //そのurlをfirebaseに保存する
-
-    //入力された情報のリストからマップに変換する
-    Map map;
-    for (int i = 0; i < state.selectedTemplate!.inputItems.length; i++) {
-      map = {
-        state.selectedTemplate!.inputItems[i].label:
-            state.enteredInformations[i]
-      };
-    }
     //名刺(nameCard)の形に変換する
+    final Map<String, dynamic> map = {
+      "infoList": state.enteredInformations,
+      "imgUrl": imgUrl,
+      "faceImgUrl": null,
+    };
     //保存
+    await provider.save(docId, map);
+
     return;
   }
 

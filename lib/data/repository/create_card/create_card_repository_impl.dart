@@ -26,34 +26,38 @@ class CreateCardRepositoryImpl implements CreateCardRepository {
   late Map<String, dynamic> map;
 
   @override
-  Future<void> save(Map<String, dynamic> map, Uint8List list) async {
-    myCardRef.get().then((snapshot) {
-      //myCardsコレクションに入っているドキュメントのidを取得
-      snapshot.docs.forEach(
-        (doc) {
-          docList.add(doc.id);
-        },
-      );
-      //いままでにつくった名刺がない場合はドキュメントIDをつくって保存
-      if (docList[0] != null) {
-        myCardRef.doc().set(map);
-      }
-      //作成済みの場合は上書きする
-      else {
-        myCardRef.doc(docList[1]).set(map);
-      }
-    });
+  Future<void> save(String docId, Map<String, dynamic> map) async {
+    myCardRef.doc(docId).set(map);
   }
 
-  Future<void> saveAndFetchStorageUrl(Uint8List uint8) async {
+  @override
+  Future<String> saveAndFetchStorageUrl(Uint8List uint8, String docId) async {
     final storageRef = _ref.watch(storageRefProvider);
     //uidが必要
     final uid = _ref.watch(uidProvider);
-    final mountainsRef = storageRef.child("users/$uid/myCard.jpg");
+    final mountainsRef = storageRef.child("users/$uid/$docId");
+    //画像をアップロード
     try {
       await mountainsRef.putData(uint8);
     } on FirebaseException catch (e) {
       print("Failed with error '${e.code}': ${e.message}");
     }
+    //urlを取得
+    final downloadUrl = await mountainsRef.getDownloadURL();
+    return downloadUrl;
+  }
+
+  @override
+  Future<String> fetchDocId() async {
+    final fbProvider = _ref.watch(firebaseFirestoreProvider);
+    String docId = '';
+    final snapshot = await myCardRef.get();
+    //つくられたことがなくドキュメントがない場合
+    if (snapshot.docs.isEmpty) {
+      docId = myCardRef.doc().id;
+    } else {
+      docId = docList[0];
+    }
+    return docId;
   }
 }
