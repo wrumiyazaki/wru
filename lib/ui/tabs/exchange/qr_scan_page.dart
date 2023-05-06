@@ -62,7 +62,7 @@ class QrScanPage extends HookConsumerWidget {
             ),
           ),
           Align(
-            alignment: Alignment(-0.6, 0.6),
+            alignment: Alignment(-0.5, 0.65),
             child: IconButton(
               icon: Icon(
                 Icons.qr_code_2,
@@ -103,7 +103,7 @@ class QrScanPage extends HookConsumerWidget {
             ),
           ),
           Align(
-            alignment: Alignment(0.35, 0.6),
+            alignment: Alignment(0.5, 0.65),
             child: IconButton(
               icon: Icon(
                 Icons.filter_center_focus,

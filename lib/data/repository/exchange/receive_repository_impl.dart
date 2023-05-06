@@ -13,6 +13,7 @@ class ReceiveRepositoryImpl implements ReceiveRepository {
   final Ref _ref;
   late final uid = _ref.watch(uidProvider);
   late FirebaseFirestore db = _ref.read(firebaseFirestoreProvider);
+  late final provider = _ref.watch(receivedCardProvider);
   final usersCollection = 'users';
   final myCardsCollection = 'myCards';
   final receivedCardsCollection = 'receivedCards';
@@ -27,7 +28,7 @@ class ReceiveRepositoryImpl implements ReceiveRepository {
   //ReceivedCardをfirestoreに保存
   @override
   Future<void> save() async {
-    await receivedCardRef.set(_ref.watch(receivedCardProvider)!.toJson());
+    await receivedCardRef.set(provider);
     print('セーブ');
   }
 }
