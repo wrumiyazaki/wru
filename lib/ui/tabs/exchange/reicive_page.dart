@@ -21,6 +21,7 @@ class RecievePage extends HookConsumerWidget {
     final controllerstate = ref.watch(qrCodeProvider);
     final imagestate = ref.watch(imageprovider);
     final imagestatenotifier = ref.read(imageprovider.notifier);
+    final provider = ref.watch(receivedCardProvider);
     String memo = '';
 
     return SingleChildScrollView(
@@ -28,12 +29,12 @@ class RecievePage extends HookConsumerWidget {
         children: [
           Container(
             padding: EdgeInsets.fromLTRB(10, 120, 10, 0),
-            child: ref.watch(receivedCardProvider)!.card['name'] != null
+            child: provider['infoList'][4] != null
                 ? Text(
                     style: theme.textTheme.h50
                         .copyWith(color: theme.appColors.receivePageText),
                     // '小林さんから名刺が届きました♪'
-                    '${ref.watch(receivedCardProvider)!.card['name']}${l10n.nameCardFrom}',
+                    '${provider['infoList'][4]}${l10n.nameCardFrom}',
                   )
                 : null,
             // alignment: Alignment.center,
@@ -43,22 +44,28 @@ class RecievePage extends HookConsumerWidget {
             width: 413.636,
             padding: EdgeInsets.fromLTRB(10, 40, 10, 0),
             child: GestureDetector(
-              onTap: () {
-                imagestatenotifier.state = !imagestate;
-                print(imagestate);
-              },
-              child: imagestate
-                  ? Image.asset(
-                      //firebase
-                      'assets/img/namecard-sample.png',
-                      fit: BoxFit.contain,
-                    )
-                  : Image.network(
-                      //firebase
-                      'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/800px-Image_created_with_a_mobile_phone.png',
-                      fit: BoxFit.contain,
-                    ),
-            ),
+                onTap: () {
+                  imagestatenotifier.state = !imagestate;
+                  print(imagestate);
+                },
+                child: imagestate
+                    ? Image.network(
+                        //firebase
+                        '${provider['imgUrl']}',
+                        fit: BoxFit.contain,
+                      )
+                    : Container(
+                        child: provider['faceImgUrl'] != null
+                            ? Image.network(
+                                //firebase
+                                '${provider['faceImgUrl']}',
+                                fit: BoxFit.contain,
+                              )
+                            : Container(
+                                height: 250,
+                                width: 413.636,
+                                color: Colors.grey,
+                              ))),
           ),
           Container(
             padding: EdgeInsets.fromLTRB(20, 40, 20, 10),

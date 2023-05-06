@@ -1,17 +1,18 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:wru/data/model/card/card.dart';
+// import 'package:freezed_annotation/freezed_annotation.dart';
+// import 'package:wru/data/model/card/card.dart';
 
-part 'sent_card.freezed.dart';
-part 'sent_card.g.dart';
+// part 'sent_card.freezed.dart';
+// part 'sent_card.g.dart';
 
-@freezed
-abstract class SentCard with _$SentCard {
-  factory SentCard({
-    required String uid,
-    required String documentID,
-    required Map card,
-  }) = _SentCard;
+// @freezed
+// abstract class SentCard with _$SentCard {
+//   factory SentCard({
+//     required String uid,
+//     required String documentID,
+//     @Default('') String memo,
+//     required Map card,
+//   }) = _SentCard;
 
-  factory SentCard.fromJson(Map<String, dynamic> json) =>
-      _$SentCardFromJson(json);
-}
+//   factory SentCard.fromJson(Map<String, dynamic> json) =>
+//       _$SentCardFromJson(json);
+// }

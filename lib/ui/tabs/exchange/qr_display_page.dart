@@ -42,21 +42,31 @@ class QrDisplayPage extends HookConsumerWidget {
                     loading: () => null,
                     error: (error, stack) => Text('Error: $error'),
                     data: (info) {
+                      if (info == null) {
+                        return Text(
+                          '自分の名刺が作成されていません',
+                          style: theme.textTheme.h60
+                              .copyWith(color: theme.appColors.qrCode),
+                        );
+                      }
                       return Text(
-                        '${info.card['name']}の名刺です',
+                        //今はlistの4番目が名前になっている
+                        '${info['infoList'][4]}の名刺です',
                         style: theme.textTheme.h60
                             .copyWith(color: theme.appColors.qrCode),
                       );
                     },
                   )),
             ),
-
             //QRコードの表示
             Align(
                 child: myQrInfo.when(
               loading: () => const CircularProgressIndicator(),
               error: (error, stack) => Text('Error: $error'),
               data: (info) {
+                if (info == null) {
+                  return null;
+                }
                 return QrImage(
                   data: jsonEncode(info),
                   version: QrVersions.auto,
@@ -66,7 +76,7 @@ class QrDisplayPage extends HookConsumerWidget {
               },
             )),
             Align(
-              alignment: Alignment(-0.6, 0.6),
+              alignment: Alignment(-0.55, 0.65),
               child: IconButton(
                 icon: Icon(
                   Icons.qr_code_2,
@@ -95,7 +105,7 @@ class QrDisplayPage extends HookConsumerWidget {
               ),
             ),
             Align(
-              alignment: Alignment(0.35, 0.6),
+              alignment: Alignment(0.5, 0.65),
               child: IconButton(
                 icon: Icon(
                   Icons.filter_center_focus,
