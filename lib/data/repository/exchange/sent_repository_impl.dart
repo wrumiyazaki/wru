@@ -15,15 +15,25 @@ class SentRepositoryImpl implements SentRepository {
 
   //送るために自分の名刺を取得する
   @override
-  Future<NameCard> fetchMyNameCard(String uid, String docID) async {
-    final NameCard nameCard = await db
+  Future<Map<String, dynamic>?> fetchMyNameCard(
+      String uid, String docID) async {
+    final snapshot = await db
         .collection(usersCollection)
         .doc(uid)
         .collection(myCardsCollection)
         .doc(docID)
-        .get()
-        .then((snapshot) => NameCard.fromJson(snapshot.data()!));
-    return nameCard;
+        .get();
+
+    Map<String, dynamic>? map = snapshot.data();
+    return map;
+    // final NameCard nameCard = await db
+    //     .collection(usersCollection)
+    //     .doc(uid)
+    //     .collection(myCardsCollection)
+    //     .doc(docID)
+    //     .get()
+    //     .then((snapshot) => NameCard.fromJson(snapshot.data()!));
+    // return nameCard;
   }
 
   //myCardsのDocumentIDのListを取得する

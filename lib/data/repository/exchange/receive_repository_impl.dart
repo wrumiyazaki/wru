@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:wru/data/provider/firebase_firestore_provider.dart';
+import 'package:wru/data/provider/uid_provider.dart';
 import 'package:wru/data/repository/exchange/receive_repostitory.dart';
 import 'package:wru/ui/tabs/exchange/exchange_view_model.dart';
 
@@ -10,6 +11,7 @@ class ReceiveRepositoryImpl implements ReceiveRepository {
   ReceiveRepositoryImpl(this._ref);
 
   final Ref _ref;
+  late final uid = _ref.watch(uidProvider);
   late FirebaseFirestore db = _ref.read(firebaseFirestoreProvider);
   final usersCollection = 'users';
   final myCardsCollection = 'myCards';
@@ -18,7 +20,7 @@ class ReceiveRepositoryImpl implements ReceiveRepository {
   //自動生成された同じドキュメントを扱う
   late final receivedCardRef = db
       .collection(usersCollection)
-      .doc(tentativeUid)
+      .doc(uid)
       .collection(receivedCardsCollection)
       .doc();
 
