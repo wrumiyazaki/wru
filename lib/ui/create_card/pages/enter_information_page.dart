@@ -1,7 +1,10 @@
 import 'dart:typed_data';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:wru/ui/create_card/create_card_view_model.dart';
+import 'package:wru/ui/routes/app_route.gr.dart';
 import 'package:wru/ui/theme/app_theme.dart';
 
 class EnterInformationPage extends HookConsumerWidget {
@@ -34,8 +37,11 @@ class EnterInformationPage extends HookConsumerWidget {
           ),
           onPressed: () async {
             //保存ボタンを押した時
-            print('submit');
             await viewModel.saveImageAndInfo(globalKey);
+            if (context.mounted) {
+              return;
+            }
+            context.router.push(const TabRoute());
           }),
       body: SafeArea(
         child: Container(
