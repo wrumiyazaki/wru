@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:wru/data/provider/firebase_firestore_provider.dart';
@@ -24,8 +26,9 @@ class FriendRepositoryImpl implements FriendRepository {
   Future<void> fetch() async {
     final stream = receivedCardRef.snapshots();
     final imgNotifier = _ref.read(imgListProvider.notifier);
+    final faceImgNotifier = _ref.read(faceImgListProvider.notifier);
+    final memoNotifier = _ref.read(memoListProvider.notifier);
     final lengthNotifier = _ref.read(friendListLengthProvider.notifier);
-    int i = 0;
     stream.listen((event) async {
       //event.docsのなかみがなくなるまで１つ１つsnapshotの中に代入して扱える
       //ドキュメントひとつ一つに対してimgUrlを取得する
@@ -33,17 +36,22 @@ class FriendRepositoryImpl implements FriendRepository {
       for (var snapshot in event.docs) {
         final imgUrl = await snapshot.data()['imgUrl'];
         String? faceImgUrl;
-        imgNotifier.getUrl(imgUrl);
+        //空文字をいれておく
+        String memo = '';
         //ない場合はnullが入る
         if (snapshot.data()['faceImgUrl'] != null) {
           faceImgUrl = snapshot.data()['faceImgUrl'];
         }
-        i++;
+        if (snapshot.data()['memo'] != null) {
+          memo = snapshot.data()['memo'];
+        }
+        imgNotifier.getUrl(imgUrl);
+        faceImgNotifier.getUrl(faceImgUrl);
+        memoNotifier.getUrl(memo);
       }
     });
     return;
   }
-//   Future<void> fetchFaceImage();
-//   Future<void> fetchMemo();
-  // Future<void> saveMemo();
+
+  Future<void> saveMemo() async {}
 }

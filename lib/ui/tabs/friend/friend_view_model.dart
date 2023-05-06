@@ -37,19 +37,19 @@ final faceImgListProvider =
 
 class FaceImgListNotifier extends StateNotifier<List<String?>> {
   FaceImgListNotifier() : super([]);
-  void getUrl(int i, String? url) {
-    state[i] = url;
+  void getUrl(String? url) {
+    state.add(url);
   }
 }
 
 //memoのListのプロバイダー
-final memoListProvider = StateNotifierProvider<MemoListNotifier, List<String?>>(
+final memoListProvider = StateNotifierProvider<MemoListNotifier, List<String>>(
     (ref) => MemoListNotifier());
 
-class MemoListNotifier extends StateNotifier<List<String?>> {
-  MemoListNotifier() : super([]);
-  void getUrl(int i, String? memo) {
-    state[i] = memo;
+class MemoListNotifier extends StateNotifier<List<String>> {
+  MemoListNotifier() : super(['']);
+  void getUrl(String memo) {
+    state.add(memo);
   }
 }
 
