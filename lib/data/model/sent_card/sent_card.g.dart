@@ -1,20 +1,22 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
+// // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'sent_card.dart';
+// part of 'sent_card.dart';
 
-// **************************************************************************
-// JsonSerializableGenerator
-// **************************************************************************
+// // **************************************************************************
+// // JsonSerializableGenerator
+// // **************************************************************************
 
-_$_SentCard _$$_SentCardFromJson(Map<String, dynamic> json) => _$_SentCard(
-      uid: json['uid'] as String,
-      documentID: json['documentID'] as String,
-      card: json['card'] as Map<String, dynamic>,
-    );
+// _$_SentCard _$$_SentCardFromJson(Map<String, dynamic> json) => _$_SentCard(
+//       uid: json['uid'] as String,
+//       documentID: json['documentID'] as String,
+//       memo: json['memo'] as String? ?? '',
+//       card: json['card'] as Map<String, dynamic>,
+//     );
 
-Map<String, dynamic> _$$_SentCardToJson(_$_SentCard instance) =>
-    <String, dynamic>{
-      'uid': instance.uid,
-      'documentID': instance.documentID,
-      'card': instance.card,
-    };
+// Map<String, dynamic> _$$_SentCardToJson(_$_SentCard instance) =>
+//     <String, dynamic>{
+//       'uid': instance.uid,
+//       'documentID': instance.documentID,
+//       'memo': instance.memo,
+//       'card': instance.card,
+//     };
