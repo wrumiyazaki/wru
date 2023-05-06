@@ -16,6 +16,7 @@ class FriendPage extends HookConsumerWidget {
     final boolsstate = ref.watch(boolsprovider);
     final boolsstatenotifier = ref.read(boolsprovider.notifier);
     final friendindexnotifier = ref.read(frinedindexprovider.notifier);
+    final imgProvider = ref.read(imgListProvider);
 
     Widget nameCard(index) {
       return Material(
@@ -31,8 +32,8 @@ class FriendPage extends HookConsumerWidget {
             },
             child: boolsstate[index]
                 ? Image.asset(
-                    //firebase
-                    FriendViewModel().nameCardImage[index],
+                    //firestoreから取得した画像を表示
+                    imgProvider[index],
                     fit: BoxFit.contain,
                   )
                 : Row(
@@ -41,7 +42,7 @@ class FriendPage extends HookConsumerWidget {
                         height: 200,
                         width: 150,
                         child: Image.network(
-                          //firebase
+                          //fireestoreから取得したfaceImg
                           FriendViewModel().portraitImage[index],
                           fit: BoxFit.contain,
                         ),
@@ -58,6 +59,7 @@ class FriendPage extends HookConsumerWidget {
                                 width: double.infinity,
                                 child: SingleChildScrollView(
                                   child: Text(
+                                    //firestoreからmemoを取得
                                     friendsmemo[index],
                                     style: theme.textTheme.h40,
                                   ),
@@ -91,7 +93,7 @@ class FriendPage extends HookConsumerWidget {
         thickness: 7,
         thumbVisibility: true,
         child: ListView.builder(
-          itemCount: FriendViewModel().listlength,
+          itemCount: imgProvider.length,
           itemBuilder: (context, index) {
             return nameCard(index);
           },

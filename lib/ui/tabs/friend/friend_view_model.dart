@@ -16,6 +16,19 @@ final List<String> friendsmemo = [
   'ooo',
 ];
 
+final imgListProvider = StateNotifierProvider<imgListNotifier, List<String>>(
+    (ref) => imgListNotifier(ref));
+
+class imgListNotifier extends StateNotifier<List<String>> {
+  imgListNotifier(this._ref) : super([]);
+
+  void getUrl(int i, String url) {
+    state[i] = url;
+  }
+
+  final Ref _ref;
+}
+
 class FriendViewModel extends StatelessWidget {
   FriendViewModel({super.key});
 
