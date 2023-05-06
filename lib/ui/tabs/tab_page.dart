@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:wru/data/repository/friend/friend_repository_impl.dart';
 import 'package:wru/ui/signIn/sign_in_page.dart';
 import 'package:wru/ui/signIn/sign_in_view_model.dart';
 import 'package:wru/ui/signUp/sign_up_page.dart';
@@ -43,6 +44,10 @@ class TabPage extends HookConsumerWidget {
                     cornerRadius: 5,
                     onTap: (index) {
                       AutoTabsRouter.of(context).setActiveIndex(index);
+                      //friendPageなら
+                      if (index == 2) {
+                        ref.read(friendRepositoryProvider).fetch();
+                      }
                     },
                     items: const [
                       TabItem(icon: Icons.home),
