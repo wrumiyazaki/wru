@@ -17,6 +17,7 @@ class FriendPage extends HookConsumerWidget {
     final boolsstatenotifier = ref.read(boolsprovider.notifier);
     final friendindexnotifier = ref.read(frinedindexprovider.notifier);
     final imgProvider = ref.read(imgListProvider);
+    final lengthProvider = ref.watch(friendListLengthProvider);
 
     Widget nameCard(index) {
       return Material(
@@ -31,7 +32,7 @@ class FriendPage extends HookConsumerWidget {
               boolsstatenotifier.state = [...boolsstate];
             },
             child: boolsstate[index]
-                ? Image.asset(
+                ? Image.network(
                     //firestoreから取得した画像を表示
                     imgProvider[index],
                     fit: BoxFit.contain,
@@ -93,7 +94,7 @@ class FriendPage extends HookConsumerWidget {
         thickness: 7,
         thumbVisibility: true,
         child: ListView.builder(
-          itemCount: imgProvider.length,
+          itemCount: lengthProvider,
           itemBuilder: (context, index) {
             return nameCard(index);
           },

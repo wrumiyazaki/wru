@@ -5,6 +5,8 @@ import 'package:wru/data/provider/uid_provider.dart';
 import 'package:wru/data/repository/friend/friend_repository.dart';
 import 'package:wru/ui/tabs/friend/friend_view_model.dart';
 
+final friendRepositoryProvider = Provider((ref) => FriendRepositoryImpl(ref));
+
 class FriendRepositoryImpl implements FriendRepository {
   FriendRepositoryImpl(this._ref);
 
@@ -19,21 +21,28 @@ class FriendRepositoryImpl implements FriendRepository {
       .collection(receivedCardsCollection);
 
   @override
-  Future<void> fetchImage() async {
+  Future<void> fetch() async {
     final stream = receivedCardRef.snapshots();
     final imgNotifier = _ref.read(imgListProvider.notifier);
+    final lengthNotifier = _ref.read(friendListLengthProvider.notifier);
     int i = 0;
-    stream.listen((event) {
+    stream.listen((event) async {
       //event.docsのなかみがなくなるまで１つ１つsnapshotの中に代入して扱える
       //ドキュメントひとつ一つに対してimgUrlを取得する
+      lengthNotifier.state = event.docs.length;
       for (var snapshot in event.docs) {
-        final url = snapshot.data()['imgUrl'];
-        imgNotifier.getUrl(i, url);
+        final imgUrl = await snapshot.data()['imgUrl'];
+        String? faceImgUrl;
+        imgNotifier.getUrl(imgUrl);
+        //ない場合はnullが入る
+        if (snapshot.data()['faceImgUrl'] != null) {
+          faceImgUrl = snapshot.data()['faceImgUrl'];
+        }
+        i++;
       }
     });
     return;
   }
-
 //   Future<void> fetchFaceImage();
 //   Future<void> fetchMemo();
   // Future<void> saveMemo();
