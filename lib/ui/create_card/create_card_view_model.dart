@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:flutter/rendering.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:wru/data/provider/local_path_provider.dart';
+import 'package:wru/data/repository/create_card/create_card_repository_impl.dart';
 import 'package:wru/ui/create_card/create_card_state.dart';
 import 'package:wru/ui/create_card/templates/cards/normal_card_page.dart';
 import 'package:wru/ui/create_card/templates/cards/test_card_page.dart';
@@ -20,6 +21,7 @@ class CreateCardViewModel extends StateNotifier<CreateCardState> {
     load();
   }
   final Ref _ref;
+  late final provider = _ref.read(createCardRepositoryProvider);
 
   void load() {
     final normalTemplate = Template(
@@ -65,7 +67,16 @@ class CreateCardViewModel extends StateNotifier<CreateCardState> {
 
   Future<void> saveImageAndInfo(globalKey) async {
     //名刺のウィジェットを画像（Uint8List）に変換する
-    final localFile = await widgetToFile(globalKey);
+    final imageUint8 = await widgetToUint8(globalKey);
+    if (imageUint8 == null) {
+      print('Uint8Listがnullです');
+      return;
+    }
+    //storageでurlを取得する
+    provider.saveAndFetchStorageUrl(imageUint8);
+    print('完了');
+
+    //そのurlをfirebaseに保存する
 
     //入力された情報のリストからマップに変換する
     Map map;
@@ -80,12 +91,8 @@ class CreateCardViewModel extends StateNotifier<CreateCardState> {
     return;
   }
 
-  Future<File?> widgetToFile(globalKey) async {
+  Future<Uint8List?> widgetToUint8(globalKey) async {
     Uint8List? bytes;
-    //ローカルファイルディレクトリのパス
-    final path = _ref.watch(directoryProvider);
-    final imagePath = '$path/temp.png';
-    File imageFile = File(imagePath);
     //Widgetから画像へ変換
     final boundary =
         globalKey.currentContext.findRenderObject() as RenderRepaintBoundary?;
@@ -101,8 +108,6 @@ class CreateCardViewModel extends StateNotifier<CreateCardState> {
       print('Uint8Listが取得できていない');
       return null;
     }
-    //Uint8ListからFileへ変換
-    final localFile = await imageFile.writeAsBytes(bytes);
-    return localFile;
+    return bytes;
   }
 }

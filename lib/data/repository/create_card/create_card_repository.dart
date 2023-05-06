@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 class CreateCardRepository {
-  Future save() async {}
+  Future save(Map<String, dynamic> map, Uint8List list) async {}
 }

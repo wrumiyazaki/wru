@@ -1,7 +1,9 @@
+import 'dart:io';
+import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:wru/data/model/received_card/received_card.dart';
 import 'package:wru/data/provider/firebase_firestore_provider.dart';
+import 'package:wru/data/provider/firebase_storage_provider.dart';
 import 'package:wru/data/provider/uid_provider.dart';
 import 'package:wru/data/repository/create_card/create_card_repository.dart';
 import 'package:wru/ui/create_card/create_card_view_model.dart';
@@ -24,17 +26,7 @@ class CreateCardRepositoryImpl implements CreateCardRepository {
   late Map<String, dynamic> map;
 
   @override
-  Future<void> save() async {
-    //入力された情報のリストをマップにする
-    for (int i = 0;
-        i < createCardState.selectedTemplate!.inputItems.length;
-        i++) {
-      map = {
-        createCardState.selectedTemplate!.inputItems[i].label:
-            createCardState.enteredInformations[i]
-      };
-    }
-
+  Future<void> save(Map<String, dynamic> map, Uint8List list) async {
     myCardRef.get().then((snapshot) {
       //myCardsコレクションに入っているドキュメントのidを取得
       snapshot.docs.forEach(
@@ -51,5 +43,17 @@ class CreateCardRepositoryImpl implements CreateCardRepository {
         myCardRef.doc(docList[1]).set(map);
       }
     });
+  }
+
+  Future<void> saveAndFetchStorageUrl(Uint8List uint8) async {
+    final storageRef = _ref.watch(storageRefProvider);
+    //uidが必要
+    final uid = _ref.watch(uidProvider);
+    final mountainsRef = storageRef.child("users/$uid/myCard.jpg");
+    try {
+      await mountainsRef.putData(uint8);
+    } on FirebaseException catch (e) {
+      print("Failed with error '${e.code}': ${e.message}");
+    }
   }
 }
