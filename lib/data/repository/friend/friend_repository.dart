@@ -1,4 +1,4 @@
 abstract class FriendRepository {
   Future<void> fetch();
-  // Future<void> saveMemo();
+  Future<void> saveMemo(int index, String? memo);
 }

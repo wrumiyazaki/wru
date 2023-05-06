@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:wru/data/repository/friend/friend_repository_impl.dart';
 import 'package:wru/ui/hooks/use_l10n.dart';
 import 'package:wru/ui/routes/app_route.gr.dart';
 import 'package:wru/ui/tabs/exchange/exchange_state.dart';
@@ -19,7 +20,12 @@ class MemoEditPage extends HookConsumerWidget {
     final imagestatenotifier = ref.read(imageprovider.notifier);
     final friendindexstate = ref.watch(frinedindexprovider);
     final friendindexnotifier = ref.read(frinedindexprovider.notifier);
-    String memo = friendsmemo[friendindexstate];
+    final imgProvider = ref.watch(imgListProvider);
+    final faceImgProvider = ref.watch(faceImgListProvider);
+    final memoProvider = ref.watch(memoListProvider);
+    final memoNotifier = ref.read(memoListProvider.notifier);
+    final repositoryProvider = ref.read(friendRepositoryProvider);
+    String memo = memoProvider[friendindexstate];
 
     return SingleChildScrollView(
       child: Column(
@@ -37,16 +43,22 @@ class MemoEditPage extends HookConsumerWidget {
                 print(imagestate);
               },
               child: imagestate
-                  ? Image.asset(
+                  ? Image.network(
                       //firebase
-                      FriendViewModel().nameCardImage[friendindexstate],
+                      imgProvider[friendindexstate],
                       fit: BoxFit.contain,
                     )
-                  : Image.network(
-                      //firebase
-                      FriendViewModel().portraitImage[friendindexstate],
-                      fit: BoxFit.contain,
-                    ),
+                  : faceImgProvider[friendindexstate] != null
+                      ? Image.network(
+                          //firebase
+                          faceImgProvider[friendindexstate]!,
+                          fit: BoxFit.contain,
+                        )
+                      : Container(
+                          color: Colors.grey,
+                          height: 250,
+                          width: 413.636,
+                        ),
             ),
           ),
           Container(
@@ -64,8 +76,7 @@ class MemoEditPage extends HookConsumerWidget {
                   ),
                   alignLabelWithHint: true,
                   hintText: l10n.enterMemo),
-              controller:
-                  TextEditingController(text: friendsmemo[friendindexstate]),
+              controller: TextEditingController(text: memo),
               onChanged: (value) {
                 memo = value;
               },
@@ -78,17 +89,16 @@ class MemoEditPage extends HookConsumerWidget {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    //firebaseにメモを保存
                     context.router.pop();
                   },
                   child: Text('戻る'),
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    friendsmemo[friendindexstate] = memo;
+                    memoNotifier.state[friendindexstate] = memo;
                     context.router.push(FriendRoute());
-                    //firebaseにメモを保存
-                    FriendViewModel().memoSave(friendindexstate);
+                    //firestoreにメモを保存
+                    repositoryProvider.saveMemo(friendindexstate, memo);
                   },
                   child: Text(l10n.save),
                 ),

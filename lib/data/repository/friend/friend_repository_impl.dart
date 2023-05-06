@@ -53,5 +53,10 @@ class FriendRepositoryImpl implements FriendRepository {
     return;
   }
 
-  Future<void> saveMemo() async {}
+  @override
+  Future<void> saveMemo(int index, String? memo) async {
+    final snapshot = await receivedCardRef.get();
+    final docId = snapshot.docs[index].id;
+    receivedCardRef.doc(docId).update({"memo": memo});
+  }
 }
