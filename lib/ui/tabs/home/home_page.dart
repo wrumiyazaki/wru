@@ -87,7 +87,7 @@ class HomePage extends HookConsumerWidget {
                     color: theme.appColors.homeProfileText,
                     onPressed: () async {
                       await ProfileViewModel().toFetch(ref);
-                      AutoRouter.of(context).push(const ProfileRoute());
+                      context.router.push(const ProfileRoute());
                     }),
               ),
             ],
@@ -132,6 +132,7 @@ class HomePage extends HookConsumerWidget {
               ]),
               onPressed: () {
                 //名刺作成画面に遷移
+                context.router.push(const SelectTemplateRoute());
               },
             )),
       ],

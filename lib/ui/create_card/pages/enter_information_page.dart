@@ -1,6 +1,10 @@
+import 'dart:typed_data';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:wru/ui/create_card/create_card_view_model.dart';
+import 'package:wru/ui/routes/app_route.gr.dart';
 import 'package:wru/ui/theme/app_theme.dart';
 
 class EnterInformationPage extends HookConsumerWidget {
@@ -10,7 +14,9 @@ class EnterInformationPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(appThemeProvider);
     final state = ref.watch(createCardViewModelProvider);
-    final viewModel = ref.watch(createCardViewModelProvider.notifier);
+    final viewModel = ref.read(createCardViewModelProvider.notifier);
+    Uint8List? bytes;
+    final globalKey = GlobalKey();
 
     return Scaffold(
       backgroundColor: theme.appColors.background,
@@ -25,18 +31,28 @@ class EnterInformationPage extends HookConsumerWidget {
         backgroundColor: const Color(0xFF4e4f50),
       ),
       floatingActionButton: IconButton(
-        icon: const Icon(
-          Icons.check_circle_rounded,
-          size: 54,
-        ),
-        onPressed: () => print('submit'),
-      ),
+          icon: const Icon(
+            Icons.check_circle_rounded,
+            size: 54,
+          ),
+          onPressed: () async {
+            //保存ボタンを押した時
+            await viewModel.saveImageAndInfo(globalKey);
+            if (context.mounted) {
+              return;
+            }
+            context.router.push(const TabRoute());
+          }),
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.all(10),
           child: Column(
             children: [
-              state.selectedTemplate!.card,
+              //切り取りたいWidget
+              RepaintBoundary(
+                key: globalKey,
+                child: state.selectedTemplate!.card,
+              ),
               const SizedBox(
                 height: 8,
               ),
