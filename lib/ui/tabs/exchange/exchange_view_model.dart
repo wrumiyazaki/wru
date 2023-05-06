@@ -52,34 +52,56 @@ final myQrInfoProvider = FutureProvider((ref) async {
   // return sentCard;
 });
 
+// //受け取った名刺
+// final receivedCardProvider =
+//     StateNotifierProvider<ReceivedCardNotifier, ReceivedCard?>(
+//         (ref) => ReceivedCardNotifier(ref));
+
+// class ReceivedCardNotifier extends StateNotifier<ReceivedCard> {
+//   ReceivedCardNotifier(this._ref)
+//       : super(ReceivedCard(uid: '', documentID: '', card: {}));
+//   final Ref _ref;
+
+//   void saveReceivedCard(String json) {
+//     transJsonToReceivedCard(json);
+//     saveFirestore();
+//   }
+
+//   void saveMemo(String st) {
+//     state = state.copyWith(memo: st);
+//     saveFirestore();
+//   }
+
+//   //受け取ったjsonをMapに変換し、providerで監視
+//   void transJsonToReceivedCard(String st) {
+//     Map<String, dynamic> receivedMap = jsonDecode(st);
+//     ReceivedCard receivedCard = ReceivedCard.fromJson(receivedMap);
+//     state = receivedCard;
+//   }
+
+//   void saveFirestore() {
+//     _ref.read(receiveRepositoryProvider).save();
+//   }
+// }
+
 //受け取った名刺
 final receivedCardProvider =
-    StateNotifierProvider<ReceivedCardNotifier, ReceivedCard?>(
+    StateNotifierProvider<ReceivedCardNotifier, Map<String, dynamic>>(
         (ref) => ReceivedCardNotifier(ref));
 
-class ReceivedCardNotifier extends StateNotifier<ReceivedCard> {
-  ReceivedCardNotifier(this._ref)
-      : super(ReceivedCard(uid: '', documentID: '', card: {}));
+class ReceivedCardNotifier extends StateNotifier<Map<String, dynamic>> {
+  ReceivedCardNotifier(this._ref) : super({});
   final Ref _ref;
 
-  void saveReceivedCard(String json) {
-    transJsonToReceivedCard(json);
-    saveFirestore();
+  //読み取ったjsonをmapに戻してfirestoreに保存
+  Future<void> saveReceivedCard(String json) async {
+    Map<String, dynamic> receivedMap = jsonDecode(json);
+    state = receivedMap;
+    await _ref.read(receiveRepositoryProvider).save();
   }
 
-  void saveMemo(String st) {
-    state = state.copyWith(memo: st);
-    saveFirestore();
-  }
-
-  //受け取ったjsonをMapに変換し、providerで監視
-  void transJsonToReceivedCard(String st) {
-    Map<String, dynamic> receivedMap = jsonDecode(st);
-    ReceivedCard receivedCard = ReceivedCard.fromJson(receivedMap);
-    state = receivedCard;
-  }
-
-  void saveFirestore() {
-    _ref.read(receiveRepositoryProvider).save();
+  Future<void> saveMemo(String st) async {
+    state['memo'] = st;
+    await _ref.read(receiveRepositoryProvider).save();
   }
 }
