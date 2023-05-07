@@ -1,9 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:wru/data/provider/uid_provider.dart';
 import 'package:wru/ui/hooks/use_l10n.dart';
 import 'package:wru/ui/profile/profile_view_model.dart';
 import 'package:wru/ui/routes/app_route.gr.dart';
 import 'package:wru/ui/tabs/home/home_view_model.dart';
+import 'package:wru/ui/tabs/home/home_viewmodel.dart';
 import 'package:wru/ui/theme/app_text_theme.dart';
 import 'package:wru/ui/theme/app_theme.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -15,6 +17,10 @@ class HomePage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(appThemeProvider);
     final l10n = useL10n();
+    final infoList = ref.watch(homeInfoListProvider);
+    final uid = ref.watch(homeUidProvider);
+    final imgUrl = ref.watch(homeImgUrlProvider);
+
     return SafeArea(
         child: Column(
       children: [
@@ -39,38 +45,69 @@ class HomePage extends HookConsumerWidget {
                 child: Column(
                   children: [
                     const SizedBox(height: 12),
-                    FittedBox(
-                      fit: BoxFit.fitWidth,
-                      child: Text(
-                        "小林  ゆうひ",
-                        style: theme.textTheme.h60
-                            .bold()
-                            .copyWith(color: theme.appColors.homeProfileText),
-                      ),
+                    infoList.when(
+                      data: (info) {
+                        if (info.isNotEmpty && info[0] != '') {
+                          print(info);
+                          return FittedBox(
+                              fit: BoxFit.fitWidth,
+                              child: Text(
+                                //名前の表示
+                                info[0],
+                                style: theme.textTheme.h40.bold().copyWith(
+                                    color: theme.appColors.homeProfileText),
+                              ));
+                        } else {
+                          return Text(
+                            'プロフィールが入力されていません',
+                            style: theme.textTheme.h30.bold().copyWith(
+                                color: theme.appColors.homeProfileText),
+                          );
+                        }
+                      },
+                      error: (error, stack) => Text('Error: $error'),
+                      loading: () => const Text(''),
                     ),
                     const SizedBox(height: 0),
-                    FittedBox(
-                      fit: BoxFit.fitWidth,
-                      child: Text(
-                        "kobayashialyuhifasasad", //英数字22文字まで入る
-                        style: theme.textTheme.h40
-                            .bold()
-                            .copyWith(color: theme.appColors.homeProfileText),
-                      ),
+                    infoList.when(
+                      data: (info) {
+                        if (info.isNotEmpty && info[1] != '') {
+                          return FittedBox(
+                              fit: BoxFit.fitWidth,
+                              child: Text(
+                                //読み方の表示
+                                info[1],
+                                style: theme.textTheme.h40.bold().copyWith(
+                                    color: theme.appColors.homeProfileText),
+                              ));
+                        } else {
+                          return Text('');
+                        }
+                      },
+                      error: (error, stack) => Text('Error: $error'),
+                      loading: () => const Text(''),
                     ),
+
                     const SizedBox(height: 7),
-                    Text(
-                      "Exchange : 18",
-                      style: theme.textTheme.h40
-                          .bold()
-                          .copyWith(color: theme.appColors.homeProfileText),
-                    ),
+                    // Text(
+                    //   "Exchange : 18",
+                    //   style: theme.textTheme.h40
+                    //       .bold()
+                    //       .copyWith(color: theme.appColors.homeProfileText),
+                    // ),
                     const SizedBox(height: 5),
-                    Text(
-                      "userID:1092090",
-                      style: theme.textTheme.h40
-                          .bold()
-                          .copyWith(color: theme.appColors.homeProfileText),
+                    uid.when(
+                      data: (info) {
+                        return Text(
+                          //userIDの表示
+                          'userID : $info',
+                          style: theme.textTheme.h20
+                              .bold()
+                              .copyWith(color: theme.appColors.homeProfileText),
+                        );
+                      },
+                      error: (error, stack) => Text('Error: $error'),
+                      loading: () => const Text(''),
                     )
                   ],
                 ),
@@ -86,7 +123,7 @@ class HomePage extends HookConsumerWidget {
                     iconSize: 80,
                     color: theme.appColors.homeProfileText,
                     onPressed: () async {
-                      await ProfileViewModel().toFetch(ref);
+                      await ref.read(getProfileListProvider.notifier).toFetch();
                       context.router.push(const ProfileRoute());
                     }),
               ),
@@ -96,18 +133,30 @@ class HomePage extends HookConsumerWidget {
 
         //名刺画像Containerに影をつけるために囲む
         Material(
-          elevation: 8,
+          // elevation: 8,
           //名刺画像コンテナ
           child: Container(
-            //size55×91
-            height: 200,
-            width: 330.909,
-            padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-            child: Image.asset(
-              HomeViewModel().imageUrl,
-              fit: BoxFit.contain,
-            ),
-          ),
+              //size55×91
+              height: 200,
+              width: 330.909,
+              padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+              child: imgUrl.when(
+                data: (info) {
+                  //名刺画像の表示
+                  if (info != null) {
+                    return Image.network(
+                      info,
+                      fit: BoxFit.contain,
+                    );
+                  } else {
+                    return const Text('名刺が作成されていません');
+                  }
+                },
+                error: (error, stack) => Text('Error: $error'),
+                loading: () => const CircularProgressIndicator(
+                  color: Colors.grey,
+                ),
+              )),
         ),
 
         //ボタンとテキストあわせたボタンのコンテナ
