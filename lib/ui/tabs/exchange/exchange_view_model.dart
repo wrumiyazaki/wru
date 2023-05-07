@@ -1,13 +1,6 @@
 import 'dart:convert';
-import 'dart:io';
-import 'dart:math';
-
-import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:wru/data/model/card/card.dart';
-import 'package:wru/data/model/received_card/received_card.dart';
-import 'package:wru/data/model/sent_card/sent_card.dart';
 import 'package:wru/data/provider/uid_provider.dart';
 import 'package:wru/data/repository/exchange/receive_repository_impl.dart';
 import 'package:wru/data/repository/exchange/sent_repository_impl.dart';
@@ -30,8 +23,11 @@ final myQrInfoProvider = FutureProvider((ref) async {
   final List docList =
       await ref.read(sentRepositoryProvider).fetchMyCardsDocId(uid);
 
-  final Map? myMap =
-      await ref.read(sentRepositoryProvider).fetchMyNameCard(uid, docList[0]);
+  Map? myMap;
+  if (docList.isNotEmpty) {
+    myMap =
+        await ref.read(sentRepositoryProvider).fetchMyNameCard(uid, docList[0]);
+  }
   if (myMap == null) {
     return null;
   }

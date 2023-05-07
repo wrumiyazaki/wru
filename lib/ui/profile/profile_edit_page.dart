@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:wru/ui/hooks/use_l10n.dart';
 import 'package:wru/ui/profile/profile_view_model.dart';
 import 'package:wru/ui/routes/app_route.gr.dart';
+import 'package:wru/ui/tabs/home/home_viewmodel.dart';
 import 'package:wru/ui/theme/app_theme.dart';
 
 class ProfileEditPage extends HookConsumerWidget {
