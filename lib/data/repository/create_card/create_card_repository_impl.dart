@@ -56,7 +56,8 @@ class CreateCardRepositoryImpl implements CreateCardRepository {
     if (snapshot.docs.isEmpty) {
       docId = myCardRef.doc().id;
     } else {
-      docId = docList[0];
+      final doc = snapshot.docs[0];
+      docId = doc.id;
     }
     return docId;
   }
