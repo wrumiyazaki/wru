@@ -5,11 +5,13 @@ import 'package:wru/ui/profile/profile_state.dart';
 //要素数増やすならview_modelとListView(edit_page側は条件分岐もある)内も
 
 final getProfileListProvider =
-    StateNotifierProvider<getProfileListNotifier, List>(
-        (ref) => getProfileListNotifier());
+    StateNotifierProvider<getProfileListNotifier, List>((ref) {
+  return getProfileListNotifier(ref);
+});
 
 class getProfileListNotifier extends StateNotifier<List> {
-  getProfileListNotifier() : super(ProfileLists().getProfileList);
+  getProfileListNotifier(this._ref) : super(ProfileLists().getProfileList);
+  final Ref _ref;
 
   List printState() {
     return state;
@@ -40,6 +42,16 @@ class getProfileListNotifier extends StateNotifier<List> {
       state[i] = tempList[i];
     }
   }
+
+  Future<void> toFetch() async {
+    Map map = await _ref.read(profileRepositoryProvider).fetchProfileMap();
+    profileMapToList(map);
+    print('tofetch');
+    //tempListにgetProfileListの内容を入れる
+    _ref
+        .read(tempProfileListProvider.notifier)
+        .reflectProfileList(printState());
+  }
 }
 
 final tempProfileListProvider =
@@ -62,17 +74,13 @@ class tempProfileListNotifier extends StateNotifier<List> {
   }
 }
 
+final profileViewModelProvider = Provider((ref) => ProfileViewModel(ref));
+
 class ProfileViewModel {
-  Future<void> toFetch(WidgetRef ref) async {
-    Map map = await ref.read(profileRepositoryProvider).fetchProfileMap();
-    ref.read(getProfileListProvider.notifier).profileMapToList(map);
+  ProfileViewModel(this.ref);
+  Ref ref;
 
-    //tempListにgetProfileListの内容を入れる
-    ref.read(tempProfileListProvider.notifier).reflectProfileList(
-        ref.read(getProfileListProvider.notifier).printState());
-  }
-
-  void toSave(WidgetRef ref) {
+  void toSave() {
     Map map = ref.read(getProfileListProvider.notifier).profileListToMap();
     for (int i = 0; i < ProfileLists().profileKeyList.length; i++) {
       ref.read(profileRepositoryProvider).saveProfileMap(map, i);

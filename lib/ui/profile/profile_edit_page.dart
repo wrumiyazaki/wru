@@ -93,7 +93,7 @@ class ProfileEditPage extends HookConsumerWidget {
                                 .read(tempProfileListProvider.notifier)
                                 .returnTempList());
                         // firebaseに保存する処理
-                        ProfileViewModel().toSave(ref);
+                        ref.read(profileViewModelProvider).toSave();
                         context.pushRoute(TabRoute());
                         ref.read(boolprovider.notifier).state = false;
                       },

@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:wru/data/provider/uid_provider.dart';
 import 'package:wru/ui/hooks/use_l10n.dart';
 import 'package:wru/ui/profile/profile_view_model.dart';
 import 'package:wru/ui/routes/app_route.gr.dart';
@@ -16,7 +17,10 @@ class HomePage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(appThemeProvider);
     final l10n = useL10n();
-    final provider = ref.watch(homeProvider);
+    final infoList = ref.watch(homeInfoListProvider);
+    final uid = ref.watch(homeUidProvider);
+    final imgUrl = ref.watch(homeImgUrlProvider);
+
     return SafeArea(
         child: Column(
       children: [
@@ -41,40 +45,43 @@ class HomePage extends HookConsumerWidget {
                 child: Column(
                   children: [
                     const SizedBox(height: 12),
-                    provider.when(
+                    infoList.when(
                       data: (info) {
-                        if (info['name'] != null) {
+                        if (info.isNotEmpty && info[0] != '') {
+                          print(info);
                           return FittedBox(
                               fit: BoxFit.fitWidth,
                               child: Text(
-                                info['name'],
-                                style: theme.textTheme.h40.bold().copyWith(
-                                    color: theme.appColors.homeProfileText),
-                              ));
-                        } else {
-                          return const Text('');
-                        }
-                      },
-                      error: (error, stack) => Text('Error: $error'),
-                      loading: () => const Text(''),
-                    ),
-                    const SizedBox(height: 0),
-                    provider.when(
-                      data: (info) {
-                        if (info['namePhonetic'] != null) {
-                          return FittedBox(
-                              fit: BoxFit.fitWidth,
-                              child: Text(
-                                info['namePhonetic'],
+                                //名前の表示
+                                info[0],
                                 style: theme.textTheme.h40.bold().copyWith(
                                     color: theme.appColors.homeProfileText),
                               ));
                         } else {
                           return Text(
                             'プロフィールが入力されていません',
-                            style: TextStyle(
+                            style: theme.textTheme.h30.bold().copyWith(
                                 color: theme.appColors.homeProfileText),
                           );
+                        }
+                      },
+                      error: (error, stack) => Text('Error: $error'),
+                      loading: () => const Text(''),
+                    ),
+                    const SizedBox(height: 0),
+                    infoList.when(
+                      data: (info) {
+                        if (info.isNotEmpty && info[1] != '') {
+                          return FittedBox(
+                              fit: BoxFit.fitWidth,
+                              child: Text(
+                                //読み方の表示
+                                info[1],
+                                style: theme.textTheme.h40.bold().copyWith(
+                                    color: theme.appColors.homeProfileText),
+                              ));
+                        } else {
+                          return Text('');
                         }
                       },
                       error: (error, stack) => Text('Error: $error'),
@@ -89,17 +96,15 @@ class HomePage extends HookConsumerWidget {
                     //       .copyWith(color: theme.appColors.homeProfileText),
                     // ),
                     const SizedBox(height: 5),
-                    provider.when(
+                    uid.when(
                       data: (info) {
-                        if (info['name'] != null) {
-                          return Text(
-                            'userID : ${info['uid']}',
-                            style: theme.textTheme.h20.bold().copyWith(
-                                color: theme.appColors.homeProfileText),
-                          );
-                        } else {
-                          return const Text('');
-                        }
+                        return Text(
+                          //userIDの表示
+                          'userID : $info',
+                          style: theme.textTheme.h20
+                              .bold()
+                              .copyWith(color: theme.appColors.homeProfileText),
+                        );
                       },
                       error: (error, stack) => Text('Error: $error'),
                       loading: () => const Text(''),
@@ -118,7 +123,7 @@ class HomePage extends HookConsumerWidget {
                     iconSize: 80,
                     color: theme.appColors.homeProfileText,
                     onPressed: () async {
-                      await ProfileViewModel().toFetch(ref);
+                      await ref.read(getProfileListProvider.notifier).toFetch();
                       context.router.push(const ProfileRoute());
                     }),
               ),
@@ -135,11 +140,12 @@ class HomePage extends HookConsumerWidget {
               height: 200,
               width: 330.909,
               padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-              child: provider.when(
+              child: imgUrl.when(
                 data: (info) {
-                  if (info['imgUrl'] != null) {
+                  //名刺画像の表示
+                  if (info != null) {
                     return Image.network(
-                      info['imgUrl'],
+                      info,
                       fit: BoxFit.contain,
                     );
                   } else {
@@ -150,21 +156,7 @@ class HomePage extends HookConsumerWidget {
                 loading: () => const CircularProgressIndicator(
                   color: Colors.grey,
                 ),
-              )
-
-              // provider.when(
-              //           data: (info) {
-              //             return Text(
-              //               'userID : ${info['uid']}',
-              //               style: theme.textTheme.h20
-              //                   .bold()
-              //                   .copyWith(color: theme.appColors.homeProfileText),
-              //             );
-              //           },
-              //           error: (error, stack) => Text('Error: $error'),
-              //           loading: () => Container(),
-              //         )
-              ),
+              )),
         ),
 
         //ボタンとテキストあわせたボタンのコンテナ
