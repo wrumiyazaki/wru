@@ -36,14 +36,9 @@ class EnterInformationPage extends HookConsumerWidget {
             size: 54,
           ),
           onPressed: () async {
-            //保存ボタンを押した時
-            await viewModel.saveImageAndInfo(globalKey);
-            if (context.mounted) {
-              print('mounted');
-              context.router.push(const TabRoute());
-              return;
-            }
+            //保存ボタン
             context.router.push(const TabRoute());
+            await viewModel.saveImageAndInfo(globalKey);
           }),
       body: SafeArea(
         child: Container(
