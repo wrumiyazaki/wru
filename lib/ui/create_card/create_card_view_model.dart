@@ -8,6 +8,7 @@ import 'package:wru/ui/create_card/templates/cards/normal_card_page.dart';
 import 'package:wru/ui/create_card/templates/cards/test_card_page.dart';
 import 'package:wru/ui/create_card/templates/input_items/input_items.dart';
 import 'package:wru/ui/create_card/templates/template.dart';
+import 'package:wru/ui/tabs/home/home_view_model.dart';
 
 final createCardViewModelProvider =
     StateNotifierProvider<CreateCardViewModel, CreateCardState>(
@@ -20,6 +21,7 @@ class CreateCardViewModel extends StateNotifier<CreateCardState> {
   }
   final Ref _ref;
   late final provider = _ref.read(createCardRepositoryProvider);
+  late final homeImgUrlNotifier = _ref.read(homeImgUrlProvider);
 
   void load() {
     final normalTemplate = Template(
@@ -76,7 +78,7 @@ class CreateCardViewModel extends StateNotifier<CreateCardState> {
 
     //storageでurlを取得する
     final imgUrl = await provider.saveAndFetchStorageUrl(imageUint8, docId);
-    print('完了');
+    //myCardのimgUrlのProviderに渡す
 
     //名刺(nameCard)の形に変換する
     final Map<String, dynamic> map = {
@@ -84,6 +86,7 @@ class CreateCardViewModel extends StateNotifier<CreateCardState> {
       "imgUrl": imgUrl,
       "faceImgUrl": null,
     };
+
     //保存
     await provider.save(docId, map);
 
