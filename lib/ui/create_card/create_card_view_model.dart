@@ -21,7 +21,7 @@ class CreateCardViewModel extends StateNotifier<CreateCardState> {
   }
   final Ref _ref;
   late final provider = _ref.read(createCardRepositoryProvider);
-  late final homeImgUrlNotifier = _ref.read(homeImgUrlProvider);
+  late final imgUrlProvider = _ref.read(homeImgUrlProvider.notifier);
 
   void load() {
     final normalTemplate = Template(
@@ -89,7 +89,7 @@ class CreateCardViewModel extends StateNotifier<CreateCardState> {
 
     //保存
     await provider.save(docId, map);
-
+    await imgUrlProvider.getImgUrl();
     return;
   }
 

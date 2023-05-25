@@ -16,24 +16,30 @@ final homeUidProvider = FutureProvider<String>((ref) async {
   return uid;
 });
 
-//exchangeのsentリポジトリからmyCardのimgUrlを取得
-final homeImgUrlProvider = FutureProvider<String?>((ref) async {
-  final uid = ref.watch(uidProvider);
-  final List docList =
-      await ref.read(sentRepositoryProvider).fetchMyCardsDocId(uid);
-  Map? myMap;
-  if (docList.isNotEmpty) {
-    myMap =
-        await ref.read(sentRepositoryProvider).fetchMyNameCard(uid, docList[0]);
-  }
-  if (myMap == null) {
-    return null;
-  }
-  return myMap['imgUrl'];
-});
+final homeImgUrlProvider = StateNotifierProvider<homeImgUrlNotifier, String?>(
+    (ref) => homeImgUrlNotifier(ref));
 
-// final homeImgUrlProvider = StateNotifierProvider((ref)  => )
+class homeImgUrlNotifier extends StateNotifier<String?> {
+  homeImgUrlNotifier(this._ref) : super(null) {
+    getImgUrl();
+  }
 
-class homeImgUrlNotifier extends StateNotifier {
-  homeImgUrlNotifier() : super('');
+  final StateNotifierProviderRef _ref;
+  late final uid = _ref.watch(uidProvider);
+
+  //exchangeのsentリポジトリからmyCardのimgUrlを取得
+  Future<void> getImgUrl() async {
+    final List docList =
+        await _ref.read(sentRepositoryProvider).fetchMyCardsDocId(uid);
+    Map<String, dynamic>? myMap;
+    if (docList.isNotEmpty) {
+      myMap = await _ref
+          .read(sentRepositoryProvider)
+          .fetchMyNameCard(uid, docList[0]);
+    }
+    if (myMap == null || myMap['imgUrl'] == null || myMap['imgUrl'].isEmpty) {
+      state = null;
+    }
+    state = myMap!['imgUrl'];
+  }
 }
