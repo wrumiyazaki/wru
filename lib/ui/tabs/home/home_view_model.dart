@@ -21,12 +21,12 @@ final homeImgUrlProvider = FutureProvider<String?>((ref) async {
   final uid = ref.watch(uidProvider);
   final List docList =
       await ref.read(sentRepositoryProvider).fetchMyCardsDocId(uid);
-  Map? myMap;
+  Map<String, dynamic>? myMap;
   if (docList.isNotEmpty) {
     myMap =
         await ref.read(sentRepositoryProvider).fetchMyNameCard(uid, docList[0]);
   }
-  if (myMap == null) {
+  if (myMap == null || myMap['imgUrl'] == null || myMap['imgUrl'].isEmpty) {
     return null;
   }
   return myMap['imgUrl'];
