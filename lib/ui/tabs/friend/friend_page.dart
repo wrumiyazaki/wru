@@ -7,7 +7,7 @@ import 'package:wru/ui/tabs/friend/friend_view_model.dart';
 import 'package:wru/ui/theme/app_theme.dart';
 
 class FriendPage extends HookConsumerWidget {
-  FriendPage({super.key});
+  const FriendPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -27,7 +27,7 @@ class FriendPage extends HookConsumerWidget {
         child: Container(
           height: 250,
           width: 413.636,
-          padding: EdgeInsets.fromLTRB(10, 20, 20, 0),
+          padding: const EdgeInsets.fromLTRB(10, 20, 20, 0),
           child: GestureDetector(
             onTap: () {
               boolsstatenotifier.state[index] = !boolsstate[index];
@@ -41,7 +41,7 @@ class FriendPage extends HookConsumerWidget {
                   )
                 : Row(
                     children: [
-                      Container(
+                      SizedBox(
                         height: 200,
                         width: 150,
                         //faceImgUrlがnullじゃないなら
@@ -61,7 +61,8 @@ class FriendPage extends HookConsumerWidget {
                           children: [
                             Expanded(
                               child: Container(
-                                padding: EdgeInsets.fromLTRB(15, 15, 15, 15),
+                                padding:
+                                    const EdgeInsets.fromLTRB(15, 15, 15, 15),
                                 width: double.infinity,
                                 child: SingleChildScrollView(
                                   child: Text(
@@ -74,11 +75,11 @@ class FriendPage extends HookConsumerWidget {
                             ),
                             ElevatedButton(
                               style: TextButton.styleFrom(
-                                  minimumSize: Size(180, 20),
+                                  minimumSize: const Size(180, 20),
                                   backgroundColor: Colors.grey),
                               onPressed: () {
                                 friendindexnotifier.state = index;
-                                context.pushRoute(MemoEditRoute());
+                                context.pushRoute(const MemoEditRoute());
                                 //firebaseにメモを保存
                               },
                               child: Text(l10n.edit),

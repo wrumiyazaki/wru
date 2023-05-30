@@ -24,7 +24,7 @@ class HomePage extends HookConsumerWidget {
       children: [
         //プロフィールボックス
         Container(
-          margin: EdgeInsets.fromLTRB(20, 20, 20, 80),
+          margin: const EdgeInsets.fromLTRB(20, 20, 20, 80),
           decoration: BoxDecoration(
               color: theme.appColors.homeProfileBackground,
               borderRadius: BorderRadius.circular(10)),
@@ -38,7 +38,7 @@ class HomePage extends HookConsumerWidget {
               Container(
                 height: 150,
                 width: 200,
-                padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+                padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
                 //テキストカラム
                 child: Column(
                   children: [
@@ -79,7 +79,7 @@ class HomePage extends HookConsumerWidget {
                                     color: theme.appColors.homeProfileText),
                               ));
                         } else {
-                          return Text('');
+                          return const Text('');
                         }
                       },
                       error: (error, stack) => Text('Error: $error'),
@@ -137,7 +137,7 @@ class HomePage extends HookConsumerWidget {
               //size55×91
               height: 200,
               width: 330.909,
-              padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+              padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
               child: imgUrl != null
                   ? Image.network(
                       imgUrl,

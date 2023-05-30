@@ -1,11 +1,7 @@
-import 'dart:convert';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:wru/data/model/received_card/received_card.dart';
 import 'package:wru/ui/hooks/use_l10n.dart';
 import 'package:wru/ui/routes/app_route.gr.dart';
 import 'package:wru/ui/tabs/exchange/exchange_state.dart';
@@ -62,7 +58,7 @@ class QrScanPage extends HookConsumerWidget {
             ),
           ),
           Align(
-            alignment: Alignment(-0.5, 0.65),
+            alignment: const Alignment(-0.5, 0.65),
             child: IconButton(
               icon: Icon(
                 Icons.qr_code_2,
@@ -73,7 +69,7 @@ class QrScanPage extends HookConsumerWidget {
                 absorbnotifier.state = true;
                 context.router.push(const QrDisplayRoute());
                 controllernotifier.controller!.pauseCamera();
-                await Future.delayed(Duration(milliseconds: 300));
+                await Future.delayed(const Duration(milliseconds: 300));
                 absorbnotifier.state = false;
               },
             ),
@@ -86,13 +82,13 @@ class QrScanPage extends HookConsumerWidget {
             ),
           ),
           Align(
-            alignment: Alignment(-0.6, 0.8),
+            alignment: const Alignment(-0.6, 0.8),
             child: TextButton(
               onPressed: () async {
                 absorbnotifier.state = true;
                 context.router.push(const QrDisplayRoute());
                 controllernotifier.controller!.pauseCamera();
-                await Future.delayed(Duration(milliseconds: 300));
+                await Future.delayed(const Duration(milliseconds: 300));
                 absorbnotifier.state = false;
               },
               child: Text(
@@ -103,7 +99,7 @@ class QrScanPage extends HookConsumerWidget {
             ),
           ),
           Align(
-            alignment: Alignment(0.5, 0.65),
+            alignment: const Alignment(0.5, 0.65),
             child: IconButton(
               icon: Icon(
                 Icons.filter_center_focus,
@@ -114,7 +110,7 @@ class QrScanPage extends HookConsumerWidget {
             ),
           ),
           Align(
-            alignment: Alignment(0.5, 0.8),
+            alignment: const Alignment(0.5, 0.8),
             child: TextButton(
               onPressed: () {},
               child: Text(

@@ -31,8 +31,8 @@ class XXXPage extends HookConsumerWidget {
                   ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: theme.appColors.primary,
-                      onPrimary: theme.appColors.onPrimary,
+                      foregroundColor: theme.appColors.onPrimary,
+                      backgroundColor: theme.appColors.primary,
                     ),
                     onPressed: viewModel.increment,
                     child: Text(

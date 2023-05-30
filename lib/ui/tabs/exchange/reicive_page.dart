@@ -1,9 +1,5 @@
-import 'dart:math';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:wru/ui/hooks/use_l10n.dart';
 import 'package:wru/ui/routes/app_route.gr.dart';
@@ -28,7 +24,7 @@ class RecievePage extends HookConsumerWidget {
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.fromLTRB(10, 120, 10, 0),
+            padding: const EdgeInsets.fromLTRB(10, 120, 10, 0),
             child: provider['infoList'][4] != null
                 ? Text(
                     style: theme.textTheme.h50
@@ -42,7 +38,7 @@ class RecievePage extends HookConsumerWidget {
           Container(
             height: 250,
             width: 413.636,
-            padding: EdgeInsets.fromLTRB(10, 40, 10, 0),
+            padding: const EdgeInsets.fromLTRB(10, 40, 10, 0),
             child: GestureDetector(
                 onTap: () {
                   imagestatenotifier.state = !imagestate;
@@ -68,7 +64,7 @@ class RecievePage extends HookConsumerWidget {
                               ))),
           ),
           Container(
-            padding: EdgeInsets.fromLTRB(20, 40, 20, 10),
+            padding: const EdgeInsets.fromLTRB(20, 40, 20, 10),
             child: TextField(
               keyboardType: TextInputType.multiline,
               maxLines: null,
@@ -76,7 +72,7 @@ class RecievePage extends HookConsumerWidget {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),
-                  focusedBorder: OutlineInputBorder(
+                  focusedBorder: const OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.black)),
                   alignLabelWithHint: true,
                   hintText: l10n.enterMemo),
@@ -87,7 +83,7 @@ class RecievePage extends HookConsumerWidget {
             alignment: Alignment.center,
             child: ElevatedButton(
               onPressed: () {
-                context.router.push(TabRoute());
+                context.router.push(const TabRoute());
                 //firebaseにメモを保存
                 ref.watch(receivedCardProvider.notifier).saveMemo(memo);
               },
