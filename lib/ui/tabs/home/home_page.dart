@@ -45,7 +45,9 @@ class HomePage extends HookConsumerWidget {
                     const SizedBox(height: 12),
                     infoList.when(
                       data: (info) {
-                        if (info.isNotEmpty && info[0] != '') {
+                        if (info.isNotEmpty &&
+                            info[0] != '' &&
+                            info[0] != null) {
                           print(info);
                           return FittedBox(
                               fit: BoxFit.fitWidth,
@@ -69,7 +71,9 @@ class HomePage extends HookConsumerWidget {
                     const SizedBox(height: 0),
                     infoList.when(
                       data: (info) {
-                        if (info.isNotEmpty && info[1] != '') {
+                        if (info.isNotEmpty &&
+                            info[1] != '' &&
+                            info[1] != null) {
                           return FittedBox(
                               fit: BoxFit.fitWidth,
                               child: Text(

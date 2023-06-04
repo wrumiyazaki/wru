@@ -39,7 +39,8 @@ class homeImgUrlNotifier extends StateNotifier<String?> {
     }
     if (myMap == null || myMap['imgUrl'] == null || myMap['imgUrl'].isEmpty) {
       state = null;
+      return;
     }
-    state = myMap!['imgUrl'];
+    state = myMap['imgUrl'];
   }
 }
