@@ -5,7 +5,6 @@ import 'package:wru/data/repository/friend/friend_repository_impl.dart';
 import 'package:wru/ui/hooks/use_l10n.dart';
 import 'package:wru/ui/routes/app_route.gr.dart';
 import 'package:wru/ui/tabs/exchange/exchange_state.dart';
-import 'package:wru/ui/tabs/exchange/exchange_view_model.dart';
 import 'package:wru/ui/tabs/friend/friend_view_model.dart';
 import 'package:wru/ui/theme/app_theme.dart';
 
@@ -31,12 +30,12 @@ class MemoEditPage extends HookConsumerWidget {
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.fromLTRB(10, 120, 10, 0),
+            padding: const EdgeInsets.fromLTRB(10, 120, 10, 0),
           ),
           Container(
             height: 250,
             width: 413.636,
-            padding: EdgeInsets.fromLTRB(10, 40, 10, 0),
+            padding: const EdgeInsets.fromLTRB(10, 40, 10, 0),
             child: GestureDetector(
               onTap: () {
                 imagestatenotifier.state = !imagestate;
@@ -62,7 +61,7 @@ class MemoEditPage extends HookConsumerWidget {
             ),
           ),
           Container(
-            padding: EdgeInsets.fromLTRB(20, 40, 20, 10),
+            padding: const EdgeInsets.fromLTRB(20, 40, 20, 10),
             child: TextField(
               keyboardType: TextInputType.multiline,
               maxLines: null,
@@ -71,7 +70,7 @@ class MemoEditPage extends HookConsumerWidget {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black),
+                    borderSide: const BorderSide(color: Colors.black),
                     borderRadius: BorderRadius.circular(15),
                   ),
                   alignLabelWithHint: true,
@@ -91,7 +90,7 @@ class MemoEditPage extends HookConsumerWidget {
                   onPressed: () {
                     context.router.pop();
                   },
-                  child: Text('戻る'),
+                  child: const Text('戻る'),
                 ),
                 ElevatedButton(
                   onPressed: () {

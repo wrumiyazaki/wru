@@ -5,7 +5,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:wru/ui/hooks/use_l10n.dart';
 import 'package:wru/ui/profile/profile_view_model.dart';
 import 'package:wru/ui/routes/app_route.gr.dart';
-import 'package:wru/ui/tabs/home/home_view_model.dart';
 import 'package:wru/ui/theme/app_theme.dart';
 
 class ProfileEditPage extends HookConsumerWidget {
@@ -37,7 +36,7 @@ class ProfileEditPage extends HookConsumerWidget {
         child: Column(children: [
           Container(
             alignment: Alignment.centerLeft,
-            padding: EdgeInsets.fromLTRB(30, 20, 0, 5),
+            padding: const EdgeInsets.fromLTRB(30, 20, 0, 5),
             child: Text(
               profilePropList[index],
               style: theme.textTheme.h20.copyWith(color: Colors.grey.shade700),
@@ -70,7 +69,7 @@ class ProfileEditPage extends HookConsumerWidget {
         //この辺を変更するときはprofile_pageも変更する
         title: Text(l10n.profileEdit),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new),
+          icon: const Icon(Icons.arrow_back_ios_new),
           color: Colors.grey,
           onPressed: () {
             context.popRoute();
@@ -94,7 +93,7 @@ class ProfileEditPage extends HookConsumerWidget {
                                 .returnTempList());
                         // firebaseに保存する処理
                         ref.read(profileViewModelProvider).toSave();
-                        context.pushRoute(TabRoute());
+                        context.pushRoute(const TabRoute());
                         ref.read(boolprovider.notifier).state = false;
                       },
                       child: Text(

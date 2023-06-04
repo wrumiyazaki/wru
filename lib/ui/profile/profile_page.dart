@@ -34,7 +34,7 @@ class ProfilePage extends HookConsumerWidget {
         child: Column(children: [
           Container(
             alignment: Alignment.centerLeft,
-            padding: EdgeInsets.fromLTRB(30, 20, 0, 5),
+            padding: const EdgeInsets.fromLTRB(30, 20, 0, 5),
             child: Text(
               profilePropList[index],
               style: theme.textTheme.h20.copyWith(color: Colors.grey.shade700),
@@ -45,7 +45,7 @@ class ProfilePage extends HookConsumerWidget {
             padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
             child: ref.read(getProfileListProvider.notifier).printText(index) ==
                     null
-                ? Text('')
+                ? const Text('')
                 : Text(
                     ref.read(getProfileListProvider.notifier).printText(index)!,
                     style: theme.textTheme.h40,
@@ -60,7 +60,7 @@ class ProfilePage extends HookConsumerWidget {
         //この辺を変更するときはprofile_edit_pageも変更しないといけないかも
         title: Text(l10n.profile),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new),
+          icon: const Icon(Icons.arrow_back_ios_new),
           color: Colors.grey,
           onPressed: () {
             context.popRoute();
@@ -72,7 +72,7 @@ class ProfilePage extends HookConsumerWidget {
           TextButton(
             style: TextButton.styleFrom(),
             onPressed: () {
-              context.router.push(ProfileEditRoute());
+              context.router.push(const ProfileEditRoute());
             },
             child: Text(
               l10n.edit,

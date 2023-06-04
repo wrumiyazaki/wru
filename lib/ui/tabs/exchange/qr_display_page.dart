@@ -35,7 +35,7 @@ class QrDisplayPage extends HookConsumerWidget {
           children: [
             //送り手の名前
             Align(
-              alignment: Alignment(0, -0.5),
+              alignment: const Alignment(0, -0.5),
               child: RotatedBox(
                   quarterTurns: 2,
                   child: myQrInfo.when(
@@ -76,7 +76,7 @@ class QrDisplayPage extends HookConsumerWidget {
               },
             )),
             Align(
-              alignment: Alignment(-0.55, 0.65),
+              alignment: const Alignment(-0.55, 0.65),
               child: IconButton(
                 icon: Icon(
                   Icons.qr_code_2,
@@ -94,7 +94,7 @@ class QrDisplayPage extends HookConsumerWidget {
               ),
             ),
             Align(
-              alignment: Alignment(-0.6, 0.8),
+              alignment: const Alignment(-0.6, 0.8),
               child: TextButton(
                 onPressed: () {},
                 child: Text(
@@ -105,7 +105,7 @@ class QrDisplayPage extends HookConsumerWidget {
               ),
             ),
             Align(
-              alignment: Alignment(0.5, 0.65),
+              alignment: const Alignment(0.5, 0.65),
               child: IconButton(
                 icon: Icon(
                   Icons.filter_center_focus,
@@ -119,13 +119,13 @@ class QrDisplayPage extends HookConsumerWidget {
                     controllernotifier.controller!.resumeCamera();
                   }
                   onCameranotifier.state = false;
-                  await Future.delayed(Duration(milliseconds: 300));
+                  await Future.delayed(const Duration(milliseconds: 300));
                   absorbnotifier.state = false;
                 },
               ),
             ),
             Align(
-              alignment: Alignment(0.5, 0.8),
+              alignment: const Alignment(0.5, 0.8),
               child: TextButton(
                 onPressed: () async {
                   absorbnotifier.state = true;
@@ -134,7 +134,7 @@ class QrDisplayPage extends HookConsumerWidget {
                     controllernotifier.controller!.resumeCamera();
                   }
                   onCameranotifier.state = false;
-                  await Future.delayed(Duration(milliseconds: 300));
+                  await Future.delayed(const Duration(milliseconds: 300));
                   absorbnotifier.state = false;
                 },
                 child: Text(

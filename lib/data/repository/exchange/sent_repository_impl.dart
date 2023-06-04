@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:wru/data/model/card/card.dart';
 import 'package:wru/data/provider/firebase_firestore_provider.dart';
 import 'package:wru/data/repository/exchange/sent_repositrory.dart';
 

@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:wru/data/model/card/card.dart';
 
 part 'received_card.freezed.dart';
 part 'received_card.g.dart';

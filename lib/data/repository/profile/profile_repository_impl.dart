@@ -4,7 +4,6 @@ import 'package:wru/data/provider/firebase_firestore_provider.dart';
 import 'package:wru/data/provider/uid_provider.dart';
 import 'package:wru/data/repository/profile/profile_repository.dart';
 import 'package:wru/ui/profile/profile_state.dart';
-import 'package:wru/ui/profile/profile_view_model.dart';
 
 final profileRepositoryProvider = Provider((ref) => ProfileRepositoryImpl(ref));
 

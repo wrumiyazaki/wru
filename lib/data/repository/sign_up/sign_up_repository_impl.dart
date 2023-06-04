@@ -4,7 +4,6 @@ import 'package:wru/data/data_source/firebase/auth/auth_data_source_impl.dart';
 import 'package:wru/data/data_source/firebase/firesotre/users_data_source_impl.dart';
 import 'package:wru/data/model/result/result.dart';
 import 'package:wru/data/model/app_user/app_user.dart';
-import 'package:wru/data/provider/firebase_firestore_provider.dart';
 import 'package:wru/data/repository/sign_up/sign_up_repository.dart';
 
 final signUpRepositoryProvider = Provider((ref) => SignUpRepositoryImpl(ref));

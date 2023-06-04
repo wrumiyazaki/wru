@@ -2,7 +2,6 @@ import 'package:wru/data/provider/uid_provider.dart';
 import 'package:wru/data/repository/sign_in/sign_in_repository.dart';
 import 'package:wru/data/repository/sign_in/sign_in_repository_impl.dart';
 import 'package:wru/ui/hooks/use_router.dart';
-import 'package:wru/ui/routes/app_route.gr.dart';
 import 'package:wru/ui/signIn/sign_in_state.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
