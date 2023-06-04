@@ -41,17 +41,17 @@ class SignUpViewModel extends StateNotifier<AsyncValue<SignUpState>> {
 
   Future<void> singUp() async {
     SignUpState currentState = state.value!;
-    final uidNotifier = _ref.read(uidProvider.notifier);
+    final initUidNotifier = _ref.read(initUidProvider.notifier);
     final errorNotifier = _ref.read(signUpErrorProvider.notifier);
     //取得したAppUser
     final result =
         await _repository.signUp(currentState.email, currentState.password);
     result.when(
-      success: (appUser) {
+      success: (appUser) async {
         if (appUser != null) {
           //ログイン可能な場合の処理
-          //uidをプロバイダーでかんりする
-          uidNotifier.state = appUser.uid;
+          //uidをプロバイダーでかんりする ローカルに保存
+          await initUidNotifier.saveUid(appUser.uid);
           print(appUser.toString());
         } else {
           state = AsyncValue.data(
