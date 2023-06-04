@@ -8,6 +8,7 @@ import 'package:wru/ui/create_card/templates/cards/normal_card_page.dart';
 import 'package:wru/ui/create_card/templates/cards/test_card_page.dart';
 import 'package:wru/ui/create_card/templates/input_items/input_items.dart';
 import 'package:wru/ui/create_card/templates/template.dart';
+import 'package:wru/ui/tabs/exchange/exchange_view_model.dart';
 import 'package:wru/ui/tabs/home/home_view_model.dart';
 
 final createCardViewModelProvider =
@@ -90,6 +91,7 @@ class CreateCardViewModel extends StateNotifier<CreateCardState> {
     //保存
     await provider.save(docId, map);
     await imgUrlProvider.getImgUrl();
+    await _ref.read(myQrInfoProvider.notifier).fetchMyQrInfo();
     return;
   }
 

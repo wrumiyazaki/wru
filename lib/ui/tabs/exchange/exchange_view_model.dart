@@ -18,67 +18,40 @@ class QRCodeNotifier extends StateNotifier<Barcode> {
 }
 
 //取得してきた自分の名刺
-final myQrInfoProvider = FutureProvider((ref) async {
-  final uid = ref.watch(uidProvider);
-  final List docList =
-      await ref.read(sentRepositoryProvider).fetchMyCardsDocId(uid);
+final myQrInfoProvider =
+    StateNotifierProvider<MyQrInfoNotifier, AsyncValue<Map>>(
+        (ref) => MyQrInfoNotifier(ref));
 
-  Map? myMap;
-  if (docList.isNotEmpty) {
-    myMap =
-        await ref.read(sentRepositoryProvider).fetchMyNameCard(uid, docList[0]);
+class MyQrInfoNotifier extends StateNotifier<AsyncValue<Map>> {
+  MyQrInfoNotifier(this._ref) : super(const AsyncLoading()) {
+    fetchMyQrInfo();
   }
-  if (myMap == null) {
-    return null;
+  final Ref _ref;
+  Future<void> fetchMyQrInfo() async {
+    final uid = _ref.watch(uidProvider);
+    final List docList =
+        await _ref.read(sentRepositoryProvider).fetchMyCardsDocId(uid);
+    Map? myMap;
+    if (docList.isNotEmpty) {
+      myMap = await _ref
+          .read(sentRepositoryProvider)
+          .fetchMyNameCard(uid, docList[0]);
+    }
+    if (myMap == null) {
+      state = const AsyncData({});
+      return;
+    }
+    Map sentMap = {
+      "uid": uid,
+      "documentID": docList[0],
+      "imgUrl": myMap['imgUrl'],
+      "faceImgUrl": myMap['faceImgUrl'],
+      "infoList": myMap['infoList'],
+      "memo": '',
+    };
+    state = AsyncData(sentMap);
   }
-  Map sentMap = {
-    "uid": uid,
-    "documentID": docList[0],
-    "imgUrl": myMap['imgUrl'],
-    "faceImgUrl": myMap['faceImgUrl'],
-    "infoList": myMap['infoList'],
-    "memo": '',
-  };
-  return sentMap;
-  // final SentCard sentCard = SentCard(
-  //     uid: uid,
-  //     //自分の名刺が今は１個しかないためindexは0
-  //     documentID: docList[0],
-  //     card: nameCard.toJson());
-  // return sentCard;
-});
-
-// //受け取った名刺
-// final receivedCardProvider =
-//     StateNotifierProvider<ReceivedCardNotifier, ReceivedCard?>(
-//         (ref) => ReceivedCardNotifier(ref));
-
-// class ReceivedCardNotifier extends StateNotifier<ReceivedCard> {
-//   ReceivedCardNotifier(this._ref)
-//       : super(ReceivedCard(uid: '', documentID: '', card: {}));
-//   final Ref _ref;
-
-//   void saveReceivedCard(String json) {
-//     transJsonToReceivedCard(json);
-//     saveFirestore();
-//   }
-
-//   void saveMemo(String st) {
-//     state = state.copyWith(memo: st);
-//     saveFirestore();
-//   }
-
-//   //受け取ったjsonをMapに変換し、providerで監視
-//   void transJsonToReceivedCard(String st) {
-//     Map<String, dynamic> receivedMap = jsonDecode(st);
-//     ReceivedCard receivedCard = ReceivedCard.fromJson(receivedMap);
-//     state = receivedCard;
-//   }
-
-//   void saveFirestore() {
-//     _ref.read(receiveRepositoryProvider).save();
-//   }
-// }
+}
 
 //受け取った名刺
 final receivedCardProvider =

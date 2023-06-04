@@ -39,10 +39,12 @@ class QrDisplayPage extends HookConsumerWidget {
               child: RotatedBox(
                   quarterTurns: 2,
                   child: myQrInfo.when(
-                    loading: () => null,
+                    loading: () {
+                      return null;
+                    },
                     error: (error, stack) => Text('Error: $error'),
                     data: (info) {
-                      if (info == null) {
+                      if (info == null || info.isEmpty) {
                         return Text(
                           '自分の名刺が作成されていません',
                           style: theme.textTheme.h60
@@ -64,7 +66,7 @@ class QrDisplayPage extends HookConsumerWidget {
               loading: () => const CircularProgressIndicator(),
               error: (error, stack) => Text('Error: $error'),
               data: (info) {
-                if (info == null) {
+                if (info == null || info.isEmpty) {
                   return null;
                 }
                 return QrImage(
