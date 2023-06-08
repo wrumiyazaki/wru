@@ -24,6 +24,9 @@ class ProfileRepositoryImpl implements ProfileRepository {
     Map? profileMap;
     //取得したマップがヌルの場合とりあえずからのマップを返してプロフィールを埋めた時につくってもらう
     Map tentativeMap = {};
+    if (profileUid == '') {
+      return {};
+    }
     DocumentSnapshot? snapshot = await profileRef.get();
     documentMap = snapshot.data() as Map;
     if (documentMap[profileField] != null) {

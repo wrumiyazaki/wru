@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:wru/data/provider/uid_provider.dart';
 import 'package:wru/ui/hooks/use_l10n.dart';
 import 'package:wru/ui/profile/profile_view_model.dart';
 import 'package:wru/ui/routes/app_route.gr.dart';
@@ -15,8 +16,8 @@ class HomePage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(appThemeProvider);
     final l10n = useL10n();
-    final infoList = ref.watch(homeInfoListProvider);
-    final uid = ref.watch(homeUidProvider);
+    final infoList = ref.read(homeInfoListProvider);
+    final uid = ref.watch(uidProvider);
     final imgUrl = ref.watch(homeImgUrlProvider);
 
     return SafeArea(
@@ -43,53 +44,39 @@ class HomePage extends HookConsumerWidget {
                 child: Column(
                   children: [
                     const SizedBox(height: 12),
-                    infoList.when(
-                      data: (info) {
-                        if (info.isNotEmpty &&
-                            info[0] != '' &&
-                            info[0] != null) {
-                          print(info);
-                          return FittedBox(
+                    Container(
+                      child: infoList.isNotEmpty &&
+                              infoList[0] != '' &&
+                              infoList[0] != null
+                          ? FittedBox(
                               fit: BoxFit.fitWidth,
                               child: Text(
                                 //名前の表示
-                                info[0],
+                                infoList[0],
                                 style: theme.textTheme.h40.bold().copyWith(
                                     color: theme.appColors.homeProfileText),
-                              ));
-                        } else {
-                          return Text(
-                            'プロフィールが入力されていません',
-                            style: theme.textTheme.h30.bold().copyWith(
-                                color: theme.appColors.homeProfileText),
-                          );
-                        }
-                      },
-                      error: (error, stack) => Text('Error: $error'),
-                      loading: () => const Text(''),
+                              ))
+                          : Text(
+                              'プロフィールが入力されていません',
+                              style: theme.textTheme.h30.bold().copyWith(
+                                  color: theme.appColors.homeProfileText),
+                            ),
                     ),
                     const SizedBox(height: 0),
-                    infoList.when(
-                      data: (info) {
-                        if (info.isNotEmpty &&
-                            info[1] != '' &&
-                            info[1] != null) {
-                          return FittedBox(
+                    Container(
+                      child: infoList.isNotEmpty &&
+                              infoList[1] != '' &&
+                              infoList[1] != null
+                          ? FittedBox(
                               fit: BoxFit.fitWidth,
                               child: Text(
-                                //読み方の表示
-                                info[1],
+                                //名前の表示
+                                infoList[1],
                                 style: theme.textTheme.h40.bold().copyWith(
                                     color: theme.appColors.homeProfileText),
-                              ));
-                        } else {
-                          return const Text('');
-                        }
-                      },
-                      error: (error, stack) => Text('Error: $error'),
-                      loading: () => const Text(''),
+                              ))
+                          : const Text(''),
                     ),
-
                     const SizedBox(height: 7),
                     // Text(
                     //   "Exchange : 18",
@@ -98,18 +85,12 @@ class HomePage extends HookConsumerWidget {
                     //       .copyWith(color: theme.appColors.homeProfileText),
                     // ),
                     const SizedBox(height: 5),
-                    uid.when(
-                      data: (info) {
-                        return Text(
-                          //userIDの表示
-                          'userID : $info',
-                          style: theme.textTheme.h20
-                              .bold()
-                              .copyWith(color: theme.appColors.homeProfileText),
-                        );
-                      },
-                      error: (error, stack) => Text('Error: $error'),
-                      loading: () => const Text(''),
+                    Text(
+                      //userIDの表示
+                      'userID : $uid',
+                      style: theme.textTheme.h20
+                          .bold()
+                          .copyWith(color: theme.appColors.homeProfileText),
                     )
                   ],
                 ),

@@ -43,6 +43,7 @@ class SignUpViewModel extends StateNotifier<AsyncValue<SignUpState>> {
     SignUpState currentState = state.value!;
     final initUidNotifier = _ref.read(initUidProvider.notifier);
     final errorNotifier = _ref.read(signUpErrorProvider.notifier);
+    final fetchUidNotifier = _ref.read(fetchUidProvider.notifier);
     //取得したAppUser
     final result =
         await _repository.signUp(currentState.email, currentState.password);
@@ -52,6 +53,7 @@ class SignUpViewModel extends StateNotifier<AsyncValue<SignUpState>> {
           //ログイン可能な場合の処理
           //uidをプロバイダーでかんりする ローカルに保存
           await initUidNotifier.saveUid(appUser.uid);
+          await fetchUidNotifier.fetchUid();
           print(appUser.toString());
         } else {
           state = AsyncValue.data(

@@ -37,6 +37,21 @@ class MyApp extends HookConsumerWidget {
           );
         },
         error: (error, stackTrace) => Text(error.toString()),
-        loading: () => const CircularProgressIndicator());
+        loading: () {
+          return Sizer(
+            builder: (context, orientation, deviceType) => MaterialApp.router(
+              debugShowCheckedModeBanner: false,
+              useInheritedMediaQuery: true,
+              theme: theme.data,
+              darkTheme: AppTheme.dark().data,
+              themeMode: themeMode,
+              locale: DevicePreview.locale(context),
+              localizationsDelegates: L10n.localizationsDelegates,
+              supportedLocales: L10n.supportedLocales,
+              routeInformationParser: appRouter.defaultRouteParser(),
+              routerDelegate: appRouter.delegate(),
+            ),
+          );
+        });
   }
 }
