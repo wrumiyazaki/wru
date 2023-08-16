@@ -13,7 +13,9 @@
 - 名刺作成
 - 名刺受け取り時メモ
 
+
 ## デモ動画
+https://github.com/wrumiyazaki/wru/assets/84653907/22f6d777-6a5c-45ec-b4a0-3d109c576d47
 
 
 ## 使用技術
